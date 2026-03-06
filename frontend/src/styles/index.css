@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+/* custom */
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+@theme {
+  --color-background: #faf9f6;
+}
