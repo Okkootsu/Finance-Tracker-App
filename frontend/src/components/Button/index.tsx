@@ -1,30 +1,33 @@
 import { cn } from "@/utils/cn";
 import React from "react";
 
+type ButtonVariant = "primary";
+
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "danger";
+  variant?: ButtonVariant;
+  icon?: React.ReactNode;
 };
 
 export const Button = ({
   className,
   variant = "primary",
+  icon,
+  children,
   ...props
 }: ButtonProps) => {
-  const baseClass = "px-4 py-2 rounded-lg font-bold transition-colors";
+  const baseStyles =
+    "flex justify-center items-center gap-4 px-4 py-2 rounded font-bold transition cursor-pointer";
+
+  const variants = {
+    primary:
+      "w-full bg-white text-black border border-border hover:bg-gray-300 ",
+  };
 
   return (
-    <button
-      className={cn(
-        baseClass,
-        {
-          "bg-blue-600 text-white hover:bg-blue-700": variant === "primary",
-          "bg-red-500 text-white hover:bg-red-600": variant === "danger",
-        },
-        className,
-      )}
-      {...props}
-    >
-      {props.children}
+    <button className={cn(baseStyles, variants[variant], className)} {...props}>
+      {icon && <span className="shrink-0">{icon}</span>}
+
+      {children}
     </button>
   );
 };

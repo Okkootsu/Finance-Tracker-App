@@ -21,7 +21,7 @@ export const HomePage = () => {
           Arttır (+1)
         </Button>
 
-        <Button variant="danger" onClick={() => setCount(0)}>
+        <Button onClick={() => setCount(0)}>
           Sıfırla
         </Button>
       </div>

@@ -19,5 +19,5 @@ body {
 }
 
 @theme {
-  --color-background: #faf9f6;
+  --color-inputBg: rgba(255, 255, 255, 0.2);
 }
