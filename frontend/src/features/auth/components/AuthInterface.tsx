@@ -4,7 +4,15 @@ import { InputGroup } from "./InputGroup";
 import { useAuth } from "../hooks/useAuth";
 
 export const AuthInterface = () => {
-  const { selectedForm, handlePageSwitch } = useAuth();
+  const {
+    selectedForm,
+    handlePageSwitch,
+    handleCheckboxClick,
+    handleInputChange,
+    showPassword,
+    formInputs,
+    handleSubmit,
+  } = useAuth();
 
   return (
     <div className="w-full max-w-sm p-2">
@@ -19,13 +27,22 @@ export const AuthInterface = () => {
         </p>
       </div>
 
-      <InputGroup variant={selectedForm} />
+      <InputGroup
+        showPassword={showPassword}
+        onChange={handleInputChange}
+        formInputs={formInputs}
+        variant={selectedForm}
+      />
 
       <div className="mb-6 flex justify-end items-center gap-3 py-1 text-white font-bold px-1">
-        <Checkbox label="Show Password" />
+        <Checkbox onClick={handleCheckboxClick} label="Show Password" />
       </div>
 
-      <ButtonGroup variant={selectedForm} handlePageSwitch={handlePageSwitch} />
+      <ButtonGroup
+        variant={selectedForm}
+        handlePageSwitch={handlePageSwitch}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };
