@@ -30,12 +30,12 @@ public class AuthService : IAuthService
         var user = await _authRepo.GetUserByEmailAsync(requestDto.Email);
 
         if (user == null)
-            return ServiceResponse<LoginResponseDto>.Fail("E-mail or password is invalid", ServiceResultType.Unauthorized);
+            return ServiceResponse<LoginResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
 
         var isValidPassword = PasswordService.VerifyPassword(requestDto.Password, user.PasswordHash);
 
         if (!isValidPassword)
-            return ServiceResponse<LoginResponseDto>.Fail("E-mail or password is invalid", ServiceResultType.Unauthorized);
+            return ServiceResponse<LoginResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
 
 
         var token = await _jwtService.Authenticate(user);

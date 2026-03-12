@@ -1,11 +1,21 @@
 import { useAuthStore } from "@/stores/authStore";
+import { useUserStore, type User } from "@/stores/userStore";
+import api from "@/utils/axios";
 import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export type FormInputs = {
   email: string;
   password: string;
   confirmPassword: string;
+};
+
+export type MyJwtPayload = {
+  sub: string;
+  email: string;
 };
 
 export const useAuth = () => {
@@ -17,9 +27,12 @@ export const useAuth = () => {
 
   const selectedForm = useAuthStore((state) => state.selectedForm);
   const setSelectedForm = useAuthStore((state) => state.setSelectedForm);
+  const setUser = useUserStore((state) => state.setUser);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formInputs, setFormInputs] = useState<FormInputs>(INITIAL_FORM_STATE);
+
+  const navigate = useNavigate();
 
   const handlePageSwitch = () => {
     setFormInputs(INITIAL_FORM_STATE);
@@ -39,7 +52,7 @@ export const useAuth = () => {
     setFormInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const validation = validateRegisterForm(formInputs);
 
     if (!validation.isValid) {
@@ -47,11 +60,39 @@ export const useAuth = () => {
       return;
     }
 
-    console.log("Register");
-    console.log(formInputs);
+    try {
+      await api.post("/Auth/register", formInputs);
+      setFormInputs(INITIAL_FORM_STATE);
+
+      alert("Successfully signed up, now you can sign in");
+
+      setSelectedForm("login");
+    } catch (err) {
+      setFormInputs(INITIAL_FORM_STATE);
+
+      if (axios.isAxiosError(err) && err.response) {
+        const backendErrorMessage =
+          err.response.data.errorMessage || "An unknown error occured";
+
+        alert(backendErrorMessage);
+      } else {
+        alert("Server connection failed");
+      }
+    }
   };
 
-  const handleLogin = () => {
+  const createUser = (token: string) => {
+    const decodedToken = jwtDecode<MyJwtPayload>(token);
+
+    const newUser: User = {
+      id: parseInt(decodedToken.sub),
+      email: decodedToken.email,
+    };
+
+    setUser(newUser);
+  };
+
+  const handleLogin = async () => {
     const validation = validateLoginForm(formInputs);
 
     if (!validation.isValid) {
@@ -59,8 +100,35 @@ export const useAuth = () => {
       return;
     }
 
-    console.log("Login");
-    console.log(formInputs);
+    try {
+      const response = await api.post("/Auth/login", formInputs);
+
+      setFormInputs(INITIAL_FORM_STATE);
+
+      const token = response.data.data.token;
+      localStorage.setItem("token", token);
+      createUser(token);
+
+      navigate("/");
+    } catch (err) {
+      setFormInputs(INITIAL_FORM_STATE);
+
+      if (axios.isAxiosError(err) && err.response) {
+        const backendErrorMessage =
+          err.response.data.errorMessage || "An unknown error occured";
+
+        alert(backendErrorMessage);
+      } else {
+        alert("Server connection failed");
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem("token");
+    setUser(null);
+
+    window.location.href = "/";
   };
 
   const handleSubmit = () => {
