@@ -25,25 +25,50 @@ public class AuthService : IAuthService
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto)
+    public async Task<ServiceResponse<TokenResponseDto>> LoginAsync(LoginRequestDto requestDto)
     {
         var user = await _authRepo.GetUserByEmailAsync(requestDto.Email);
 
         if (user == null)
-            return ServiceResponse<LoginResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
+            return ServiceResponse<TokenResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
 
         var isValidPassword = PasswordService.VerifyPassword(requestDto.Password, user.PasswordHash);
 
         if (!isValidPassword)
-            return ServiceResponse<LoginResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
+            return ServiceResponse<TokenResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
+
+        var tokenDto = await _jwtService.Authenticate(user);
+
+        if (tokenDto is null) 
+            return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
+        
+        user.RefreshToken = tokenDto.RefreshToken;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+        await _authRepo.SaveChangesAsync();
+
+        return ServiceResponse<TokenResponseDto>.Success(tokenDto, ServiceResultType.Success);
+    }
+
+    public async Task<ServiceResponse<TokenResponseDto>> RefreshTokenAsync(string currentRefreshToken)
+    {
+        var user = await _authRepo.GetUserByRefreshTokenAsync(currentRefreshToken);
+
+        if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            return ServiceResponse<TokenResponseDto>.Fail("Invalid or expired refresh token", ServiceResultType.Unauthorized);
+
+        var tokenDto = await _jwtService.Authenticate(user);
+
+        if (tokenDto is null)
+             return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
 
 
-        var token = await _jwtService.Authenticate(user);
+        user.RefreshToken = tokenDto.RefreshToken;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+        
+        await _authRepo.SaveChangesAsync();
 
-        if (token is null) 
-            return ServiceResponse<LoginResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
-
-        return ServiceResponse<LoginResponseDto>.Success(token, ServiceResultType.Success);
+        return ServiceResponse<TokenResponseDto>.Success(tokenDto, ServiceResultType.Success);
     }
 
     public async Task<ServiceResponse> RegisterAsync(RegisterRequestDto requestDto)

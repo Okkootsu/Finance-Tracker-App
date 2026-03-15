@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using FinanceApp.Application.DTOs;
@@ -21,7 +22,7 @@ public class JwtService : IJwtService
         _configuration = configuration;
     }
 
-    public async Task<LoginResponseDto?> Authenticate(User user)
+    public async Task<TokenResponseDto?> Authenticate(User user)
     {
         // Token configs
         var issuer = _configuration["JwtConfig:Issuer"];
@@ -61,9 +62,20 @@ public class JwtService : IJwtService
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
         var accessToken = tokenHandler.WriteToken(securityToken);
 
-        return new LoginResponseDto
+        var refreshToken = GenerateRefreshToken();
+
+        return new TokenResponseDto
         {
-            Token = accessToken,
+            AccessToken = accessToken,
+            RefreshToken = refreshToken,
         };
+    }
+
+    private string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[32];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 }

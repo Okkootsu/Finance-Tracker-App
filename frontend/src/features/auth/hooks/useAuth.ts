@@ -1,11 +1,12 @@
-import { useAuthStore } from "@/stores/authStore";
-import { useUserStore, type User } from "@/stores/userStore";
+import { useAuthStore, type User } from "@/stores/authStore";
 import api from "@/utils/axios";
 import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+
+type AuthForm = "register" | "login";
 
 export type FormInputs = {
   email: string;
@@ -25,10 +26,10 @@ export const useAuth = () => {
     confirmPassword: "",
   };
 
-  const selectedForm = useAuthStore((state) => state.selectedForm);
-  const setSelectedForm = useAuthStore((state) => state.setSelectedForm);
-  const setUser = useUserStore((state) => state.setUser);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const logout = useAuthStore((state) => state.logout);
 
+  const [selectedForm, setSelectedForm] = useState<AuthForm>("login");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formInputs, setFormInputs] = useState<FormInputs>(INITIAL_FORM_STATE);
 
@@ -89,7 +90,7 @@ export const useAuth = () => {
       email: decodedToken.email,
     };
 
-    setUser(newUser);
+    return newUser;
   };
 
   const handleLogin = async () => {
@@ -105,9 +106,10 @@ export const useAuth = () => {
 
       setFormInputs(INITIAL_FORM_STATE);
 
-      const token = response.data.data.token;
-      localStorage.setItem("token", token);
-      createUser(token);
+      const token = response.data.accessToken;
+      const user = createUser(token);
+
+      setAuth(token, user);
 
       navigate("/");
     } catch (err) {
@@ -125,10 +127,9 @@ export const useAuth = () => {
   };
 
   const handleLogout = async () => {
-    localStorage.removeItem("token");
-    setUser(null);
+    logout();
 
-    window.location.href = "/";
+    window.location.href = "/auth";
   };
 
   const handleSubmit = () => {
@@ -147,5 +148,6 @@ export const useAuth = () => {
     formInputs,
     handleInputChange,
     handleSubmit,
+    handleLogout,
   };
 };

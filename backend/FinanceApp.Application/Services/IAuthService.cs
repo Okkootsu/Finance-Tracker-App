@@ -10,6 +10,7 @@ namespace FinanceApp.Application.Services;
 
 public interface IAuthService
 {
-    public Task<ServiceResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto);
+    public Task<ServiceResponse<TokenResponseDto>> LoginAsync(LoginRequestDto requestDto);
     public Task<ServiceResponse> RegisterAsync(RegisterRequestDto requestDto);
+    public Task<ServiceResponse<TokenResponseDto>> RefreshTokenAsync(string currentRefreshToken);
 }

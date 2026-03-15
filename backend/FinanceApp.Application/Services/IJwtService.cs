@@ -9,5 +9,5 @@ namespace FinanceApp.Application.Services;
 
 public interface IJwtService
 {
-    public Task<LoginResponseDto?> Authenticate(User user);
+    public Task<TokenResponseDto?> Authenticate(User user);
 }

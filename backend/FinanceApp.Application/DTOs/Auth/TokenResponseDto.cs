@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace FinanceApp.Application.DTOs;
 
-public class LoginResponseDto
+public class TokenResponseDto
 {
-    public string Token { get; set; } = null!;
+    public string AccessToken { get; set; } = null!;
+    public string RefreshToken { get; set; } = null!;
 }

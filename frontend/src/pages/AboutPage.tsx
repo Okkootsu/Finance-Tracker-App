@@ -1,8 +1,8 @@
 import { Button } from "@/components/Button";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export const AboutPage = () => {
-  const navigate = useNavigate();
+  const { handleLogout } = useAuth();
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center bg-amber-50 ">
@@ -10,7 +10,7 @@ export const AboutPage = () => {
       <p>Test</p>
 
       <div style={{ marginTop: "20px" }}>
-        <Button onClick={() => navigate("/")}>Ana Sayfaya Dön</Button>
+        <Button onClick={handleLogout}>Çıkış yap</Button>
       </div>
     </div>
   );

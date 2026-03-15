@@ -27,6 +27,11 @@ public class AuthRepository : IAuthRepository
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
+    public async Task<User?> GetUserByRefreshTokenAsync(string currentRefreshToken)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == currentRefreshToken);
+    }
+
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
