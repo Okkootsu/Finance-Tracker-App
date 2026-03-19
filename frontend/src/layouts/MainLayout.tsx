@@ -9,7 +9,7 @@ export const MainLayout = () => {
       </nav>
 
       {/* Page contents */}
-      <main className="flex-1 flex flex-col w-full">
+      <main className="flex-1 flex flex-col w-full bg-slate-50 font-sans">
         <Outlet />
       </main>
     </div>

@@ -1,0 +1,73 @@
+import React, { useState, useRef, useEffect } from "react";
+import { DateRange, type RangeKeyDict } from "react-date-range";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
+
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { Calendar1 } from "lucide-react";
+
+export const DatePicker: React.FC = () => {
+  const [range, setRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const [open, setOpen] = useState(false);
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div
+      className="relative inline-block p-1 text-sm font-bold"
+      ref={calendarRef}
+    >
+      <div
+        onClick={() => setOpen(!open)}
+        className="border border-blue-300 text-white py-2 px-3 rounded-lg shadow-sm cursor-pointer bg-blue-600 flex items-center justify-between min-w-fit gap-3"
+      >
+        <span>
+          {`${format(range[0].startDate, "dd/MM/yyyy")} - ${format(range[0].endDate, "dd/MM/yyyy")}`}
+        </span>
+        <span>
+          <Calendar1 />
+        </span>
+      </div>
+
+      {open && (
+        <div className="absolute z-50 mt-2 left-0 shadow-2xl border border-gray-200 rounded-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <DateRange
+            onChange={(item: RangeKeyDict) => setRange([item.selection as any])}
+            editableDateInputs={true}
+            moveRangeOnFirstSelection={false}
+            ranges={range}
+            months={1}
+            direction="horizontal"
+            locale={tr}
+            rangeColors={["#3B82F6"]}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
