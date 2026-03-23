@@ -37,7 +37,7 @@ public class AuthService : IAuthService
         if (!isValidPassword)
             return ServiceResponse<TokenResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
 
-        var tokenDto = await _jwtService.Authenticate(user);
+        var tokenDto = _jwtService.Authenticate(user);
 
         if (tokenDto is null) 
             return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
@@ -57,7 +57,7 @@ public class AuthService : IAuthService
         if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             return ServiceResponse<TokenResponseDto>.Fail("Invalid or expired refresh token", ServiceResultType.Unauthorized);
 
-        var tokenDto = await _jwtService.Authenticate(user);
+        var tokenDto = _jwtService.Authenticate(user);
 
         if (tokenDto is null)
              return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);

@@ -11,4 +11,6 @@ public class User : BaseEntity
     public string PasswordHash { get; set; } = string.Empty;
     public string RefreshToken { get; set; } = string.Empty;
     public DateTime RefreshTokenExpiryTime { get; set; }
+
+    public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

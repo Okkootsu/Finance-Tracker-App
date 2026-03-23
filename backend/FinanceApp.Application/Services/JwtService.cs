@@ -22,7 +22,7 @@ public class JwtService : IJwtService
         _configuration = configuration;
     }
 
-    public async Task<TokenResponseDto?> Authenticate(User user)
+    public TokenResponseDto? Authenticate(User user)
     {
         // Token configs
         var issuer = _configuration["JwtConfig:Issuer"];
