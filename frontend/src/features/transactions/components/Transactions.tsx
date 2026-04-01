@@ -4,10 +4,15 @@ import { Transaction } from "./Transaction";
 import { DatePicker } from "@/components/DatePicker";
 import { useState } from "react";
 import { cn } from "@/utils/cn";
-import format from "date-fns/format";
+import { useTransactions } from "../hooks/useTransactions";
+import { Dialog } from "@/components/Dialog";
+import { CreateTransactionModal } from "./CreateTransactionModal";
+import { CreateCategoryModal } from "./CreateCategoryModal";
 
 export const Transactions = () => {
   const [open, setOpen] = useState<boolean>(true);
+
+  const { transactions, openDialog, setOpenDialog } = useTransactions();
 
   return (
     <div className=" flex flex-col gap-1 ">
@@ -41,29 +46,49 @@ export const Transactions = () => {
             <div className=" border-b border-slate-300 flex  px-2 py-1 items-center justify-between">
               <DatePicker />
               <div className="flex items-center gap-8">
-                <Button className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm">
+                <Button
+                  onClick={() => setOpenDialog("category")}
+                  className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                >
                   ADD NEW CATEGORY
                   <BookPlus />
                 </Button>
-                <Button className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm">
+                <Button
+                  onClick={() => setOpenDialog("transaction")}
+                  className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                >
                   ADD NEW TRANSACTION
                   <Plus />
                 </Button>
               </div>
+
+              <Dialog
+                title="Add New Transaction"
+                isOpen={openDialog === "transaction"}
+                onClose={() => setOpenDialog(null)}
+              >
+                <CreateTransactionModal />
+              </Dialog>
+
+              <Dialog
+                title="Add New Category"
+                isOpen={openDialog === "category"}
+                onClose={() => setOpenDialog(null)}
+              >
+                <CreateCategoryModal />
+              </Dialog>
             </div>
             <div className=" flex-1 p-3 gap-2 flex flex-col">
-              <Transaction
-                amount={100}
-                category="rent"
-                name="rent money"
-                time={format(new Date(), 'dd/MM/yyyy HH:mm')}
-              />
-              <Transaction
-                amount={-250}
-                category="food"
-                name="grocery shopping"
-                time={format(new Date(), 'dd/MM/yyyy HH:mm')}
-              />
+              {transactions.map((ta, index) => (
+                <Transaction
+                  key={`ta-${index}`}
+                  amount={ta.amount}
+                  category={ta.category}
+                  name={ta.name}
+                  time={ta.time}
+                  description={ta.description}
+                />
+              ))}
             </div>
           </div>
         </div>

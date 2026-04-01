@@ -1,14 +1,18 @@
 import { cn } from "@/utils/cn";
 
 type TransactionProps = {
+  key: string;
   name: string;
+  description?: string;
   category: string;
   amount: number;
   time: string;
 };
 
 export const Transaction = ({
+  key,
   amount,
+  description,
   category,
   name,
   time,
@@ -17,6 +21,7 @@ export const Transaction = ({
 
   return (
     <div
+      key={key}
       className={cn(
         "rounded border flex p-1 font-bold cursor-pointer transition-all bg-slate-50 hover:bg-slate-100",
       )}
@@ -29,7 +34,7 @@ export const Transaction = ({
         </span>
       </div>
       <div className="  w-[31%] flex flex-col justify-center items-center">
-        Description (optional)
+        {description}
       </div>
       <div
         className={cn(
