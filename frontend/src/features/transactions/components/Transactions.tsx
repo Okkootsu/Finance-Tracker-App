@@ -7,7 +7,7 @@ import { cn } from "@/utils/cn";
 import { useTransactions } from "../hooks/useTransactions";
 import { Dialog } from "@/components/Dialog";
 import { CreateTransactionModal } from "./CreateTransactionModal";
-import { CreateCategoryModal } from "./CreateCategoryModal";
+import { CreateCategoryModal } from "../../categories/components/CreateCategoryModal";
 
 export const Transactions = () => {
   const [open, setOpen] = useState<boolean>(true);

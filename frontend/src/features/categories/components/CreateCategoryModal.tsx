@@ -1,35 +1,19 @@
-import { useState } from "react";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { X } from "lucide-react";
-import { useTransactions } from "../hooks/useTransactions";
-
-const EMOJI_LIST = [
-  "🛒",
-  "🍔",
-  "🚕",
-  "✈️",
-  "🎬",
-  "💻",
-  "📱",
-  "🏥",
-  "💊",
-  "🎓",
-  "🎮",
-  "⚽",
-  "👗",
-  "🏠",
-  "💡",
-  "💧",
-  "🔥",
-  "🎁",
-];
+import { useCategories } from "../hooks/useCategories";
 
 export const CreateCategoryModal = () => {
-  const { categories } = useTransactions();
-
-  const [selectedEmoji, setSelectedEmoji] = useState<string>("🛒");
-  const [categoryName, setCategoryName] = useState("");
+  const {
+    categories,
+    categoryName,
+    setCategoryName,
+    selectedEmoji,
+    setSelectedEmoji,
+    handleCreateCategory,
+    handleDeleteCategory,
+    EMOJI_LIST,
+  } = useCategories();
 
   return (
     <div className="flex flex-col p-8 w-125 bg-slate-50 rounded-2xl shadow-2xl border border-slate-100 font-sans max-h-[75vh] overflow-y-auto">
@@ -75,14 +59,17 @@ export const CreateCategoryModal = () => {
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <div
-              key={cat.name}
+              key={cat.id}
               className={`flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm text-sm font-medium
                  text-slate-700 group cursor-default hover:border-slate-300 transition-colors`}
             >
               <span className="text-base">{cat.icon}</span>
               <span>{cat.name}</span>
 
-              <button className="ml-1 text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+              <button
+                onClick={() => handleDeleteCategory(cat.id)}
+                className="ml-1 text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -95,6 +82,7 @@ export const CreateCategoryModal = () => {
           Close
         </Button>
         <Button
+          onClick={handleCreateCategory}
           className={`w-fit bg-blue-600 border-transparent text-white hover:bg-blue-700 active:bg-blue-800
              shadow-sm disabled:opacity-50 disabled:cursor-not-allowed`}
           disabled={!categoryName.trim()}

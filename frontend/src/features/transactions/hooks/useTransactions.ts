@@ -10,11 +10,6 @@ type Transaction = {
   time: string;
 };
 
-export type Category = {
-  name: string;
-  icon: string;
-};
-
 type Dialog = "transaction" | "category" | null;
 
 export const useTransactions = () => {
@@ -24,14 +19,6 @@ export const useTransactions = () => {
   useEffect(() => {
     fetchTransactions();
   }, []);
-
-  const categories: Category[] = [
-    { name: "Food & Dining", icon: "🍔" },
-    { name: "Transport", icon: "🚕" },
-    { name: "Subscriptions", icon: "🎬" },
-    { name: "Technology", icon: "💻" },
-    { name: "Health", icon: "💊" },
-  ];
 
   const fetchTransactions = async () => {
     try {
@@ -55,6 +42,5 @@ export const useTransactions = () => {
     transactions,
     openDialog,
     setOpenDialog,
-    categories,
   };
 };

@@ -83,6 +83,7 @@ public class AuthService : IAuthService
         
         var newUser = _mapper.Map<User>(requestDto);
         newUser.PasswordHash = PasswordService.HashPassword(requestDto.Password);
+        newUser.InitializeDefaultCategories();
 
         await _authRepo.AddUserAsync(newUser);
         await _authRepo.SaveChangesAsync();

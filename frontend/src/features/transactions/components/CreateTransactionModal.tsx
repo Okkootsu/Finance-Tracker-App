@@ -1,10 +1,10 @@
 import { Button } from "@/components/Button";
 import { Combobox } from "@/components/Combobox";
 import { Input } from "@/components/Input";
-import { useTransactions } from "../hooks/useTransactions";
+import { useCategories } from "@/features/categories/hooks/useCategories";
 
 export const CreateTransactionModal = () => {
-  const { categories } = useTransactions();
+  const { categories } = useCategories();
 
   return (
     <div className="flex flex-col p-8 w-112.5 gap-5 bg-slate-50 rounded-2xl shadow-2xl border border-slate-100 font-sans">
