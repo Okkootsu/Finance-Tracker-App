@@ -42,7 +42,7 @@ public class BaseController : ControllerBase
 
     private IActionResult CreateErrorResult(ServiceResultType resultType, string errorMessage)
     {   
-        var message = errorMessage ?? "Bilinmeyen bir hata oluştu.";
+        var message = errorMessage ?? "An unknown error occured.";
 
         var errorResponse = new { IsSuccess = false, ErrorMessage = message };
 

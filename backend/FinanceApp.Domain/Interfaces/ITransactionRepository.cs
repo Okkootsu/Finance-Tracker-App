@@ -11,4 +11,5 @@ public interface ITransactionRepository
     public Task CreateTransactionAsync(Transaction transaction);
     public Task<bool> SaveChangesAsync();
     public Task<List<Transaction>> GetTransactionsAsync(int userId);
+    public Task DeleteTransactionsAsync(List<int> transactions);
 }

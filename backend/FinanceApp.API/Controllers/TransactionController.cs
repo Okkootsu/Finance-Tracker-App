@@ -28,10 +28,18 @@ public class TransactionController : BaseController
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateTransaction(TransactionDto transactionDto)
+    public async Task<IActionResult> CreateTransaction(CreateTransactionDto transactionDto)
     {   
         var userId = GetUserId();
         var result = await _transactionService.CreateTransactionAsync(userId, transactionDto);
+
+        return CreateActionResult(result);
+    }
+
+    [HttpPost("delete-range")]
+    public async Task<IActionResult> DeleteTransactions(DeleteTransactionsDto transactionsDto)
+    {   
+        var result = await _transactionService.DeleteTransactionsAsync(transactionsDto);
 
         return CreateActionResult(result);
     }

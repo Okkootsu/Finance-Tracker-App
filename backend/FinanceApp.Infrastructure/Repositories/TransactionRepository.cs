@@ -22,6 +22,11 @@ public class TransactionRepository : ITransactionRepository
         await _context.Transactions.AddAsync(transaction);
     }
 
+    public async Task DeleteTransactionsAsync(List<int> transactions)
+    {
+        await _context.Transactions.Where(t => transactions.Contains(t.Id)).ExecuteDeleteAsync();
+    }
+
     public async Task<List<Transaction>> GetTransactionsAsync(int userId)
     {
         return await _context.Transactions.Where(t => t.UserId == userId)

@@ -10,8 +10,7 @@ namespace FinanceApp.Application.Services;
 
 public interface ITransactionService
 {
-    public Task<ServiceResponse> CreateTransactionAsync(int userId, TransactionDto transactionDto);
+    public Task<ServiceResponse<TransactionDto>> CreateTransactionAsync(int userId, CreateTransactionDto transactionDto);
     public Task<ServiceResponse<TransactionsDto>> GetAllTransactionsAsync(int userId);
-    public Task<ServiceResponse<TransactionDto>> UpdateTransactionAsync(UpdateTransactionDto transactionDto);
-    public Task<ServiceResponse> DeleteTransactionAsync(int id);
+    public Task<ServiceResponse> DeleteTransactionsAsync(DeleteTransactionsDto transactionsDto);
 }

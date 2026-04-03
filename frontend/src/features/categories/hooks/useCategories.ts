@@ -99,6 +99,15 @@ export const useCategories = () => {
     }
   };
 
+  const findIcon = (category: string) => {
+    if (!categories) {
+      return "💵";
+    }
+
+    const matchedCategory = categories.find((c) => c.name === category);
+    return matchedCategory?.icon || "💵";
+  };
+
   return {
     categories,
     categoryName,
@@ -107,6 +116,7 @@ export const useCategories = () => {
     setSelectedEmoji,
     handleCreateCategory,
     handleDeleteCategory,
+    findIcon,
     EMOJI_LIST,
   };
 };

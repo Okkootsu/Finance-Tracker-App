@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace FinanceApp.Application.DTOs.Transaction;
 
-public class UpdateTransactionDto
+public class CreateTransactionDto
 {
-    public int Id { get; set; }
     public string? Name { get; set; }
     public string Category { get; set; } = null!;
     public string? Description { get; set; }

@@ -15,7 +15,6 @@ export const Combobox = ({
   return (
     <div className={cn("relative", className)}>
       <select
-        value={options[0]?.name}
         className={`appearance-none 
           w-full
           h-full
@@ -43,7 +42,7 @@ export const Combobox = ({
             value={option?.name}
             className="text-slate-700 font-medium bg-white py-1"
           >
-            {option?.name}
+            {option?.icon} {option?.name}
           </option>
         ))}
       </select>

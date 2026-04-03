@@ -17,6 +17,8 @@ public class MappingProfile : Profile
         CreateMap<User, RegisterRequestDto>().ReverseMap();
         CreateMap<Transaction, TransactionDto>().ReverseMap();
         CreateMap<Category, CategoryDto>().ReverseMap();
+
         CreateMap<CreateCategoryDto, Category>();
+        CreateMap<CreateTransactionDto, Transaction>();
     }
 }
