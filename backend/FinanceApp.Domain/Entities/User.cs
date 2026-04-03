@@ -11,4 +11,25 @@ public class User : BaseEntity
     public string PasswordHash { get; set; } = string.Empty;
     public string RefreshToken { get; set; } = string.Empty;
     public DateTime RefreshTokenExpiryTime { get; set; }
+
+    public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public ICollection<Category> Categories { get; private set; } = new List<Category>();
+
+    public void InitializeDefaultCategories()
+    {
+        var defaultCategories = new List<Category>
+        {
+            new Category { Name = "Food & Dining", Icon = "🍔" },
+            new Category { Name = "Transport", Icon = "🚕" },
+            new Category { Name = "Subscriptions", Icon = "🎬" },
+            new Category { Name = "Technology", Icon = "💻" },
+            new Category { Name = "Health", Icon = "💊" },
+            new Category { Name = "Salary", Icon = "💰" }
+        };
+
+        foreach (var category in defaultCategories)
+        {
+            Categories.Add(category);
+        }
+    }
 }

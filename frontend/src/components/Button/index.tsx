@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 import React from "react";
 
-type ButtonVariant = "primary";
+type ButtonVariant = "primary" | "iconOutline";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
@@ -21,6 +21,7 @@ export const Button = ({
   const variants = {
     primary:
       "w-full bg-white text-black border border-border hover:bg-gray-300 ",
+    iconOutline: "",
   };
 
   return (

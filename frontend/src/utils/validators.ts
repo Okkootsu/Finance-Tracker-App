@@ -1,4 +1,5 @@
 import { type FormInputs } from "@/features/auth/hooks/useAuth";
+import type { TransactionForm } from "@/features/transactions/hooks/useTransactions";
 
 type validation = {
   isValid: boolean;
@@ -52,6 +53,21 @@ export const validateLoginForm = (form: FormInputs) => {
   if (!isValidMail(form.email)) {
     validation.isValid = false;
     validation.errorMessage = "Please enter a valid e-mail";
+    return validation;
+  }
+
+  return validation;
+};
+
+export const validateTransactionForm = (form: TransactionForm) => {
+  const validation: validation = {
+    isValid: true,
+    errorMessage: null,
+  };
+
+  if (!form.name || !form.category || !form.time || !form.amount) {
+    validation.isValid = false;
+    validation.errorMessage = "No field can be left blank";
     return validation;
   }
 

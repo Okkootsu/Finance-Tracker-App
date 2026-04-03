@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FinanceApp.Application.Wrappers;
 using FinanceApp.Domain.Enums;
@@ -40,7 +42,7 @@ public class BaseController : ControllerBase
 
     private IActionResult CreateErrorResult(ServiceResultType resultType, string errorMessage)
     {   
-        var message = errorMessage ?? "Bilinmeyen bir hata oluştu.";
+        var message = errorMessage ?? "An unknown error occured.";
 
         var errorResponse = new { IsSuccess = false, ErrorMessage = message };
 
@@ -52,5 +54,15 @@ public class BaseController : ControllerBase
             ServiceResultType.Unauthorized => Unauthorized(errorResponse), // 401
             _ => StatusCode(500, errorResponse) // Genel Hata  
         };
+    }
+
+    protected int GetUserId()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst(JwtRegisteredClaimNames.Sub);
+
+        if (userIdClaim == null)
+            throw new UnauthorizedAccessException("User id could not verified");
+        
+        return int.Parse(userIdClaim.Value);
     }
 }
