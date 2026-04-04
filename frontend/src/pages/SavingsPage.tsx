@@ -1,3 +1,9 @@
+import { SavingsInterface } from "@/features/savings";
+
 export const SavingsPage = () => {
-  return <div>SavingsPage</div>;
+  return (
+    <>
+      <SavingsInterface />
+    </>
+  );
 };

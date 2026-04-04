@@ -122,7 +122,7 @@ export const useTransactions = () => {
   };
 
   const formatTime = (time: string) => {
-    return format(new Date(time), "dd/MM/yyyy HH:mm");
+    return format(new Date(time), "d MMMM yyyy HH:mm");
   };
 
   const handleTransactionClick = (id: number) => {
