@@ -13,6 +13,7 @@ public class User : BaseEntity
     public DateTime RefreshTokenExpiryTime { get; set; }
 
     public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public ICollection<Goal> Goals { get; set; } = new List<Goal>();
     public ICollection<Category> Categories { get; private set; } = new List<Category>();
 
     public void InitializeDefaultCategories()
