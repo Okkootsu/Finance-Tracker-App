@@ -12,4 +12,5 @@ public interface IGoalRepository
     public Task<bool> SaveChangesAsync();
     public Task<List<Goal>> GetGoalsAsync(int userId);
     public Task DeleteGoalsAsync(List<int> goals);
+    public Task<Goal?> GetByIdAsync(int id);
 }

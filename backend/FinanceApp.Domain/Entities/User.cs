@@ -25,7 +25,8 @@ public class User : BaseEntity
             new Category { Name = "Subscriptions", Icon = "🎬" },
             new Category { Name = "Technology", Icon = "💻" },
             new Category { Name = "Health", Icon = "💊" },
-            new Category { Name = "Salary", Icon = "💰" }
+            new Category { Name = "Salary", Icon = "💰" },
+            new Category { Name = "Goal Transfer", Icon = "📑" },
         };
 
         foreach (var category in defaultCategories)

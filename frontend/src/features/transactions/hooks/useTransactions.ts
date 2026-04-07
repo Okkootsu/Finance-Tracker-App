@@ -30,6 +30,8 @@ export const useTransactions = () => {
   const addTransaction = useTransactionStore((state) => state.addTransaction);
   const filterRange = useTransactionStore((state) => state.filterRange);
   const setFilterRange = useTransactionStore((state) => state.setFilterRange);
+  const startDate = useTransactionStore((state) => state.startDate);
+  const endDate = useTransactionStore((state) => state.endDate);
 
   const { categories } = useCategories();
 
@@ -218,5 +220,8 @@ export const useTransactions = () => {
     filteredTransactions,
     setFilterRange,
     chartData,
+    transactions,
+    startDate,
+    endDate,
   };
 };

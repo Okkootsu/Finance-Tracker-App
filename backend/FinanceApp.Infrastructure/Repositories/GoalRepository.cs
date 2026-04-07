@@ -27,6 +27,11 @@ public class GoalRepository : IGoalRepository
         await _context.Goals.Where(g => goals.Contains(g.Id)).ExecuteDeleteAsync();
     }
 
+    public async Task<Goal?> GetByIdAsync(int id)
+    {
+        return await _context.Goals.FirstOrDefaultAsync(g => g.Id == id);
+    }
+
     public async Task<List<Goal>> GetGoalsAsync(int userId)
     {
         return await _context.Goals.Where(g => g.UserId == userId)

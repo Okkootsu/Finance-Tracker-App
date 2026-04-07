@@ -28,7 +28,7 @@ public class GoalController : BaseController
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateTransaction(CreateGoalDto goalDto)
+    public async Task<IActionResult> CreateGoal(CreateGoalDto goalDto)
     {   
         var userId = GetUserId();
         var result = await _goalService.CreateGoalAsync(userId, goalDto);
@@ -37,9 +37,18 @@ public class GoalController : BaseController
     }
 
     [HttpPost("delete-range")]
-    public async Task<IActionResult> DeleteTransactions(DeleteGoalsDto goalsDto)
+    public async Task<IActionResult> DeleteGoals(DeleteGoalsDto goalsDto)
     {   
         var result = await _goalService.DeleteGoalsAsync(goalsDto);
+
+        return CreateActionResult(result);
+    }
+
+    [HttpPost("add-saving")]
+    public async Task<IActionResult> AddSaving(UpdateGoalDto goalDto)
+    {   
+        var userId = GetUserId();
+        var result = await _goalService.AddSavingToGoalAsync(goalDto, userId);
 
         return CreateActionResult(result);
     }

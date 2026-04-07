@@ -1,19 +1,16 @@
 import { Button } from "@/components/Button";
 import { DatePicker } from "@/components/DatePicker";
-import { useTransactions } from "@/features/transactions/hooks/useTransactions";
 import { cn } from "@/utils/cn";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Statistics } from "./Statistics";
 import { GoalProgressChart } from "./GoalProgressChart";
+import { useGoals } from "../hooks/useGoals";
 
 export const GoalOverview = () => {
-  const { setFilterRange } = useTransactions();
+  const { setFilterRange, currentGoal, startDate, endDate } = useGoals();
 
   const [open, setOpen] = useState<boolean>(true);
-
-  const currentSaved = 8000;
-  const targetGoal = 10000;
 
   return (
     <div className="flex flex-col gap-1">
@@ -36,6 +33,8 @@ export const GoalOverview = () => {
 
         <div>
           <DatePicker
+            startDate={startDate}
+            endDate={endDate}
             onRangeChange={(start, end) => setFilterRange({ start, end })}
           />
         </div>
@@ -54,11 +53,19 @@ export const GoalOverview = () => {
           >
             <div className="flex">
               <div className="w-[50%] flex flex-col border-r border-slate-300 justify-between">
-                <GoalProgressChart
-                  title="Playstation 5"
-                  savedAmount={currentSaved}
-                  targetAmount={targetGoal}
-                />
+                {!currentGoal ? (
+                  <div className="flex flex-1 justify-center items-center">
+                    <h1 className="font-bold text-xl">
+                      No goal selected as current
+                    </h1>
+                  </div>
+                ) : (
+                  <GoalProgressChart
+                    title={currentGoal.name}
+                    savedAmount={currentGoal?.savedAmount}
+                    targetAmount={currentGoal?.targetAmount}
+                  />
+                )}
               </div>
               <div className="w-[50%] flex flex-col justify-between">
                 <Statistics />

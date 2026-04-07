@@ -9,7 +9,7 @@ export type Transaction = {
   time: string;
 };
 
-type Range = {
+export type Range = {
   start: Date;
   end: Date;
 };
@@ -17,6 +17,8 @@ type Range = {
 type TransactionStore = {
   transactions: Transaction[];
   filterRange: Range | null;
+  startDate: Date;
+  endDate: Date;
 
   setTransactions: (transactions: Transaction[]) => void;
   addTransaction: (transaction: Transaction) => void;
@@ -27,10 +29,13 @@ type TransactionStore = {
 export const useTransactionStore = create<TransactionStore>((set) => ({
   transactions: [],
   filterRange: null,
+  startDate: new Date(),
+  endDate: new Date(),
 
   setTransactions: (transactions) => set({ transactions: transactions }),
   addTransaction: (transaction) =>
     set((state) => ({ transactions: [...state.transactions, transaction] })),
 
-  setFilterRange: (obj) => set({ filterRange: obj }),
+  setFilterRange: (obj) =>
+    set({ filterRange: obj, startDate: obj.start, endDate: obj.end }),
 }));

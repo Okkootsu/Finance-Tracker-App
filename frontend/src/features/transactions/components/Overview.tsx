@@ -24,7 +24,7 @@ export const Overview = () => {
 
   const [open, setOpen] = useState<boolean>(true);
 
-  const { setFilterRange, chartData } = useTransactions();
+  const { setFilterRange, chartData, startDate, endDate } = useTransactions();
 
   const { incomeData, spendingData } = chartData;
 
@@ -49,6 +49,8 @@ export const Overview = () => {
 
         <div>
           <DatePicker
+            startDate={startDate}
+            endDate={endDate}
             onRangeChange={(start, end) => setFilterRange({ start, end })}
           />
         </div>

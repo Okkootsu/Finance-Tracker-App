@@ -1,33 +1,8 @@
 import { Transaction } from "@/features/transactions/components/Transaction";
-import { useTransactions } from "@/features/transactions/hooks/useTransactions";
-import type { Transaction as TransactionType } from "@/stores/transactionStore";
-import { useMemo } from "react";
+import { useGoals } from "../hooks/useGoals";
 
 export const Statistics = () => {
-  const { filteredTransactions } = useTransactions();
-
-  const { topIncomes, topExpenses } = useMemo(() => {
-    let incomeTransactions: TransactionType[] = [];
-    let expenseTransactions: TransactionType[] = [];
-
-    filteredTransactions.forEach((ta) => {
-      if (ta.amount > 0) {
-        incomeTransactions.push(ta);
-      } else {
-        expenseTransactions.push(ta);
-      }
-    });
-
-    const topIncomes = incomeTransactions
-      .sort((a, b) => b.amount - a.amount)
-      .slice(0, 3);
-
-    const topExpenses = expenseTransactions
-      .sort((a, b) => a.amount - b.amount)
-      .slice(0, 3);
-
-    return { topIncomes, topExpenses };
-  }, [filteredTransactions]);
+  const { topExpenses, topIncomes } = useGoals();
 
   return (
     <div className="flex flex-col gap-6 p-4">

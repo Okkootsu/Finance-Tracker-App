@@ -10,6 +10,5 @@ public class CreateGoalDto
     public string? Name { get; set; }
     public string Category { get; set; } = null!;
     public int TargetAmount { get; set; }
-    public DateTime StartTime { get; set; }
     public DateTime? DesiredFinish { get; set; }
 }

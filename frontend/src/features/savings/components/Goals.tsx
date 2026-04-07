@@ -1,16 +1,34 @@
 import { Button } from "@/components/Button";
 import { Dialog } from "@/components/Dialog";
-import { CreateTransactionModal } from "@/features/transactions/components/CreateTransactionModal";
-import { useTransactions } from "@/features/transactions/hooks/useTransactions";
 import { cn } from "@/utils/cn";
-import { ArrowDownNarrowWide, ChevronDown, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowDownNarrowWide,
+  ChevronDown,
+  HandCoins,
+  Plus,
+  Target,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { Goal } from "./Goal";
+import { CreateGoalModal } from "./CreateGoalModal";
+import { useGoals } from "../hooks/useGoals";
+import { AddSavingModal } from "./AddSavingModal";
 
 export const Goals = () => {
   const [open, setOpen] = useState<boolean>(true);
 
-  const { setOpenDialog, openDialog, selectedTransactions } = useTransactions();
+  const {
+    openDialog,
+    setOpenDialog,
+    filteredGoals,
+    selectedGoals,
+    handleGoalClick,
+    handleSelectAll,
+    handleDeleteGoals,
+    handleCurrentGoalChange,
+    handleAddSavingModal,
+  } = useGoals();
 
   return (
     <div className=" flex flex-col gap-1 ">
@@ -44,7 +62,7 @@ export const Goals = () => {
             <div className=" border-b border-slate-300 flex px-2 py-1 items-center justify-between">
               <div className="flex items-center gap-4 py-2">
                 <Button
-                  onClick={() => setOpenDialog("transaction")}
+                  onClick={() => setOpenDialog("goal")}
                   className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
                 >
                   ADD GOAL
@@ -55,19 +73,42 @@ export const Goals = () => {
               <div
                 className={cn(
                   "grid transition-all duration-500 ease-in-out",
-                  selectedTransactions.length > 0
+                  selectedGoals.length > 0
                     ? "grid-rows-[1fr] opacity-100"
                     : "grid-rows-[0fr] opacity-0",
                 )}
               >
                 <div className="overflow-hidden">
                   <div className=" flex gap-4 items-center duration-300 transition-all">
-                    <Button className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm">
+                    <Button
+                      onClick={handleAddSavingModal}
+                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                    >
+                      ADD MONEY
+                      <HandCoins />
+                    </Button>
+
+                    <Button
+                      onClick={handleCurrentGoalChange}
+                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                    >
+                      SELECT AS CURRENT GOAL
+                      <Target />
+                    </Button>
+
+                    <Button
+                      onClick={handleSelectAll}
+                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                    >
                       SELECT ALL
                       <ArrowDownNarrowWide />
                     </Button>
-                    <Button className="gap-3 w-fit h-fit bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-lg text-white border-transparent text-sm">
-                      DELETE TRANSACTION
+
+                    <Button
+                      onClick={handleDeleteGoals}
+                      className="gap-3 w-fit h-fit bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-lg text-white border-transparent text-sm"
+                    >
+                      DELETE GOAL
                       <Trash2 />
                     </Button>
                   </div>
@@ -75,39 +116,42 @@ export const Goals = () => {
               </div>
 
               <Dialog
-                title="Add New Transaction"
-                isOpen={openDialog === "transaction"}
+                title="Add New Goal"
+                isOpen={openDialog === "goal"}
                 onClose={() => setOpenDialog(null)}
               >
-                <CreateTransactionModal />
+                <CreateGoalModal />
+              </Dialog>
+
+              <Dialog
+                title="Add New Saving"
+                isOpen={openDialog === "saving"}
+                onClose={() => setOpenDialog(null)}
+              >
+                <AddSavingModal />
               </Dialog>
             </div>
 
             <div className=" flex-1 p-3 gap-2 flex flex-col ">
-              <Goal
-                name="Deneme1"
-                category="deneme"
-                startTime="12 Nisan 2026"
-                endTime="30 Nisan 2026"
-                savedAmount={250}
-                targetAmount={500}
-              />
-              <Goal
-                name="Deneme2"
-                category="deneme"
-                startTime="12 Nisan 2026"
-                endTime="30 Nisan 2026"
-                savedAmount={750}
-                targetAmount={1450}
-              />
-              <Goal
-                name="Deneme3"
-                category="deneme"
-                startTime="12 Nisan 2026"
-                endTime="30 Nisan 2026"
-                savedAmount={1100}
-                targetAmount={5685}
-              />
+              {filteredGoals.map((goal) => (
+                <Goal
+                  key={`go-${goal.id}`}
+                  name={goal.name}
+                  category={goal.category}
+                  startTime={goal.startTime}
+                  endTime={goal.desiredFinish}
+                  savedAmount={goal.savedAmount}
+                  targetAmount={goal.targetAmount}
+                  isActive={!!selectedGoals.find((g) => g === goal.id)}
+                  onClick={() => handleGoalClick(goal.id)}
+                />
+              ))}
+
+              {filteredGoals.length === 0 && (
+                <div className="text-center font-bold text-xl py-10 text-slate-800">
+                  No goals found for the selected date range.
+                </div>
+              )}
             </div>
           </div>
         </div>
