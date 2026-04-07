@@ -8,13 +8,19 @@ import { Calendar1 } from "lucide-react";
 
 type DatePickerProps = {
   onRangeChange: (start: Date, end: Date) => void;
+  startDate: Date;
+  endDate: Date;
 };
 
-export const DatePicker: React.FC<DatePickerProps> = ({ onRangeChange }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({
+  onRangeChange,
+  startDate,
+  endDate,
+}) => {
   const [range, setRange] = useState([
     {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: startDate,
+      endDate: endDate,
       key: "selection",
     },
   ]);
@@ -58,7 +64,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ onRangeChange }) => {
         className="border border-blue-300 text-white py-2 px-3 rounded-lg shadow-sm cursor-pointer bg-blue-600 flex items-center justify-between min-w-fit gap-3"
       >
         <span>
-          {`${format(range[0].startDate, "dd/MM/yyyy")} - ${format(range[0].endDate, "dd/MM/yyyy")}`}
+          {`${format(range[0].startDate, "d MMMM yyyy")} - ${format(range[0].endDate, "d MMMM yyyy")}`}
         </span>
         <span>
           <Calendar1 />

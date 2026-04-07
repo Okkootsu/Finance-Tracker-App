@@ -30,6 +30,8 @@ export const useTransactions = () => {
   const addTransaction = useTransactionStore((state) => state.addTransaction);
   const filterRange = useTransactionStore((state) => state.filterRange);
   const setFilterRange = useTransactionStore((state) => state.setFilterRange);
+  const startDate = useTransactionStore((state) => state.startDate);
+  const endDate = useTransactionStore((state) => state.endDate);
 
   const { categories } = useCategories();
 
@@ -122,7 +124,7 @@ export const useTransactions = () => {
   };
 
   const formatTime = (time: string) => {
-    return format(new Date(time), "dd/MM/yyyy HH:mm");
+    return format(new Date(time), "d MMMM yyyy HH:mm");
   };
 
   const handleTransactionClick = (id: number) => {
@@ -218,5 +220,8 @@ export const useTransactions = () => {
     filteredTransactions,
     setFilterRange,
     chartData,
+    transactions,
+    startDate,
+    endDate,
   };
 };

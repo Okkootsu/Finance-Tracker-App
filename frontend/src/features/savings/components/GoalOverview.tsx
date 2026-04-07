@@ -1,38 +1,22 @@
 import { Button } from "@/components/Button";
-import { ChevronDown } from "lucide-react";
-import { ChartSection } from "./ChartSection";
 import { DatePicker } from "@/components/DatePicker";
-import { useState } from "react";
 import { cn } from "@/utils/cn";
-import { useTransactions } from "../hooks/useTransactions";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Statistics } from "./Statistics";
+import { GoalProgressChart } from "./GoalProgressChart";
+import { useGoals } from "../hooks/useGoals";
 
-export interface UserStatusData {
-  name: string;
-  value: number;
-}
-
-export const Overview = () => {
-  const COLORS = [
-    "#10B981",
-    "#F59E0B",
-    "#FCD34D",
-    "#6B7280",
-    "#3B82F6",
-    "#8B5CF6",
-    "#EC4899",
-  ];
+export const GoalOverview = () => {
+  const { setFilterRange, currentGoal, startDate, endDate } = useGoals();
 
   const [open, setOpen] = useState<boolean>(true);
-
-  const { setFilterRange, chartData, startDate, endDate } = useTransactions();
-
-  const { incomeData, spendingData } = chartData;
 
   return (
     <div className="flex flex-col gap-1">
       <div className="flex justify-between  ">
         <div className="flex relative gap-3 items-center">
-          <h1 className="font-bold text-xl">Financial Overview</h1>
+          <h1 className="font-bold text-xl">Goal Overview</h1>
           <Button
             className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2"
             icon={
@@ -69,20 +53,22 @@ export const Overview = () => {
           >
             <div className="flex">
               <div className="w-[50%] flex flex-col border-r border-slate-300 justify-between">
-                <ChartSection
-                  title="Incomes"
-                  colors={COLORS}
-                  data={incomeData}
-                  dataKey="value"
-                />
+                {!currentGoal ? (
+                  <div className="flex flex-1 justify-center items-center">
+                    <h1 className="font-bold text-xl">
+                      No goal selected as current
+                    </h1>
+                  </div>
+                ) : (
+                  <GoalProgressChart
+                    title={currentGoal.name}
+                    savedAmount={currentGoal?.savedAmount}
+                    targetAmount={currentGoal?.targetAmount}
+                  />
+                )}
               </div>
               <div className="w-[50%] flex flex-col justify-between">
-                <ChartSection
-                  title="Spendings"
-                  colors={COLORS}
-                  data={spendingData}
-                  dataKey="value"
-                />
+                <Statistics />
               </div>
             </div>
           </div>

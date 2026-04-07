@@ -13,6 +13,7 @@ public class User : BaseEntity
     public DateTime RefreshTokenExpiryTime { get; set; }
 
     public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public ICollection<Goal> Goals { get; set; } = new List<Goal>();
     public ICollection<Category> Categories { get; private set; } = new List<Category>();
 
     public void InitializeDefaultCategories()
@@ -24,7 +25,8 @@ public class User : BaseEntity
             new Category { Name = "Subscriptions", Icon = "🎬" },
             new Category { Name = "Technology", Icon = "💻" },
             new Category { Name = "Health", Icon = "💊" },
-            new Category { Name = "Salary", Icon = "💰" }
+            new Category { Name = "Salary", Icon = "💰" },
+            new Category { Name = "Goal Transfer", Icon = "📑" },
         };
 
         foreach (var category in defaultCategories)
