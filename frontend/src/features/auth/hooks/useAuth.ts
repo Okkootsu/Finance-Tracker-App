@@ -1,8 +1,8 @@
-import { useAuthStore, type User } from "@/stores/authStore";
+import { useAuthStore } from "@/stores/authStore";
+import { createUser } from "@/utils/auth";
 import api from "@/utils/axios";
 import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -80,17 +80,6 @@ export const useAuth = () => {
         alert("Server connection failed");
       }
     }
-  };
-
-  const createUser = (token: string) => {
-    const decodedToken = jwtDecode<MyJwtPayload>(token);
-
-    const newUser: User = {
-      id: parseInt(decodedToken.sub),
-      email: decodedToken.email,
-    };
-
-    return newUser;
   };
 
   const handleLogin = async () => {

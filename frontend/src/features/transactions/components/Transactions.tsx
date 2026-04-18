@@ -25,6 +25,7 @@ export const Transactions = () => {
     handleSelectAll,
     handleDeleteTransactions,
     filteredTransactions,
+    handleDialogClose,
   } = useTransactions();
 
   return (
@@ -105,17 +106,17 @@ export const Transactions = () => {
               <Dialog
                 title="Add New Transaction"
                 isOpen={openDialog === "transaction"}
-                onClose={() => setOpenDialog(null)}
+                onClose={handleDialogClose}
               >
-                <CreateTransactionModal />
+                <CreateTransactionModal onClose={handleDialogClose} />
               </Dialog>
 
               <Dialog
                 title="Add New Category"
                 isOpen={openDialog === "category"}
-                onClose={() => setOpenDialog(null)}
+                onClose={handleDialogClose}
               >
-                <CreateCategoryModal />
+                <CreateCategoryModal onClose={handleDialogClose} />
               </Dialog>
             </div>
 

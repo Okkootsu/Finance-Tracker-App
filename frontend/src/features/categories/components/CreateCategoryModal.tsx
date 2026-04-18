@@ -3,7 +3,11 @@ import { Input } from "@/components/Input";
 import { X } from "lucide-react";
 import { useCategories } from "../hooks/useCategories";
 
-export const CreateCategoryModal = () => {
+type CreateCategoryModalProps = {
+  onClose?: () => void;
+};
+
+export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
   const {
     categories,
     categoryName,
@@ -78,7 +82,10 @@ export const CreateCategoryModal = () => {
       </div>
 
       <div className="flex items-center justify-end gap-3 mt-8 pt-5 border-t border-slate-200">
-        <Button className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 shadow-sm">
+        <Button
+          onClick={onClose}
+          className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 shadow-sm"
+        >
           Close
         </Button>
         <Button

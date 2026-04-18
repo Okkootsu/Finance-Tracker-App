@@ -1,0 +1,1 @@
+export { AccountInterface } from "@/features/account/components/AccountInterface"

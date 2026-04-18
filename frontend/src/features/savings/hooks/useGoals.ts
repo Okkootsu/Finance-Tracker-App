@@ -65,6 +65,10 @@ export const useGoals = () => {
     }
   }, [categories]);
 
+  const handleDialogClose = () => {
+    setOpenDialog(null);
+  };
+
   const fetchGoals = async () => {
     try {
       const response = await api.get("/Goal/get-all");
@@ -296,5 +300,6 @@ export const useGoals = () => {
     handleAddSavingModal,
     startDate,
     endDate,
+    handleDialogClose,
   };
 };

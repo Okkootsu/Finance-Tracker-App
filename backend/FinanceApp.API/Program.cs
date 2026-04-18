@@ -1,6 +1,7 @@
 using System.Text;
 using FinanceApp.Application.Mappings;
 using FinanceApp.Application.Services;
+using FinanceApp.Application.Services.Account;
 using FinanceApp.Domain.Interfaces;
 using FinanceApp.Infrastructure.Data;
 using FinanceApp.Infrastructure.Repositories;
@@ -28,6 +29,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddScoped<IGoalRepository, GoalRepository>();
 builder.Services.AddScoped<IGoalService, GoalService>();
+
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
