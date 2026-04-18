@@ -4,7 +4,13 @@ import { Input } from "@/components/Input";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useTransactions } from "../hooks/useTransactions";
 
-export const CreateTransactionModal = () => {
+type CreateTransactionModalProps = {
+  onClose?: () => void;
+};
+
+export const CreateTransactionModal = ({
+  onClose,
+}: CreateTransactionModalProps) => {
   const { categories } = useCategories();
   const { handleChange, handleSubmit } = useTransactions();
 
@@ -61,7 +67,10 @@ export const CreateTransactionModal = () => {
       />
 
       <div className="flex items-center justify-end gap-3 mt-4 pt-5 border-t border-slate-200">
-        <Button className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm">
+        <Button
+          onClick={onClose}
+          className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm"
+        >
           Cancel
         </Button>
         <Button

@@ -207,6 +207,10 @@ export const useTransactions = () => {
     return { incomeData, spendingData };
   }, [filteredTransactions]);
 
+  const handleDialogClose = () => {
+    setOpenDialog(null);
+  };
+
   return {
     openDialog,
     setOpenDialog,
@@ -223,5 +227,6 @@ export const useTransactions = () => {
     transactions,
     startDate,
     endDate,
+    handleDialogClose,
   };
 };

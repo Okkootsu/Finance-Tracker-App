@@ -3,7 +3,11 @@ import { Input } from "@/components/Input";
 import { useGoals } from "../hooks/useGoals";
 import { useWallet } from "@/hooks/useWallet";
 
-export const AddSavingModal = () => {
+type AddSavingModalProps = {
+  onClose?: () => void;
+};
+
+export const AddSavingModal = ({ onClose }: AddSavingModalProps) => {
   const { netWorth } = useWallet();
   const { handleSavingChange, handleAddSaving } = useGoals();
 
@@ -23,7 +27,10 @@ export const AddSavingModal = () => {
       </h1>
 
       <div className="flex items-center justify-end gap-3 mt-4 pt-5 border-t border-slate-200">
-        <Button className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm">
+        <Button
+          onClick={onClose}
+          className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm"
+        >
           Cancel
         </Button>
         <Button

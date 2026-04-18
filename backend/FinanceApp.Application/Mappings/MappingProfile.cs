@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FinanceApp.Application.DTOs;
+using FinanceApp.Application.DTOs.Account;
 using FinanceApp.Application.DTOs.Auth;
 using FinanceApp.Application.DTOs.Category;
 using FinanceApp.Application.DTOs.Goal;
@@ -24,5 +26,6 @@ public class MappingProfile : Profile
         CreateMap<CreateCategoryDto, Category>();
         CreateMap<CreateTransactionDto, Transaction>();
         CreateMap<CreateGoalDto, Goal>();
+        CreateMap<TokenResponseDto, UpdateAccountInfoResponseDto>();
     }
 }

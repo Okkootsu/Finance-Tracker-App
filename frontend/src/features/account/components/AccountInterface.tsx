@@ -1,12 +1,27 @@
 import { Button } from "@/components/Button";
-import { Globe, Lock, LogOut, User } from "lucide-react";
+import { Globe, Lock, LogOut, Trash2, User } from "lucide-react";
 import { useState } from "react";
 import { SettingRow } from "./SettingRow";
 import { SettingCard } from "./SettingCard";
+import { Dialog } from "@/components/Dialog";
+import { ChangePasswordModal } from "./ChangePasswordModal";
+import { useAccount } from "../hooks/useAccount";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { DeleteAccountModal } from "./DeleteAccountModal";
 
 export const AccountInterface = () => {
   const [language, setLanguage] = useState("en");
-  const [email, setEmail] = useState("example@gmail.com");
+
+  const {
+    openDialog,
+    setOpenDialog,
+    email,
+    handleInputChange,
+    handleSubmitInfoChange,
+    handleDialogClose,
+  } = useAccount();
+
+  const { handleLogout } = useAuth();
 
   return (
     <div className="flex-1 flex flex-col items-center pb-20">
@@ -22,7 +37,7 @@ export const AccountInterface = () => {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInputChange}
               className="w-full sm:w-64 px-4 py-2 text-slate-700 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </SettingRow>
@@ -31,7 +46,10 @@ export const AccountInterface = () => {
             title="Password"
             description="Change your account password securely."
           >
-            <Button className="w-full sm:w-fit bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 gap-2">
+            <Button
+              onClick={() => setOpenDialog("changePassword")}
+              className="w-full sm:w-fit bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 gap-2"
+            >
               <Lock className="w-4 h-4" /> Change Password
             </Button>
           </SettingRow>
@@ -39,15 +57,33 @@ export const AccountInterface = () => {
           <SettingRow
             title="Sign Out"
             description="Log out of your account on this device."
-            isLast
           >
-            <Button className="w-full sm:w-fit bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:border-rose-300 gap-2">
+            <Button
+              onClick={handleLogout}
+              className="w-full sm:w-fit bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:border-rose-300 gap-2"
+            >
               <LogOut className="w-4 h-4" /> Sign Out
             </Button>
           </SettingRow>
 
+          <SettingRow
+            title="Delete Account"
+            description="Permanently remove your account and all associated data."
+            isLast
+          >
+            <Button
+              onClick={() => setOpenDialog("deleteAccount")}
+              className="w-full sm:w-fit bg-red-600 text-white border-transparent hover:bg-red-700 active:bg-red-800 shadow-sm gap-2"
+            >
+              <Trash2 className="w-4 h-4" /> Delete Account
+            </Button>
+          </SettingRow>
+
           <div className="mt-4 pt-4 border-t border-slate-200 flex justify-end">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white border-transparent px-6">
+            <Button
+              onClick={handleSubmitInfoChange}
+              className="bg-blue-600 hover:bg-blue-700 text-white border-transparent px-6"
+            >
               Save Changes
             </Button>
           </div>
@@ -84,6 +120,22 @@ export const AccountInterface = () => {
             </select>
           </SettingRow>
         </SettingCard>
+
+        <Dialog
+          title="Change Password"
+          isOpen={openDialog === "changePassword"}
+          onClose={handleDialogClose}
+        >
+          <ChangePasswordModal onClose={handleDialogClose} />
+        </Dialog>
+
+        <Dialog
+          title="Delete Account"
+          isOpen={openDialog === "deleteAccount"}
+          onClose={handleDialogClose}
+        >
+          <DeleteAccountModal onClose={handleDialogClose} />
+        </Dialog>
       </div>
     </div>
   );

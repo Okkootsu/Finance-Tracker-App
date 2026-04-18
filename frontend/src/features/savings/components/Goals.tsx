@@ -28,6 +28,7 @@ export const Goals = () => {
     handleDeleteGoals,
     handleCurrentGoalChange,
     handleAddSavingModal,
+    handleDialogClose,
   } = useGoals();
 
   return (
@@ -118,17 +119,17 @@ export const Goals = () => {
               <Dialog
                 title="Add New Goal"
                 isOpen={openDialog === "goal"}
-                onClose={() => setOpenDialog(null)}
+                onClose={handleDialogClose}
               >
-                <CreateGoalModal />
+                <CreateGoalModal onClose={handleDialogClose} />
               </Dialog>
 
               <Dialog
                 title="Add New Saving"
                 isOpen={openDialog === "saving"}
-                onClose={() => setOpenDialog(null)}
+                onClose={handleDialogClose}
               >
-                <AddSavingModal />
+                <AddSavingModal onClose={handleDialogClose} />
               </Dialog>
             </div>
 
