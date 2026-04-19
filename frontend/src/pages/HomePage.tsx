@@ -1,6 +1,9 @@
-
+import { HomeInterface } from "@/features/home";
 
 export const HomePage = () => {
-
-  return <div className="">HomePage</div>;
+  return (
+    <>
+      <HomeInterface />
+    </>
+  );
 };

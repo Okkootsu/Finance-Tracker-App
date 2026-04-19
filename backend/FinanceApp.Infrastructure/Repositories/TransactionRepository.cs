@@ -29,7 +29,7 @@ public class TransactionRepository : ITransactionRepository
 
     public async Task<List<Transaction>> GetTransactionsAsync(int userId)
     {
-        return await _context.Transactions.Where(t => t.UserId == userId)
+        return await _context.Transactions.Where(t => t.UserId == userId).OrderByDescending(t => t.Time)
         .ToListAsync();
     }
 

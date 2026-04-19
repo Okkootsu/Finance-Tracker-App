@@ -94,7 +94,7 @@ export const Transaction = ({
         {formattedTime}
       </div>
 
-      {!isCompact && (
+      {onClick && (
         <div className=" flex justify-center items-center p-1 w-[5%]">
           <Checkbox checked={isActive} />
         </div>
