@@ -34,7 +34,7 @@ public class GoalRepository : IGoalRepository
 
     public async Task<List<Goal>> GetGoalsAsync(int userId)
     {
-        return await _context.Goals.Where(g => g.UserId == userId)
+        return await _context.Goals.Where(g => g.UserId == userId).OrderByDescending(g => g.CreatedAt)
         .ToListAsync();
     }
 
