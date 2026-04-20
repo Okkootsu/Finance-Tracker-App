@@ -82,6 +82,7 @@ export const AccountInterface = () => {
           <div className="mt-4 pt-4 border-t border-slate-200 flex justify-end">
             <Button
               onClick={handleSubmitInfoChange}
+              variant="secondary"
               className="bg-blue-600 hover:bg-blue-700 text-white border-transparent px-6"
             >
               Save Changes

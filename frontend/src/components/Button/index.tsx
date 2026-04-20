@@ -1,7 +1,7 @@
 import { cn } from "@/utils/cn";
 import React from "react";
 
-type ButtonVariant = "primary" | "iconOutline";
+type ButtonVariant = "primary" | "primaryDanger" | "secondary" | "iconOutline";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
@@ -20,8 +20,13 @@ export const Button = ({
 
   const variants = {
     primary:
+      "gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300",
+    primaryDanger:
+      "gap-3 w-fit h-fit bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-lg text-white border-transparent",
+    secondary:
       "w-full bg-white text-black border border-border hover:bg-gray-300 ",
-    iconOutline: "",
+    iconOutline:
+      "bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2 text-black border-border hover:bg-gray-300",
   };
 
   return (

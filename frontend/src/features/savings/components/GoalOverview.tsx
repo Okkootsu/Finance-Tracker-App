@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { DatePicker } from "@/components/DatePicker";
 import { cn } from "@/utils/cn";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Rocket } from "lucide-react";
 import { useState } from "react";
 import { Statistics } from "./Statistics";
 import { GoalProgressChart } from "./GoalProgressChart";
@@ -16,9 +16,12 @@ export const GoalOverview = () => {
     <div className="flex flex-col gap-1">
       <div className="flex justify-between  ">
         <div className="flex relative gap-3 items-center">
-          <h1 className="font-bold text-xl">Goal Overview</h1>
+          <h1 className="font-bold text-xl flex items-center gap-2">
+            <Rocket className="w-5 h-5 text-emerald-500" />
+            Goal Overview
+          </h1>
           <Button
-            className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2"
+            variant="iconOutline"
             icon={
               <ChevronDown
                 className={cn(

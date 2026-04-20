@@ -21,7 +21,7 @@ export const SettingCard = ({ title, icon, children }: SettingCardProps) => {
             {title}
           </h1>
           <Button
-            className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2 hover:bg-slate-200"
+            variant="iconOutline"
             icon={
               <ChevronDown
                 className={cn(
