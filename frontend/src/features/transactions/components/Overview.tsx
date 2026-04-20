@@ -12,16 +12,6 @@ export interface UserStatusData {
 }
 
 export const Overview = () => {
-  const COLORS = [
-    "#10B981",
-    "#F59E0B",
-    "#FCD34D",
-    "#6B7280",
-    "#3B82F6",
-    "#8B5CF6",
-    "#EC4899",
-  ];
-
   const [open, setOpen] = useState<boolean>(true);
 
   const { setFilterRange, chartData, startDate, endDate } = useTransactions();
@@ -74,7 +64,6 @@ export const Overview = () => {
               <div className="w-[50%] flex flex-col border-r border-slate-300 justify-between">
                 <ChartSection
                   title="Incomes"
-                  colors={COLORS}
                   data={incomeData}
                   dataKey="value"
                 />
@@ -82,7 +71,6 @@ export const Overview = () => {
               <div className="w-[50%] flex flex-col justify-between">
                 <ChartSection
                   title="Expenses"
-                  colors={COLORS}
                   data={spendingData}
                   dataKey="value"
                 />
