@@ -4,6 +4,7 @@ import api from "@/utils/axios";
 import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 type AuthForm = "register" | "login";
@@ -57,7 +58,7 @@ export const useAuth = () => {
     const validation = validateRegisterForm(formInputs);
 
     if (!validation.isValid) {
-      alert(validation.errorMessage);
+      toast.error(validation.errorMessage);
       return;
     }
 
@@ -65,12 +66,10 @@ export const useAuth = () => {
       await api.post("/Auth/register", formInputs);
       setFormInputs(INITIAL_FORM_STATE);
 
-      alert("Successfully signed up, now you can sign in");
+      toast.success("Successfully signed up, now you can sign in");
 
       setSelectedForm("login");
     } catch (err) {
-      setFormInputs(INITIAL_FORM_STATE);
-
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
           err.response.data.errorMessage || "An unknown error occured";
@@ -86,7 +85,7 @@ export const useAuth = () => {
     const validation = validateLoginForm(formInputs);
 
     if (!validation.isValid) {
-      alert(validation.errorMessage);
+      toast.error(validation.errorMessage);
       return;
     }
 
@@ -102,8 +101,6 @@ export const useAuth = () => {
 
       navigate("/");
     } catch (err) {
-      setFormInputs(INITIAL_FORM_STATE);
-
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
           err.response.data.errorMessage || "An unknown error occured";

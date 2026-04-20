@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import {
   ArrowDownNarrowWide,
   ChevronDown,
+  CirclePlus,
   HandCoins,
   Plus,
   Target,
@@ -34,9 +35,12 @@ export const Goals = () => {
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
-        <h1 className="font-bold text-xl text-slate-900">Goals</h1>
+        <h1 className="font-bold text-xl flex items-center gap-2 text-slate-900">
+          <Target className="w-5 h-5 text-amber-500" />
+          Goals
+        </h1>
         <Button
-          className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2"
+          variant="iconOutline"
           icon={
             <ChevronDown
               className={cn(
@@ -60,14 +64,11 @@ export const Goals = () => {
             className={`bg-white border flex flex-col rounded-2xl min-h-60 shadow-xl shadow-slate-100 border-slate-300 transition-all
                hover:shadow-2xl hover:shadow-slate-200 duration-300 mt-2`}
           >
-            <div className=" border-b border-slate-300 flex px-2 py-1 items-center justify-between">
-              <div className="flex items-center gap-4 py-2">
-                <Button
-                  onClick={() => setOpenDialog("goal")}
-                  className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
-                >
-                  ADD GOAL
+            <div className=" border-b border-slate-300 flex px-2 py-1 items-center gap-4">
+              <div className="flex items-center py-2">
+                <Button onClick={() => setOpenDialog("goal")}>
                   <Plus />
+                  Add Goal
                 </Button>
               </div>
 
@@ -81,36 +82,24 @@ export const Goals = () => {
               >
                 <div className="overflow-hidden">
                   <div className=" flex gap-4 items-center duration-300 transition-all">
-                    <Button
-                      onClick={handleAddSavingModal}
-                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
-                    >
-                      ADD MONEY
+                    <Button onClick={handleAddSavingModal}>
                       <HandCoins />
+                      Add Money
                     </Button>
 
-                    <Button
-                      onClick={handleCurrentGoalChange}
-                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
-                    >
-                      SELECT AS CURRENT GOAL
-                      <Target />
+                    <Button onClick={handleCurrentGoalChange}>
+                      <CirclePlus />
+                      Select as Current Goal
                     </Button>
 
-                    <Button
-                      onClick={handleSelectAll}
-                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
-                    >
-                      SELECT ALL
+                    <Button onClick={handleSelectAll}>
                       <ArrowDownNarrowWide />
+                      Select All
                     </Button>
 
-                    <Button
-                      onClick={handleDeleteGoals}
-                      className="gap-3 w-fit h-fit bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-lg text-white border-transparent text-sm"
-                    >
-                      DELETE GOAL
+                    <Button onClick={handleDeleteGoals} variant="primaryDanger">
                       <Trash2 />
+                      Delete Goal
                     </Button>
                   </div>
                 </div>

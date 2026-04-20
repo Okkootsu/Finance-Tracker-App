@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button";
-import { ChevronDown } from "lucide-react";
+import { BarChart3, ChevronDown } from "lucide-react";
 import { ChartSection } from "./ChartSection";
 import { DatePicker } from "@/components/DatePicker";
 import { useState } from "react";
@@ -12,16 +12,6 @@ export interface UserStatusData {
 }
 
 export const Overview = () => {
-  const COLORS = [
-    "#10B981",
-    "#F59E0B",
-    "#FCD34D",
-    "#6B7280",
-    "#3B82F6",
-    "#8B5CF6",
-    "#EC4899",
-  ];
-
   const [open, setOpen] = useState<boolean>(true);
 
   const { setFilterRange, chartData, startDate, endDate } = useTransactions();
@@ -32,9 +22,12 @@ export const Overview = () => {
     <div className="flex flex-col gap-1">
       <div className="flex justify-between  ">
         <div className="flex relative gap-3 items-center">
-          <h1 className="font-bold text-xl">Financial Overview</h1>
+          <h1 className="font-bold text-xl flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-indigo-500" />
+            Financial Overview
+          </h1>
           <Button
-            className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2"
+            variant="iconOutline"
             icon={
               <ChevronDown
                 className={cn(
@@ -71,15 +64,13 @@ export const Overview = () => {
               <div className="w-[50%] flex flex-col border-r border-slate-300 justify-between">
                 <ChartSection
                   title="Incomes"
-                  colors={COLORS}
                   data={incomeData}
                   dataKey="value"
                 />
               </div>
               <div className="w-[50%] flex flex-col justify-between">
                 <ChartSection
-                  title="Spendings"
-                  colors={COLORS}
+                  title="Expenses"
                   data={spendingData}
                   dataKey="value"
                 />

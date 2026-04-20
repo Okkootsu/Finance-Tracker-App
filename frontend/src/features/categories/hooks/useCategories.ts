@@ -1,6 +1,7 @@
 import api from "@/utils/axios";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export type Category = {
   id: number;
@@ -58,7 +59,7 @@ export const useCategories = () => {
 
   const handleCreateCategory = async () => {
     if (!categoryName || !selectedEmoji) {
-      alert("Category Name or Icon cannot be empty");
+      toast.error("Category Name or Icon cannot be empty");
       return;
     }
 

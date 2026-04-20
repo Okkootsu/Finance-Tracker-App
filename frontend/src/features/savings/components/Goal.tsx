@@ -98,7 +98,7 @@ export const Goal = ({
       </div>
 
       <div className=" flex justify-center items-center p-1 w-[7%]">
-        <Checkbox checked={isActive} />
+        <Checkbox readOnly checked={isActive} />
       </div>
     </div>
   );

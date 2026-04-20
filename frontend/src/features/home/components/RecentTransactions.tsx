@@ -1,15 +1,15 @@
 import { Transaction } from "@/features/transactions/components/Transaction";
 import { useTransactions } from "@/features/transactions/hooks/useTransactions";
+import { History } from "lucide-react";
 
 export const RecentTransactions = () => {
-  const {
-    transactions,
-  } = useTransactions();
+  const { transactions } = useTransactions();
 
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
-        <h1 className="font-bold text-xl text-slate-900">
+        <h1 className="font-bold text-xl flex items-center gap-2">
+          <History className="w-5 h-5 text-sky-500" />
           Recent Transactions
         </h1>
       </div>
@@ -21,7 +21,6 @@ export const RecentTransactions = () => {
         <div className=" flex-1 p-3 gap-2 flex flex-col ">
           {transactions.slice(0, 3).map((ta) => (
             <Transaction
-              
               key={ta.id}
               amount={ta.amount}
               category={ta.category}

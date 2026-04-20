@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import {
   ArrowDownNarrowWide,
+  ArrowLeftRight,
   BookPlus,
   ChevronDown,
   Plus,
@@ -31,9 +32,12 @@ export const Transactions = () => {
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
-        <h1 className="font-bold text-xl text-slate-900">Transactions</h1>
+        <h1 className="font-bold text-xl flex items-center gap-2">
+          <ArrowLeftRight className="w-5 h-5 text-blue-500" /> 
+          Transactions
+        </h1>
         <Button
-          className="bg-transparent border-0 w-fit rounded-full mt-1 h-fit p-2"
+          variant="iconOutline"
           icon={
             <ChevronDown
               className={cn(
@@ -61,17 +65,17 @@ export const Transactions = () => {
               <div className="flex items-center gap-4 py-2">
                 <Button
                   onClick={() => setOpenDialog("category")}
-                  className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                  variant="primary"
                 >
-                  ADD CATEGORY
                   <BookPlus />
+                  Add Category
                 </Button>
                 <Button
                   onClick={() => setOpenDialog("transaction")}
-                  className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
+                  variant="primary"
                 >
-                  ADD TRANSACTIONS
                   <Plus />
+                  Add Transaction
                 </Button>
               </div>
 
@@ -85,19 +89,16 @@ export const Transactions = () => {
               >
                 <div className="overflow-hidden">
                   <div className=" flex gap-4 items-center duration-300 transition-all">
-                    <Button
-                      onClick={handleSelectAll}
-                      className="gap-3 w-fit h-fit bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg text-white border-blue-300 text-sm"
-                    >
-                      SELECT ALL
+                    <Button onClick={handleSelectAll} variant="primary">
                       <ArrowDownNarrowWide />
+                      Select All
                     </Button>
                     <Button
                       onClick={handleDeleteTransactions}
-                      className="gap-3 w-fit h-fit bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-lg text-white border-transparent text-sm"
+                      variant="primaryDanger"
                     >
-                      DELETE TRANSACTION
                       <Trash2 />
+                      Delete Transaction
                     </Button>
                   </div>
                 </div>

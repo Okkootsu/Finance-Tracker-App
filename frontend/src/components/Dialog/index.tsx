@@ -50,7 +50,7 @@ export const Dialog = ({
 
             <Button
               onClick={onClose}
-              variant="iconOutline"
+              variant="secondary"
               className="absolute right-1 top-1 w-12 h-12 border-0 hover:bg-slate-200 "
             >
               <X />
