@@ -69,8 +69,6 @@ export const useAuth = () => {
 
       setSelectedForm("login");
     } catch (err) {
-      setFormInputs(INITIAL_FORM_STATE);
-
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
           err.response.data.errorMessage || "An unknown error occured";
@@ -102,8 +100,6 @@ export const useAuth = () => {
 
       navigate("/");
     } catch (err) {
-      setFormInputs(INITIAL_FORM_STATE);
-
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
           err.response.data.errorMessage || "An unknown error occured";

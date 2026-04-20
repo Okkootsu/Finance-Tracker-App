@@ -64,10 +64,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         className="border border-blue-300 text-white py-2 px-3 rounded-lg shadow-sm cursor-pointer bg-blue-600 flex items-center justify-between min-w-fit gap-3"
       >
         <span>
-          {`${format(range[0].startDate, "d MMMM yyyy")} - ${format(range[0].endDate, "d MMMM yyyy")}`}
+          <Calendar1 />
         </span>
         <span>
-          <Calendar1 />
+          {`${format(range[0].startDate, "d MMMM yyyy")} - ${format(range[0].endDate, "d MMMM yyyy")}`}
         </span>
       </div>
 

@@ -20,12 +20,14 @@ export const DeleteAccountModal = ({ onClose }: DeleteAccountModalProps) => {
       <div className="flex items-center justify-end gap-3 mt-4 pt-5 border-t border-slate-200">
         <Button
           onClick={onClose}
+          variant="secondary"
           className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm"
         >
           Cancel
         </Button>
         <Button
           onClick={handleDeleteAccount}
+          variant="secondary"
           className="w-fit bg-red-600 border-transparent text-white hover:bg-red-700 active:bg-red-800 shadow-sm"
         >
           Proceed

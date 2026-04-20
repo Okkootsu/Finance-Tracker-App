@@ -48,6 +48,7 @@ export const AccountInterface = () => {
           >
             <Button
               onClick={() => setOpenDialog("changePassword")}
+              variant="secondary"
               className="w-full sm:w-fit bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 gap-2"
             >
               <Lock className="w-4 h-4" /> Change Password
@@ -60,6 +61,7 @@ export const AccountInterface = () => {
           >
             <Button
               onClick={handleLogout}
+              variant="secondary"
               className="w-full sm:w-fit bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100 hover:border-rose-300 gap-2"
             >
               <LogOut className="w-4 h-4" /> Sign Out
@@ -73,6 +75,7 @@ export const AccountInterface = () => {
           >
             <Button
               onClick={() => setOpenDialog("deleteAccount")}
+              variant="secondary"
               className="w-full sm:w-fit bg-red-600 text-white border-transparent hover:bg-red-700 active:bg-red-800 shadow-sm gap-2"
             >
               <Trash2 className="w-4 h-4" /> Delete Account
