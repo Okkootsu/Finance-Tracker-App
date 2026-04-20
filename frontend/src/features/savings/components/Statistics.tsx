@@ -5,9 +5,12 @@ export const Statistics = () => {
   const { topExpenses, topIncomes } = useGoals();
 
   return (
-    <div className="flex flex-col gap-6 p-4">
-      <div className="flex flex-col gap-3">
-        <h1 className="font-bold text-slate-800 border-b pb-1">Top Expanses</h1>
+    <div className="flex flex-col gap-3 p-3">
+      <div className="flex flex-col gap-2">
+        <h1 className="font-bold text-sm text-slate-700 border-b pb-1">
+          Top Expenses
+        </h1>
+
         <div className="flex flex-col gap-2">
           {topExpenses.length > 0 ? (
             topExpenses.map((ta) => (
@@ -21,15 +24,18 @@ export const Statistics = () => {
               />
             ))
           ) : (
-            <div className="text-sm text-slate-400 italic">
+            <div className="text-xs text-slate-400 italic py-1">
               No expenses found.
             </div>
           )}
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
-        <h1 className="font-bold text-slate-800 border-b pb-1">Top Incomes</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="font-bold text-sm text-slate-700 border-b pb-1">
+          Top Incomes
+        </h1>
+
         <div className="flex flex-col gap-2">
           {topIncomes.length > 0 ? (
             topIncomes.map((ta) => (
@@ -43,7 +49,7 @@ export const Statistics = () => {
               />
             ))
           ) : (
-            <div className="text-sm text-slate-400 italic">
+            <div className="text-xs text-slate-400 italic py-1">
               No incomes found.
             </div>
           )}

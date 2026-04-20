@@ -4,6 +4,7 @@ import api from "@/utils/axios";
 import { isValidMail } from "@/utils/validators";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 type ChangePasswordForm = {
@@ -44,14 +45,14 @@ export const useAccount = () => {
 
   const handleSubmitPasswordChange = async () => {
     if (!form.oldPassword || !form.newPassword) {
-      alert("Please enter a password to continue");
+      toast.error("Please enter a password to continue");
       return;
     }
 
     try {
       await api.post("/Account/change-password", form);
 
-      alert("Your password has been updated");
+      toast.success("Your password has been updated");
       setOpenDialog(null);
     } catch (err) {
       handleApiError(err);
@@ -64,7 +65,7 @@ export const useAccount = () => {
 
   const handleSubmitInfoChange = async () => {
     if (!isValidMail(email)) {
-      alert("Please enter a valid e-mail to continue");
+      toast.error("Please enter a valid e-mail to continue");
       return;
     }
 
@@ -77,7 +78,7 @@ export const useAccount = () => {
       setEmail(user.email);
       setAuth(token, user);
 
-      alert("E-mail updated");
+      toast.success("E-mail updated");
     } catch (err) {
       handleApiError(err);
     }

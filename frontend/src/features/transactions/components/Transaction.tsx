@@ -96,7 +96,7 @@ export const Transaction = ({
 
       {onClick && (
         <div className=" flex justify-center items-center p-1 w-[5%]">
-          <Checkbox checked={isActive} />
+          <Checkbox readOnly checked={isActive} />
         </div>
       )}
     </div>

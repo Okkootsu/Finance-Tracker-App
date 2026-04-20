@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import {
   ArrowDownNarrowWide,
   ChevronDown,
+  CirclePlus,
   HandCoins,
   Plus,
   Target,
@@ -87,7 +88,7 @@ export const Goals = () => {
                     </Button>
 
                     <Button onClick={handleCurrentGoalChange}>
-                      <Target />
+                      <CirclePlus />
                       Select as Current Goal
                     </Button>
 

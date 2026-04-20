@@ -5,6 +5,7 @@ import { validateTransactionForm } from "@/utils/validators";
 import axios from "axios";
 import { endOfDay, format, isWithinInterval, startOfDay } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 type Dialog = "transaction" | "category" | null;
 
@@ -101,7 +102,7 @@ export const useTransactions = () => {
     const validation = validateTransactionForm(transactionForm);
 
     if (!validation.isValid) {
-      alert(validation.errorMessage);
+      toast.error(validation.errorMessage);
       return;
     }
 
@@ -110,7 +111,7 @@ export const useTransactions = () => {
       const data = response.data.data;
 
       addTransaction(data);
-      alert("Transaction added");
+      toast.success("Transaction added");
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
@@ -140,7 +141,7 @@ export const useTransactions = () => {
 
   const handleDeleteTransactions = async () => {
     if (selectedTransactions.length === 0) {
-      alert("Please select at least one transaction before deleting");
+      toast.error("Please select at least one transaction before deleting");
       return;
     }
 
