@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 import { cn } from "@/utils/cn";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type GoalProgressChartProps = {
   title: string;
@@ -29,6 +31,10 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
 
     return { data, percentage };
   }, [savedAmount, targetAmount]);
+
+  const currency = useSettingsStore(state => state.currency);
+  const formattedSavedAmount = formatCurrency(savedAmount, currency)
+  const formattedTargetAmount = formatCurrency(targetAmount, currency)
 
   const COLORS = ["#3B82F6", "#F1F5F9"];
 
@@ -98,7 +104,7 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
           <span
             className={cn("text-blue-600", isCompact ? "text-base" : "text-lg")}
           >
-            {savedAmount} 
+            {formattedSavedAmount} 
           </span>
         </div>
         <div className="flex flex-col text-right">
@@ -109,7 +115,7 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
               isCompact ? "text-base" : "text-lg",
             )}
           >
-            {targetAmount} 
+            {formattedTargetAmount} 
           </span>
         </div>
       </div>

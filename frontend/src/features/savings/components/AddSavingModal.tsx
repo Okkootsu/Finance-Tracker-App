@@ -2,6 +2,8 @@ import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { useGoals } from "../hooks/useGoals";
 import { useWallet } from "@/hooks/useWallet";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type AddSavingModalProps = {
   onClose?: () => void;
@@ -10,6 +12,9 @@ type AddSavingModalProps = {
 export const AddSavingModal = ({ onClose }: AddSavingModalProps) => {
   const { netWorth } = useWallet();
   const { handleSavingChange, handleAddSaving } = useGoals();
+
+  const currency = useSettingsStore((state) => state.currency);
+  const formattedNetWorth = formatCurrency(netWorth, currency);
 
   return (
     <div className="flex flex-col p-8 w-112.5 gap-5 bg-slate-50 rounded-2xl shadow-2xl border border-slate-100 font-sans">
@@ -23,7 +28,7 @@ export const AddSavingModal = ({ onClose }: AddSavingModalProps) => {
       />
 
       <h1>
-        Your current balance: <span className="font-bold">{netWorth}</span>
+        Your current balance: <span className="font-bold">{formattedNetWorth}</span>
       </h1>
 
       <div className="flex items-center justify-end gap-3 mt-4 pt-5 border-t border-slate-200">

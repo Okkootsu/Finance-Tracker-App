@@ -2,6 +2,8 @@ import { Checkbox } from "@/components/Checkbox";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { cn } from "@/utils/cn";
 import { useGoals } from "../hooks/useGoals";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type GoalProps = {
   onClick?: () => void;
@@ -24,6 +26,10 @@ export const Goal = ({
   savedAmount,
   targetAmount,
 }: GoalProps) => {
+  const currency = useSettingsStore(state => state.currency)
+  const formattedSavedAmount = formatCurrency(savedAmount, currency)
+  const formattedTargetAmount = formatCurrency(targetAmount, currency)
+
   const { findIcon } = useCategories();
 
   const icon = findIcon(category);
@@ -58,12 +64,12 @@ export const Goal = ({
 
       <div className=" font-normal w-[32%] flex flex-col justify-center px-4 gap-1.5">
         <div className="flex justify-between items-end px-1">
-          <span className="text-sm font-bold text-blue-600">{savedAmount}</span>
+          <span className="text-sm font-bold text-blue-600">{formattedSavedAmount}</span>
           <span className="text-xs font-bold text-slate-400">
             % {percentage}
           </span>
           <span className="text-sm font-bold text-slate-500">
-            {targetAmount}
+            {formattedTargetAmount}
           </span>
         </div>
 

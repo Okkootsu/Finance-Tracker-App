@@ -2,6 +2,8 @@ import { Checkbox } from "@/components/Checkbox";
 import { cn } from "@/utils/cn";
 import { useTransactions } from "../hooks/useTransactions";
 import { useCategories } from "@/features/categories/hooks/useCategories";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type TransactionProps = {
   onClick?: () => void;
@@ -24,6 +26,9 @@ export const Transaction = ({
   isActive = false,
   variant = "default",
 }: TransactionProps) => {
+  const currency = useSettingsStore((state) => state.currency);
+  const formattedAmount = formatCurrency(amount, currency)
+
   const { findIcon } = useCategories();
 
   const icon = findIcon(category);
@@ -82,7 +87,7 @@ export const Transaction = ({
           isCompact ? "w-[25%] text-base" : "p-1 w-[24%] text-lg",
         )}
       >
-        {isIncome ? `+ ${amount}` : `- ${Math.abs(amount)}`}
+        {isIncome ? `+${formattedAmount}` : `${formattedAmount}`}
       </div>
 
       <div
