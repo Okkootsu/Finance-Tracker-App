@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/authStore";
+import { useSettingsStore, type Currency } from "@/stores/settingsStore";
 import { createUser } from "@/utils/auth";
 import api from "@/utils/axios";
 import { isValidMail } from "@/utils/validators";
@@ -21,6 +22,8 @@ export const useAccount = () => {
   const userEmail = useAuthStore((state) => state.user!.email);
   const setAuth = useAuthStore((state) => state.setAuth);
   const logout = useAuthStore((state) => state.logout);
+  const currency = useSettingsStore(state => state.currency);
+  const setCurrency = useSettingsStore(state => state.setCurrency);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState<ChangePasswordForm>(INITIAL_STATE);
@@ -102,6 +105,10 @@ export const useAccount = () => {
     }
   };
 
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrency(e.target.value as Currency)
+  }
+
   return {
     handleFormChange,
     handleShowPassword,
@@ -114,5 +121,7 @@ export const useAccount = () => {
     email,
     handleDeleteAccount,
     handleDialogClose,
+    handleCurrencyChange,
+    currency,
   };
 };

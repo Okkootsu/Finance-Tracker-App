@@ -19,6 +19,8 @@ export const AccountInterface = () => {
     handleInputChange,
     handleSubmitInfoChange,
     handleDialogClose,
+    handleCurrencyChange,
+    currency,
   } = useAccount();
 
   const { handleLogout } = useAuth();
@@ -117,7 +119,11 @@ export const AccountInterface = () => {
             description="Your primary currency for transactions and goals."
             isLast
           >
-            <select className="w-full sm:w-64 px-4 py-2 text-slate-700 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 cursor-pointer">
+            <select
+              value={currency}
+              onChange={handleCurrencyChange}
+              className="w-full sm:w-64 px-4 py-2 text-slate-700 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
+            >
               <option value="usd">USD ($)</option>
               <option value="eur">EUR (€)</option>
               <option value="try">TRY (₺)</option>

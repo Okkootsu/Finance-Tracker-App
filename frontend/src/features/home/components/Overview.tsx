@@ -1,9 +1,12 @@
 import { GoalProgressChart } from "@/features/savings/components/GoalProgressChart";
 import { useWallet } from "@/hooks/useWallet";
 import { useGoalStore } from "@/stores/goalStore";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 export const Overview = () => {
   const currentGoal = useGoalStore((state) => state.currentGoal);
+  const currency = useSettingsStore((state) => state.currency);
 
   const { netWorth } = useWallet();
 
@@ -25,7 +28,7 @@ export const Overview = () => {
                 Total Balance
               </h2>
               <p className="text-5xl flex-1 flex items-center justify-center font-extrabold text-slate-900">
-                {netWorth}
+                {formatCurrency(netWorth, currency)}
               </p>
             </div>
           </div>
