@@ -28,10 +28,10 @@ public class GoalService : IGoalService
         var goal = await _goalRepository.GetByIdAsync(request.Id);
 
         if (goal == null)
-            return ServiceResponse.Fail("Goal not found", ServiceResultType.NotFound);
+            return ServiceResponse.Fail("Goal.NotFound", ServiceResultType.NotFound);
 
         if (goal.UserId != userId)
-            return ServiceResponse.Fail("Unauthorized action", ServiceResultType.Conflict);
+            return ServiceResponse.Fail("Common.Unauthorized", ServiceResultType.Conflict);
 
         var realAmount = request.AmountToAdd;
         goal.SavedAmount += request.AmountToAdd;
@@ -56,7 +56,7 @@ public class GoalService : IGoalService
         var isSuccess = await _goalRepository.SaveChangesAsync(); 
 
         if (!isSuccess)
-            return ServiceResponse.Fail("A problem occurred while updating the goal", ServiceResultType.Failure);
+            return ServiceResponse.Fail("Common.DbError", ServiceResultType.Failure);
 
         return ServiceResponse.Success(ServiceResultType.SuccessNoContent);
     }
@@ -72,7 +72,7 @@ public class GoalService : IGoalService
         var isSuccess = await _goalRepository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse<GoalDto>.Fail("A problem occured in the database", ServiceResultType.Failure);
+            return ServiceResponse<GoalDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
         var dto = _mapper.Map<GoalDto>(goal);
 

@@ -10,7 +10,7 @@ public class ServiceResponse<T>
 {
     public T? Data { get; private set; }
     public bool IsSuccess { get; private set; }
-    public string? ErrorMessage { get; private set; }
+    public string? MessageKey { get; private set; }
     public ServiceResultType ResultType { get; private set; }
 
     public static ServiceResponse<T> Success(T data, ServiceResultType resultType = ServiceResultType.Success)
@@ -23,7 +23,7 @@ public class ServiceResponse<T>
         };
     }
 
-    public static ServiceResponse<T> Fail(string errorMessage, ServiceResultType resultType)
+    public static ServiceResponse<T> Fail(string errorMessageKey, ServiceResultType resultType)
     {
         if (resultType == ServiceResultType.Success)
             resultType = ServiceResultType.Failure;
@@ -31,7 +31,7 @@ public class ServiceResponse<T>
         return new ServiceResponse<T>
         {
             IsSuccess = false,
-            ErrorMessage = errorMessage,
+            MessageKey = errorMessageKey,
             ResultType = resultType,
         };
     }
@@ -40,7 +40,7 @@ public class ServiceResponse<T>
 public class ServiceResponse
 {
     public bool IsSuccess { get; private set; }
-    public string? ErrorMessage { get; private set; }
+    public string? MessageKey { get; private set; }
     public ServiceResultType ResultType { get; private set; }
 
     public static ServiceResponse Success(ServiceResultType resultType = ServiceResultType.Success)
@@ -60,7 +60,7 @@ public class ServiceResponse
         };
     }
 
-    public static ServiceResponse Fail(string errorMessage, ServiceResultType resultType)
+    public static ServiceResponse Fail(string errorMessageKey, ServiceResultType resultType)
     {
         if (resultType == ServiceResultType.Success || 
             resultType == ServiceResultType.SuccessNoContent)
@@ -72,7 +72,7 @@ public class ServiceResponse
         return new ServiceResponse
         {
             IsSuccess = false,
-            ErrorMessage = errorMessage,
+            MessageKey = errorMessageKey,
             ResultType = resultType,
         };
     }

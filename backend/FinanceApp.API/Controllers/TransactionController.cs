@@ -6,6 +6,7 @@ using FinanceApp.Application.DTOs.Transaction;
 using FinanceApp.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceApp.API.Controllers;
 
@@ -13,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class TransactionController : BaseController
 {   
     private readonly ITransactionService _transactionService;
-    public TransactionController(ITransactionService transactionService)
+    public TransactionController(ITransactionService transactionService, IStringLocalizer<SharedResource> localizer) : base(localizer)
     {
         _transactionService = transactionService;
     }

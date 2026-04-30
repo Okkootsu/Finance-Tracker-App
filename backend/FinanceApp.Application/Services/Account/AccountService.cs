@@ -27,19 +27,19 @@ public class AccountService : IAccountService
         var user = await _accountRepository.GetByIdAsync(userId);
 
         if (user == null)
-            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("User not found!", ServiceResultType.NotFound);
+            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("Account.NotFound", ServiceResultType.NotFound);
 
         var isUserExist = await _accountRepository.GetByEmailAsync(requestDto.Email);
 
         if (isUserExist != null)
-            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("This e-mail already in use! Please try another e-mail.", ServiceResultType.Conflict);
+            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("Account.EmailAlreadyExists", ServiceResultType.Conflict);
         
         user.Email = requestDto.Email;
 
         var isSuccess = await _accountRepository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("A problem occured while updating the database", ServiceResultType.Failure);
+            return ServiceResponse<UpdateAccountInfoResponseDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
         var tokensDto = _jwtService.Authenticate(user);
         
@@ -53,19 +53,19 @@ public class AccountService : IAccountService
         var user = await _accountRepository.GetByIdAsync(userId);
 
         if (user == null)
-            return ServiceResponse.Fail("User not found!", ServiceResultType.NotFound);
+            return ServiceResponse.Fail("Account.NotFound", ServiceResultType.NotFound);
         
         var isPasswordsMatch = PasswordService.VerifyPassword(passwordDto.OldPassword, user.PasswordHash);
 
         if (!isPasswordsMatch)
-            return ServiceResponse.Fail("Invalid current password!", ServiceResultType.InvalidInput);
+            return ServiceResponse.Fail("Account.InvalidCurrentPassword", ServiceResultType.InvalidInput);
         
         user.PasswordHash = PasswordService.HashPassword(passwordDto.NewPassword);
 
         var isSuccess = await _accountRepository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse.Fail("A problem occured while updating the database", ServiceResultType.Failure);
+            return ServiceResponse.Fail("Common.DbError", ServiceResultType.Failure);
 
         return ServiceResponse.Success(ServiceResultType.SuccessNoContent);
     }
@@ -75,14 +75,14 @@ public class AccountService : IAccountService
         var user = await _accountRepository.GetByIdAsync(userId);
 
         if (user == null)
-            return ServiceResponse.Fail("User not found!", ServiceResultType.NotFound);
+            return ServiceResponse.Fail("Account.NotFound", ServiceResultType.NotFound);
 
         _accountRepository.DeleteAccount(user);
 
         var isSuccess = await _accountRepository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse.Fail("A problem occured while updating the database", ServiceResultType.Failure);
+            return ServiceResponse.Fail("Common.DbError", ServiceResultType.Failure);
         
         return ServiceResponse.Success(ServiceResultType.SuccessNoContent);
     }

@@ -31,7 +31,7 @@ public class CategoryService : ICategoryService
         var isSuccess = await _repository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse<CategoryDto>.Fail("An error occured in database", ServiceResultType.Failure);
+            return ServiceResponse<CategoryDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
         var dto = _mapper.Map<CategoryDto>(category);
         
@@ -43,13 +43,13 @@ public class CategoryService : ICategoryService
         var category = await _repository.GetCategoryAsync(id);
 
         if (category == null)
-            return ServiceResponse.Fail("Category does not exist", ServiceResultType.NotFound);
+            return ServiceResponse.Fail("Category.NotFound", ServiceResultType.NotFound);
 
         _repository.DeleteCategory(category);
         var isSuccess = await _repository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse.Fail("An error occured in database", ServiceResultType.Failure);
+            return ServiceResponse.Fail("Common.DbError", ServiceResultType.Failure);
         
         return ServiceResponse.Success(ServiceResultType.SuccessNoContent);
     }

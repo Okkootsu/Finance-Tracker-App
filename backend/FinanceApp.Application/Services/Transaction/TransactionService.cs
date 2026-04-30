@@ -32,7 +32,7 @@ public class TransactionService : ITransactionService
         var isSuccess = await _repository.SaveChangesAsync();
 
         if (!isSuccess)
-            return ServiceResponse<TransactionDto>.Fail("A problem occured in the database", ServiceResultType.Failure);
+            return ServiceResponse<TransactionDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
         var dto = _mapper.Map<TransactionDto>(transaction);
 

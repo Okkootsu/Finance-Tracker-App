@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FinanceApp.Application.Wrappers;
 using FinanceApp.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceApp.API.Controllers;
 
@@ -14,6 +15,13 @@ namespace FinanceApp.API.Controllers;
 [ApiController]
 public class BaseController : ControllerBase
 {   
+    private readonly IStringLocalizer<SharedResource> _localizer;
+
+    public BaseController(IStringLocalizer<SharedResource> localizer)
+    {
+        _localizer = localizer;
+    }
+
     [NonAction]
     public IActionResult CreateActionResult<T>(ServiceResponse<T> response)
     {
@@ -22,7 +30,7 @@ public class BaseController : ControllerBase
             return Ok(response);
         }
 
-        return CreateErrorResult(response.ResultType, response.ErrorMessage);
+        return CreateErrorResult(response.ResultType, response.MessageKey);
     }
 
     [NonAction]
@@ -37,14 +45,14 @@ public class BaseController : ControllerBase
             return NoContent();
         }
 
-        return CreateErrorResult(response.ResultType, response.ErrorMessage);
+        return CreateErrorResult(response.ResultType, response.MessageKey);
     }
 
-    private IActionResult CreateErrorResult(ServiceResultType resultType, string errorMessage)
+    private IActionResult CreateErrorResult(ServiceResultType resultType, string? messageKey)
     {   
-        var message = errorMessage ?? "An unknown error occured.";
+        var message = messageKey != null ? _localizer[messageKey] : _localizer["Common.UnknownProblem"];
 
-        var errorResponse = new { IsSuccess = false, ErrorMessage = message };
+        var errorResponse = new { IsSuccess = false, ErrorMessage = message.Value };
 
         return resultType switch
         {

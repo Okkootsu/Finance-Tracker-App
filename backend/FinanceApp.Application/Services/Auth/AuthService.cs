@@ -30,17 +30,17 @@ public class AuthService : IAuthService
         var user = await _authRepo.GetUserByEmailAsync(requestDto.Email);
 
         if (user == null)
-            return ServiceResponse<TokenResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
+            return ServiceResponse<TokenResponseDto>.Fail("Auth.InvalidPasswordOrEmail", ServiceResultType.Unauthorized);
 
         var isValidPassword = PasswordService.VerifyPassword(requestDto.Password, user.PasswordHash);
 
         if (!isValidPassword)
-            return ServiceResponse<TokenResponseDto>.Fail("Invalid password or e-mail", ServiceResultType.Unauthorized);
+            return ServiceResponse<TokenResponseDto>.Fail("Auth.InvalidPasswordOrEmail", ServiceResultType.Unauthorized);
 
         var tokenDto = _jwtService.Authenticate(user);
 
         if (tokenDto is null) 
-            return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
+            return ServiceResponse<TokenResponseDto>.Fail("Common.UnknownProblem", ServiceResultType.Failure);
         
         user.RefreshToken = tokenDto.RefreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
@@ -55,12 +55,12 @@ public class AuthService : IAuthService
         var user = await _authRepo.GetUserByRefreshTokenAsync(currentRefreshToken);
 
         if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
-            return ServiceResponse<TokenResponseDto>.Fail("Invalid or expired refresh token", ServiceResultType.Unauthorized);
+            return ServiceResponse<TokenResponseDto>.Fail("Auth.InvalidRefresh", ServiceResultType.Unauthorized);
 
         var tokenDto = _jwtService.Authenticate(user);
 
         if (tokenDto is null)
-             return ServiceResponse<TokenResponseDto>.Fail("A problem occured in the system", ServiceResultType.Failure);
+             return ServiceResponse<TokenResponseDto>.Fail("Common.UnknownProblem", ServiceResultType.Failure);
 
 
         user.RefreshToken = tokenDto.RefreshToken;
@@ -74,7 +74,7 @@ public class AuthService : IAuthService
     public async Task<ServiceResponse> RegisterAsync(RegisterRequestDto requestDto)
     {
         if (requestDto.Password != requestDto.ConfirmPassword)
-            return ServiceResponse.Fail("Passwords do not match", ServiceResultType.InvalidInput);
+            return ServiceResponse.Fail("Auth.PasswordsNotMatch", ServiceResultType.InvalidInput);
 
         var user = await _authRepo.GetUserByEmailAsync(requestDto.Email);
 
