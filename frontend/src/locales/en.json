@@ -45,6 +45,15 @@
       "noTransaction": "No transactions found for the selected date range."
     }
   },
+  "categories": {
+    "Food & Dining": "Food & Dining",
+    "Transport": "Transport",
+    "Subscriptions": "Subscriptions",
+    "Technology": "Technology",
+    "Health": "Health",
+    "Salary": "Salary",
+    "Goal Transfer": "Goal Transfer"
+  },
   "savings": {
     "overview": {
       "title": "Goal Overview",

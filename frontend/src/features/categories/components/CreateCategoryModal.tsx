@@ -71,7 +71,9 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
                  text-slate-700 group cursor-default hover:border-slate-300 transition-colors`}
             >
               <span className="text-base">{cat.icon}</span>
-              <span>{cat.name}</span>
+              <span>
+                {t(`categories.${cat.name}`, { defaultValue: cat.name })}
+              </span>
 
               <button
                 onClick={() => handleDeleteCategory(cat.id)}

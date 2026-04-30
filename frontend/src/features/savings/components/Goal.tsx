@@ -46,6 +46,8 @@ export const Goal = ({
   
   const { t } = useTranslation()
 
+  category = t(`categories.${category}`, { defaultValue: category })
+
   return (
     <div
       className={cn(

@@ -45,6 +45,15 @@
       "noTransaction": "Seçili tarih aralığında işlem bulunamadı."
     }
   },
+  "categories": {
+    "Food & Dining": "Yiyecek ve İçecek",
+    "Transport": "Ulaşım",
+    "Subscriptions": "Abonelikler",
+    "Technology": "Teknoloji",
+    "Health": "Sağlık",
+    "Salary": "Maaş",
+    "Goal Transfer": "Hedef Transferi"
+  },
   "savings": {
     "overview": {
       "title": "Hedef Özeti",

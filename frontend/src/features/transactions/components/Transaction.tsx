@@ -4,6 +4,7 @@ import { useTransactions } from "../hooks/useTransactions";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
+import { useTranslation } from "react-i18next";
 
 type TransactionProps = {
   onClick?: () => void;
@@ -39,6 +40,10 @@ export const Transaction = ({
   const isIncome = amount >= 0;
 
   const isCompact = variant === "compact";
+
+  const { t } = useTranslation()
+
+  category = t(`categories.${category}`, { defaultValue: category })
 
   return (
     <div
