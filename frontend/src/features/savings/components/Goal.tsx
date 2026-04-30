@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import { useGoals } from "../hooks/useGoals";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
+import { useTranslation } from "react-i18next";
 
 type GoalProps = {
   onClick?: () => void;
@@ -42,6 +43,8 @@ export const Goal = ({
     targetAmount > 0
       ? Math.min(100, Math.round((savedAmount / targetAmount) * 100))
       : 0;
+  
+  const { t } = useTranslation()
 
   return (
     <div
@@ -88,7 +91,7 @@ export const Goal = ({
       <div
         className={cn(" flex flex-col justify-center items-center p-1 w-[17%]")}
       >
-        <h1 className="font-bold text-sm">Start Time</h1>
+        <h1 className="font-bold text-sm">{t("savings.goals.start")}</h1>
         <p className="font-normal text-sm text-slate-500">
           {formattedStartTime}
         </p>
@@ -99,7 +102,7 @@ export const Goal = ({
           " flex flex-col justify-center items-center text-center p-1 w-[17%]",
         )}
       >
-        <h1 className="font-bold text-sm">Desired Finish</h1>
+        <h1 className="font-bold text-sm">{t("savings.goals.finish")}</h1>
         <p className="font-normal text-sm text-slate-500">{formattedEndTime}</p>
       </div>
 

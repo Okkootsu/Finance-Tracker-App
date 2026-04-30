@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { X } from "lucide-react";
 import { useCategories } from "../hooks/useCategories";
+import { useTranslation } from "react-i18next";
 
 type CreateCategoryModalProps = {
   onClose?: () => void;
@@ -19,13 +20,15 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
     EMOJI_LIST,
   } = useCategories();
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col p-8 w-125 bg-slate-50 rounded-2xl shadow-2xl border border-slate-100 font-sans max-h-[75vh] overflow-y-auto">
       <div className="flex flex-col gap-5 p-5 bg-white border border-slate-200 rounded-xl shadow-sm mb-6">
         <Input
-          label="Category Name"
+          label={t("dialog.category.name")}
           variant="modal"
-          placeholder="e.g. Gaming, Groceries..."
+          placeholder={t("dialog.category.namePlaceholder")}
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
         />
@@ -33,7 +36,7 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
         {/* Emoji Selector */}
         <div className="flex flex-col gap-2">
           <label className="font-semibold text-sm text-slate-700">
-            Select Icon
+            {t("dialog.category.icon")}
           </label>
           <div className="grid grid-cols-6 gap-2">
             {EMOJI_LIST.map((emoji) => (
@@ -58,7 +61,7 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
       {/* Existing Categories */}
       <div className="flex flex-col gap-3">
         <h3 className="font-semibold text-slate-800 text-sm">
-          Your Categories
+          {t("dialog.category.categories")}
         </h3>
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
@@ -87,7 +90,7 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
           variant="secondary"
           className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 shadow-sm"
         >
-          Close
+          {t("dialog.close")}
         </Button>
         <Button
           onClick={handleCreateCategory}
@@ -96,7 +99,7 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
              shadow-sm disabled:opacity-50 disabled:cursor-not-allowed`}
           disabled={!categoryName.trim()}
         >
-          Add Category
+          {t("dialog.addCategory")}
         </Button>
       </div>
     </div>

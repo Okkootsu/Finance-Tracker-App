@@ -14,6 +14,7 @@ import { useTransactions } from "../hooks/useTransactions";
 import { Dialog } from "@/components/Dialog";
 import { CreateTransactionModal } from "./CreateTransactionModal";
 import { CreateCategoryModal } from "../../categories/components/CreateCategoryModal";
+import { useTranslation } from "react-i18next";
 
 export const Transactions = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -29,12 +30,14 @@ export const Transactions = () => {
     handleDialogClose,
   } = useTransactions();
 
+  const { t } = useTranslation();
+
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
         <h1 className="font-bold text-xl flex items-center gap-2">
           <ArrowLeftRight className="w-5 h-5 text-blue-500" /> 
-          Transactions
+          {t("transactions.data.title")}
         </h1>
         <Button
           variant="iconOutline"
@@ -68,14 +71,14 @@ export const Transactions = () => {
                   variant="primary"
                 >
                   <BookPlus />
-                  Add Category
+                  {t("transactions.data.addCategory")}
                 </Button>
                 <Button
                   onClick={() => setOpenDialog("transaction")}
                   variant="primary"
                 >
                   <Plus />
-                  Add Transaction
+                  {t("transactions.data.addTransaction")}
                 </Button>
               </div>
 
@@ -91,21 +94,21 @@ export const Transactions = () => {
                   <div className=" flex gap-4 items-center duration-300 transition-all">
                     <Button onClick={handleSelectAll} variant="primary">
                       <ArrowDownNarrowWide />
-                      Select All
+                      {t("transactions.data.select")}
                     </Button>
                     <Button
                       onClick={handleDeleteTransactions}
                       variant="primaryDanger"
                     >
                       <Trash2 />
-                      Delete Transaction
+                      {t("transactions.data.delete")}
                     </Button>
                   </div>
                 </div>
               </div>
 
               <Dialog
-                title="Add New Transaction"
+                title={t("dialog.transaction.title")}
                 isOpen={openDialog === "transaction"}
                 onClose={handleDialogClose}
               >
@@ -113,7 +116,7 @@ export const Transactions = () => {
               </Dialog>
 
               <Dialog
-                title="Add New Category"
+                title={t("dialog.category.title")}
                 isOpen={openDialog === "category"}
                 onClose={handleDialogClose}
               >
@@ -137,7 +140,7 @@ export const Transactions = () => {
 
               {filteredTransactions.length === 0 && (
                 <div className="text-center font-bold text-xl py-10 text-slate-800">
-                  No transactions found for the selected date range.
+                  {t("transactions.data.noTransaction")}
                 </div>
               )}
             </div>

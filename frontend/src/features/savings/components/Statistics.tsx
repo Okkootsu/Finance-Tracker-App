@@ -1,14 +1,16 @@
 import { Transaction } from "@/features/transactions/components/Transaction";
 import { useGoals } from "../hooks/useGoals";
+import { useTranslation } from "react-i18next";
 
 export const Statistics = () => {
   const { topExpenses, topIncomes } = useGoals();
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col gap-3 p-3">
       <div className="flex flex-col gap-2">
         <h1 className="font-bold text-sm text-slate-700 border-b pb-1">
-          Top Expenses
+          {t("savings.overview.topExpenses")}
         </h1>
 
         <div className="flex flex-col gap-2">
@@ -25,7 +27,7 @@ export const Statistics = () => {
             ))
           ) : (
             <div className="text-xs text-slate-400 italic py-1">
-              No expenses found.
+              {t("savings.overview.noExpenses")}
             </div>
           )}
         </div>
@@ -33,7 +35,7 @@ export const Statistics = () => {
 
       <div className="flex flex-col gap-2">
         <h1 className="font-bold text-sm text-slate-700 border-b pb-1">
-          Top Incomes
+          {t("savings.overview.topIncomes")}
         </h1>
 
         <div className="flex flex-col gap-2">
@@ -50,7 +52,7 @@ export const Statistics = () => {
             ))
           ) : (
             <div className="text-xs text-slate-400 italic py-1">
-              No incomes found.
+              {t("savings.overview.noIncomes")}
             </div>
           )}
         </div>
