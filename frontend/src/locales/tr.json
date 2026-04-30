@@ -138,5 +138,27 @@
       "warning1": "Hesabınızı silmek istediğinize emin misiniz?",
       "warning2": "Bu işlem geri alınamaz."
     }
+  },
+  "toast": {
+    "success": {
+      "register": "Başarıyla kayıt olundu, şimdi giriş yapabilirsiniz",
+      "transaction": "İşlem eklendi",
+      "goal": "Hedef eklendi",
+      "saving": "Birikim başarıyla eklendi"
+    },
+    "error": {
+      "blank": "Hiçbir alan boş bırakılamaz",
+      "notMatch": "Girilen şifreler eşleşmiyor",
+      "notValid": "Lütfen geçerli bir e-posta adresi girin",
+      "invalidAmount": "Hedef tutar sıfır veya negatif olamaz",
+      "invalidDate": "Geçersiz tarih seçildi",
+      "selectTransaction": "Silmeden önce lütfen en az bir işlem seçin",
+      "emptyCategory": "Kategori adı veya ikonu boş bırakılamaz",
+      "deleteGoal": "Silmeden önce lütfen en az bir hedef seçin",
+      "selectMain": "Ana hedef olarak ayarlamak için lütfen sadece bir hedef seçin",
+      "invalidSaving": "Birikim olarak sıfır veya negatif değerler ekleyemezsiniz",
+      "insufficientFunds": "Bu işlemi gerçekleştirmek için bakiye yetersiz",
+      "selectGoal": "Para eklemek için lütfen sadece bir hedef seçin"
+    }
   }
 }

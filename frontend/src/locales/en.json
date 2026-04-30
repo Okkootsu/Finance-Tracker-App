@@ -139,5 +139,27 @@
       "warning1": "Are you sure you want to delete your account?",
       "warning2": "This process cannot be reversed."
     }
+  },
+  "toast": {
+    "success": {
+      "register": "Successfully signed up, now you can sign in",
+      "transaction": "Transaction added",
+      "goal": "Goal added",
+      "saving": "Saving added successfully"
+    },
+    "error": {
+      "blank": "No field can be left blank",
+      "notMatch": "Entered passwords do not match",
+      "notValid": "Please enter a valid e-mail",
+      "invalidAmount": "Target amount cannot be negative or zero",
+      "invalidDate": "Invalid date selected",
+      "selectTransaction": "Please select at least one transaction before deleting",
+      "emptyCategory": "Category Name or Icon cannot be empty",
+      "deleteGoal": "Please select at least one goal before deleting",
+      "selectMain": "Please select exactly one goal to set as main",
+      "invalidSaving": "You cannot add negative numbers or zero as savings",
+      "insufficientFunds": "Insufficient funds to perform this operation",
+      "selectGoal": "Please select only one goal to add money"
+    }
   }
 }

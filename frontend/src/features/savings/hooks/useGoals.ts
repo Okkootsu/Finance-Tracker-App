@@ -11,6 +11,7 @@ import axios from "axios";
 import { endOfDay, format, isWithinInterval, startOfDay } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 export type GoalForm = {
   name: string;
@@ -50,6 +51,8 @@ export const useGoals = () => {
   const [goalForm, setGoalForm] = useState<GoalForm>(INITIAL_FORM);
   const [openDialog, setOpenDialog] = useState<"goal" | "saving" | null>(null);
   const [savingAmount, setSavingAmount] = useState<number>(0);
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (goals.length === 0) {
@@ -168,7 +171,7 @@ export const useGoals = () => {
 
       addGoal(data);
       setOpenDialog(null);
-      toast.success("Goal added");
+      toast.success(t("toast.success.goal"));
       setGoalForm(INITIAL_FORM);
     } catch (err) {
       handleApiError(err);
@@ -182,7 +185,7 @@ export const useGoals = () => {
 
   const handleDeleteGoals = async () => {
     if (selectedGoals.length === 0) {
-      toast.error("Please select at least one goal before deleting");
+      toast.error(t("toast.error.deleteGoal"));
       return;
     }
 
@@ -208,7 +211,7 @@ export const useGoals = () => {
 
   const handleCurrentGoalChange = () => {
     if (selectedGoals.length !== 1) {
-      toast.error("Please select exactly one goal to set as main");
+      toast.error(t("toast.error.selectMain"));
       return;
     }
     const selected = goals.find((g) => g.id === selectedGoals[0]);
@@ -217,12 +220,12 @@ export const useGoals = () => {
 
   const handleAddSaving = async () => {
     if (savingAmount <= 0) {
-      toast.error("You cannot add negative numbers or zero as savings");
+      toast.error(t("toast.error.invalidSaving"));
       return;
     }
 
     if (netWorth < savingAmount) {
-      toast.error("Insufficient funds to perform this operation");
+      toast.error(t("toast.error.insufficientFunds"));
       return;
     }
 
@@ -246,7 +249,7 @@ export const useGoals = () => {
 
       setSavingAmount(0);
       setOpenDialog(null);
-      toast.success("Saving added successfully!");
+      toast.success(t("toast.success.saving"));
     } catch (err) {
       handleApiError(err);
     }
@@ -254,7 +257,7 @@ export const useGoals = () => {
 
   const handleAddSavingModal = () => {
     if (selectedGoals.length > 1) {
-      toast.error("Please select only one goal to add money");
+      toast.error(t("toast.error.selectGoal"));
       return;
     }
 
