@@ -4,6 +4,8 @@ import { Input } from "@/components/Input";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useTransactions } from "../hooks/useTransactions";
 import { useTranslation } from "react-i18next";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type CreateTransactionModalProps = {
   onClose?: () => void;
@@ -12,6 +14,8 @@ type CreateTransactionModalProps = {
 export const CreateTransactionModal = ({
   onClose,
 }: CreateTransactionModalProps) => {
+  const currency = useSettingsStore((state) => state.currency);
+
   const { categories } = useCategories();
   const { handleChange, handleSubmit } = useTransactions();
 
@@ -60,7 +64,7 @@ export const CreateTransactionModal = ({
         label={t("dialog.transaction.amount")}
         variant="modal"
         type="number"
-        placeholder="0.00 $"
+        placeholder={formatCurrency(0, currency)}
       />
 
       <Input

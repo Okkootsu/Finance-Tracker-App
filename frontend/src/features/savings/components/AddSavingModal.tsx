@@ -27,7 +27,7 @@ export const AddSavingModal = ({ onClose }: AddSavingModalProps) => {
         label={t("dialog.saving.title")}
         variant="modal"
         type="number"
-        placeholder="0.00 $"
+        placeholder={formatCurrency(0, currency)}
       />
 
       <h1>

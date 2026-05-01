@@ -4,12 +4,16 @@ import { useGoals } from "../hooks/useGoals";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { Button } from "@/components/Button";
 import { useTranslation } from "react-i18next";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type CreateGoalModalProps = {
   onClose?: () => void;
 };
 
 export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
+  const currency = useSettingsStore((state) => state.currency);
+
   const { categories } = useCategories();
   const { handleChange, handleSubmit } = useGoals();
 
@@ -26,7 +30,9 @@ export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
       />
 
       <div className="flex flex-col gap-1.5">
-        <label className="font-semibold text-sm text-slate-700">{t("dialog.goal.category")}</label>
+        <label className="font-semibold text-sm text-slate-700">
+          {t("dialog.goal.category")}
+        </label>
         <Combobox
           name="category"
           onChange={handleChange}
@@ -41,7 +47,7 @@ export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
         label={t("dialog.goal.target")}
         variant="modal"
         type="number"
-        placeholder="0.00 $"
+        placeholder={formatCurrency(0, currency)}
       />
 
       <Input

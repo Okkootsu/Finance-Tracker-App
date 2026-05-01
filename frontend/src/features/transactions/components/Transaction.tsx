@@ -1,10 +1,10 @@
 import { Checkbox } from "@/components/Checkbox";
 import { cn } from "@/utils/cn";
-import { useTransactions } from "../hooks/useTransactions";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import { useTranslation } from "react-i18next";
+import { formatAppDateTime } from "@/utils/dateFormatter";
 
 type TransactionProps = {
   onClick?: () => void;
@@ -28,22 +28,19 @@ export const Transaction = ({
   variant = "default",
 }: TransactionProps) => {
   const currency = useSettingsStore((state) => state.currency);
-  const formattedAmount = formatCurrency(amount, currency)
+  const formattedAmount = formatCurrency(amount, currency);
 
   const { findIcon } = useCategories();
 
   const icon = findIcon(category);
 
-  const { formatTime } = useTransactions();
-  const formattedTime = formatTime(time);
-
   const isIncome = amount >= 0;
 
   const isCompact = variant === "compact";
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  category = t(`categories.${category}`, { defaultValue: category })
+  category = t(`categories.${category}`, { defaultValue: category });
 
   return (
     <div
@@ -101,7 +98,7 @@ export const Transaction = ({
           isCompact ? "w-[25%] text-xs" : "p-1 text-sm w-[12%]",
         )}
       >
-        {formattedTime}
+        {formatAppDateTime(time)}
       </div>
 
       {onClick && (
