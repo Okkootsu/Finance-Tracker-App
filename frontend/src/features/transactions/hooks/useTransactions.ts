@@ -1,9 +1,9 @@
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useTransactionStore } from "@/stores/transactionStore";
+import { handleApiError } from "@/utils/apiFormatter";
 import api from "@/utils/axios";
 import { validateTransactionForm } from "@/utils/validators";
-import axios from "axios";
-import { endOfDay, format, isWithinInterval, startOfDay } from "date-fns";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -77,14 +77,7 @@ export const useTransactions = () => {
 
       setTransactions(data);
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
@@ -116,19 +109,8 @@ export const useTransactions = () => {
       addTransaction(data);
       toast.success(t("toast.success.transaction"));
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
-  };
-
-  const formatTime = (time: string) => {
-    return format(new Date(time), "d MMMM yyyy HH:mm");
   };
 
   const handleTransactionClick = (id: number) => {
@@ -160,14 +142,7 @@ export const useTransactions = () => {
       setTransactions(updatedTransactions);
       setSelectedTransactions([]);
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
@@ -220,7 +195,6 @@ export const useTransactions = () => {
     setOpenDialog,
     handleChange,
     handleSubmit,
-    formatTime,
     handleTransactionClick,
     selectedTransactions,
     handleDeleteTransactions,

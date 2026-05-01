@@ -154,7 +154,9 @@
       "register": "Successfully signed up, now you can sign in",
       "transaction": "Transaction added",
       "goal": "Goal added",
-      "saving": "Saving added successfully"
+      "saving": "Saving added successfully",
+      "passwordUpdate": "Your password has been updated",
+      "emailUpdate": "E-mail updated"
     },
     "error": {
       "blank": "No field can be left blank",
@@ -168,7 +170,8 @@
       "selectMain": "Please select exactly one goal to set as main",
       "invalidSaving": "You cannot add negative numbers or zero as savings",
       "insufficientFunds": "Insufficient funds to perform this operation",
-      "selectGoal": "Please select only one goal to add money"
+      "selectGoal": "Please select only one goal to add money",
+      "noPassword": "Please enter a password to continue"
     }
   }
 }

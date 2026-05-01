@@ -153,7 +153,9 @@
       "register": "Başarıyla kayıt olundu, şimdi giriş yapabilirsiniz",
       "transaction": "İşlem eklendi",
       "goal": "Hedef eklendi",
-      "saving": "Birikim başarıyla eklendi"
+      "saving": "Birikim başarıyla eklendi",
+      "passwordUpdate": "Şifreniz güncellendi",
+      "emailUpdate": "E-posta adresiniz güncellendi"
     },
     "error": {
       "blank": "Hiçbir alan boş bırakılamaz",
@@ -167,7 +169,8 @@
       "selectMain": "Ana hedef olarak ayarlamak için lütfen sadece bir hedef seçin",
       "invalidSaving": "Birikim olarak sıfır veya negatif değerler ekleyemezsiniz",
       "insufficientFunds": "Bu işlemi gerçekleştirmek için bakiye yetersiz",
-      "selectGoal": "Para eklemek için lütfen sadece bir hedef seçin"
+      "selectGoal": "Para eklemek için lütfen sadece bir hedef seçin",
+      "noPassword": "Devam etmek için lütfen şifre girin"
     }
   }
 }

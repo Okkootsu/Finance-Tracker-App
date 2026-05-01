@@ -5,10 +5,10 @@ import {
   useTransactionStore,
   type Transaction,
 } from "@/stores/transactionStore";
+import { handleApiError } from "@/utils/apiFormatter";
 import api from "@/utils/axios";
 import { validateGoalForm } from "@/utils/validators";
-import axios from "axios";
-import { endOfDay, format, isWithinInterval, startOfDay } from "date-fns";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -52,7 +52,7 @@ export const useGoals = () => {
   const [openDialog, setOpenDialog] = useState<"goal" | "saving" | null>(null);
   const [savingAmount, setSavingAmount] = useState<number>(0);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (goals.length === 0) {
@@ -68,10 +68,6 @@ export const useGoals = () => {
       }));
     }
   }, [categories]);
-
-  const handleDialogClose = () => {
-    setOpenDialog(null);
-  };
 
   const fetchGoals = async () => {
     try {
@@ -264,22 +260,12 @@ export const useGoals = () => {
     setOpenDialog("saving");
   };
 
-  const formatTime = (time: string) => {
-    if (!time) return "-";
-
-    return format(new Date(time), "d MMMM yyyy");
-  };
-
   const handleSavingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSavingAmount(Number(e.target.value));
   };
 
-  const handleApiError = (err: unknown) => {
-    if (axios.isAxiosError(err) && err.response) {
-      alert(err.response.data.errorMessage || "An unknown error occurred");
-    } else {
-      alert("Server connection failed");
-    }
+  const handleDialogClose = () => {
+    setOpenDialog(null);
   };
 
   return {
@@ -291,7 +277,6 @@ export const useGoals = () => {
     selectedGoals,
     handleSelectAll,
     handleDeleteGoals,
-    formatTime,
     setFilterRange,
     filteredGoals,
     handleCurrentGoalChange,

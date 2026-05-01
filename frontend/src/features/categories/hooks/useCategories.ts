@@ -1,5 +1,5 @@
+import { handleApiError } from "@/utils/apiFormatter";
 import api from "@/utils/axios";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -49,14 +49,7 @@ export const useCategories = () => {
 
       setCategories(data);
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
@@ -75,14 +68,7 @@ export const useCategories = () => {
 
       setCategories((prev) => [...prev, data]);
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
@@ -92,14 +78,7 @@ export const useCategories = () => {
 
       setCategories((prev) => prev.filter((c) => c.id !== id));
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 

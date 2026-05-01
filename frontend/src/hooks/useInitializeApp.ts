@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useTransactionStore } from "@/stores/transactionStore";
 import api from "@/utils/axios";
-import axios from "axios";
+import { handleApiError } from "@/utils/apiFormatter";
 
 export const useInitializeApp = () => {
   const setTransactions = useTransactionStore((state) => state.setTransactions);
@@ -17,14 +17,7 @@ export const useInitializeApp = () => {
 
       setTransactions(data);
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err)
     }
   };
 };

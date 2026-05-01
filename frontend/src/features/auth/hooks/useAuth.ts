@@ -1,8 +1,8 @@
 import { useAuthStore } from "@/stores/authStore";
+import { handleApiError } from "@/utils/apiFormatter";
 import { createUser } from "@/utils/auth";
 import api from "@/utils/axios";
 import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
-import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
@@ -37,7 +37,7 @@ export const useAuth = () => {
 
   const navigate = useNavigate();
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handlePageSwitch = () => {
     setFormInputs(INITIAL_FORM_STATE);
@@ -73,14 +73,7 @@ export const useAuth = () => {
 
       setSelectedForm("login");
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
@@ -104,14 +97,7 @@ export const useAuth = () => {
 
       navigate("/");
     } catch (err) {
-      if (axios.isAxiosError(err) && err.response) {
-        const backendErrorMessage =
-          err.response.data.errorMessage || "An unknown error occured";
-
-        alert(backendErrorMessage);
-      } else {
-        alert("Server connection failed");
-      }
+      handleApiError(err);
     }
   };
 
