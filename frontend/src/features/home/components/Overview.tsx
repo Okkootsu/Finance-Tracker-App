@@ -1,21 +1,23 @@
 import { GoalProgressChart } from "@/features/savings/components/GoalProgressChart";
+import { useGoals } from "@/features/savings/hooks/useGoals";
 import { useWallet } from "@/hooks/useWallet";
-import { useGoalStore } from "@/stores/goalStore";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import { useTranslation } from "react-i18next";
 
 export const Overview = () => {
-  const currentGoal = useGoalStore((state) => state.currentGoal);
   const currency = useSettingsStore((state) => state.currency);
 
+  const { currentGoal } = useGoals();
   const { netWorth } = useWallet();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-1">
       <div>
-        <h1 className="text-3xl font-bold text-slate-900">{t('home.overview.welcome1')}</h1>
+        <h1 className="text-3xl font-bold text-slate-900">
+          {t("home.overview.welcome1")}
+        </h1>
         <p className="text-slate-500">{t("home.overview.welcome2")}</p>
       </div>
 
