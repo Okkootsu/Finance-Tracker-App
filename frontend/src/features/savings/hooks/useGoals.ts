@@ -226,22 +226,17 @@ export const useGoals = () => {
     }
 
     try {
-      await api.post("/Goal/add-saving", {
+      const response = await api.post("/Goal/add-saving", {
         id: selectedGoals[0],
         amountToAdd: savingAmount,
       });
 
+      const transactionDto = response.data.data;
       updateGoalSavings(selectedGoals[0], savingAmount);
 
-      const selectedGoal = goals.find((g) => g.id === selectedGoals[0]);
+      // const selectedGoal = goals.find((g) => g.id === selectedGoals[0]);
 
-      addTransaction({
-        id: Date.now(),
-        name: `Transfer to ${selectedGoal?.name}`,
-        category: "Goal Transfer",
-        amount: -Math.abs(savingAmount),
-        time: new Date().toISOString(),
-      });
+      addTransaction(transactionDto);
 
       setSavingAmount(0);
       setOpenDialog(null);

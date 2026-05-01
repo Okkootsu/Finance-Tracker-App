@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using FinanceApp.API;
 using FinanceApp.Application.Mappings;
 using FinanceApp.Application.Services;
 using FinanceApp.Application.Services.Account;
@@ -34,6 +35,8 @@ builder.Services.AddScoped<IGoalService, GoalService>();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddScoped<ITranslationService, TranslationService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 

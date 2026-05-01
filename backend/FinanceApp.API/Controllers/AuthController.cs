@@ -14,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class AuthController : BaseController
 {   
     private readonly IAuthService _authService;
-    public AuthController(IAuthService authService, IStringLocalizer<SharedResource> localizer) : base(localizer)
+    public AuthController(IAuthService authService, ITranslationService translationService) : base(translationService)
     {
         _authService = authService;
     }

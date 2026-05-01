@@ -165,4 +165,8 @@
     <value>Invalid current password!</value>
     <comment/>
   </data>
+  <data name="Transaction.TransferTo" xml:space="preserve">
+    <value>Transfer to {0}</value>
+    <comment/>
+  </data>
 </root>

@@ -14,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class GoalController : BaseController
 {
     private readonly IGoalService _goalService;
-    public GoalController(IGoalService goalService, IStringLocalizer<SharedResource> localizer) : base(localizer)
+    public GoalController(IGoalService goalService, ITranslationService translationService) : base(translationService)
     {
         _goalService = goalService;
     }

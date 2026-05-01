@@ -14,7 +14,8 @@ namespace FinanceApp.API.Controllers;
 public class TransactionController : BaseController
 {   
     private readonly ITransactionService _transactionService;
-    public TransactionController(ITransactionService transactionService, IStringLocalizer<SharedResource> localizer) : base(localizer)
+    public TransactionController(ITransactionService transactionService, ITranslationService translationService) : 
+    base(translationService)
     {
         _transactionService = transactionService;
     }
