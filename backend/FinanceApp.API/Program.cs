@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using FinanceApp.Application.Mappings;
 using FinanceApp.Application.Services;
@@ -6,6 +7,7 @@ using FinanceApp.Domain.Interfaces;
 using FinanceApp.Infrastructure.Data;
 using FinanceApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -106,6 +108,23 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// localization
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
+builder.Services.AddControllers()
+    .AddDataAnnotationsLocalization();
+
+
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("tr")
+};
+
+
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
@@ -124,6 +143,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+};
+
+localizationOptions.RequestCultureProviders.Insert(0,
+    new AcceptLanguageHeaderRequestCultureProvider());
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseHttpsRedirection();
 

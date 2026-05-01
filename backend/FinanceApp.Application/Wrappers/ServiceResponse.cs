@@ -4,77 +4,76 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinanceApp.Domain.Enums;
 
-namespace FinanceApp.Application.Wrappers
+namespace FinanceApp.Application.Wrappers;
+
+public class ServiceResponse<T>
 {
-    public class ServiceResponse<T>
+    public T? Data { get; private set; }
+    public bool IsSuccess { get; private set; }
+    public string? MessageKey { get; private set; }
+    public ServiceResultType ResultType { get; private set; }
+
+    public static ServiceResponse<T> Success(T data, ServiceResultType resultType = ServiceResultType.Success)
     {
-        public T? Data { get; private set; }
-        public bool IsSuccess { get; private set; }
-        public string? ErrorMessage { get; private set; }
-        public ServiceResultType ResultType { get; private set; }
-
-        public static ServiceResponse<T> Success(T data, ServiceResultType resultType = ServiceResultType.Success)
+        return new ServiceResponse<T>
         {
-            return new ServiceResponse<T>
-            {
-                Data = data,
-                IsSuccess = true,
-                ResultType = resultType,
-            };
-        }
-
-        public static ServiceResponse<T> Fail(string errorMessage, ServiceResultType resultType)
-        {
-            if (resultType == ServiceResultType.Success)
-                resultType = ServiceResultType.Failure;
-
-            return new ServiceResponse<T>
-            {
-                IsSuccess = false,
-                ErrorMessage = errorMessage,
-                ResultType = resultType,
-            };
-        }
+            Data = data,
+            IsSuccess = true,
+            ResultType = resultType,
+        };
     }
 
-    public class ServiceResponse
+    public static ServiceResponse<T> Fail(string errorMessageKey, ServiceResultType resultType)
     {
-        public bool IsSuccess { get; private set; }
-        public string? ErrorMessage { get; private set; }
-        public ServiceResultType ResultType { get; private set; }
+        if (resultType == ServiceResultType.Success)
+            resultType = ServiceResultType.Failure;
 
-        public static ServiceResponse Success(ServiceResultType resultType = ServiceResultType.Success)
+        return new ServiceResponse<T>
         {
-            if (resultType == ServiceResultType.NotFound || 
-                resultType == ServiceResultType.InvalidInput || 
-                resultType == ServiceResultType.Conflict || 
-                resultType == ServiceResultType.Failure)
-            {
-                resultType = ServiceResultType.Success;
-            }
+            IsSuccess = false,
+            MessageKey = errorMessageKey,
+            ResultType = resultType,
+        };
+    }
+}
 
-            return new ServiceResponse
-            {
-                IsSuccess = true,
-                ResultType = resultType,
-            };
+public class ServiceResponse
+{
+    public bool IsSuccess { get; private set; }
+    public string? MessageKey { get; private set; }
+    public ServiceResultType ResultType { get; private set; }
+
+    public static ServiceResponse Success(ServiceResultType resultType = ServiceResultType.Success)
+    {
+        if (resultType == ServiceResultType.NotFound || 
+            resultType == ServiceResultType.InvalidInput || 
+            resultType == ServiceResultType.Conflict || 
+            resultType == ServiceResultType.Failure)
+        {
+            resultType = ServiceResultType.Success;
         }
 
-        public static ServiceResponse Fail(string errorMessage, ServiceResultType resultType)
+        return new ServiceResponse
         {
-            if (resultType == ServiceResultType.Success || 
-                resultType == ServiceResultType.SuccessNoContent)
-            {
-                resultType = ServiceResultType.Failure;
-            }
-            
+            IsSuccess = true,
+            ResultType = resultType,
+        };
+    }
 
-            return new ServiceResponse
-            {
-                IsSuccess = false,
-                ErrorMessage = errorMessage,
-                ResultType = resultType,
-            };
+    public static ServiceResponse Fail(string errorMessageKey, ServiceResultType resultType)
+    {
+        if (resultType == ServiceResultType.Success || 
+            resultType == ServiceResultType.SuccessNoContent)
+        {
+            resultType = ServiceResultType.Failure;
         }
+        
+
+        return new ServiceResponse
+        {
+            IsSuccess = false,
+            MessageKey = errorMessageKey,
+            ResultType = resultType,
+        };
     }
 }

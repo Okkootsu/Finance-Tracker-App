@@ -6,6 +6,7 @@ using FinanceApp.Application.DTOs.Category;
 using FinanceApp.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceApp.API.Controllers;
 
@@ -13,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class CategoryController : BaseController
 {   
     private readonly ICategoryService _service;
-    public CategoryController(ICategoryService service)
+    public CategoryController(ICategoryService service, IStringLocalizer<SharedResource> localizer) : base(localizer)
     {
         _service = service;
     }

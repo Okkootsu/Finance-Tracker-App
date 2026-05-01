@@ -5,6 +5,7 @@ import { validateLoginForm, validateRegisterForm } from "@/utils/validators";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 type AuthForm = "register" | "login";
@@ -36,6 +37,8 @@ export const useAuth = () => {
 
   const navigate = useNavigate();
 
+  const { t } = useTranslation()
+
   const handlePageSwitch = () => {
     setFormInputs(INITIAL_FORM_STATE);
 
@@ -66,7 +69,7 @@ export const useAuth = () => {
       await api.post("/Auth/register", formInputs);
       setFormInputs(INITIAL_FORM_STATE);
 
-      toast.success("Successfully signed up, now you can sign in");
+      toast.success(t("toast.success.register"));
 
       setSelectedForm("login");
     } catch (err) {

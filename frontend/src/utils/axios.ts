@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
+import i18n from "./i18n";
 
 interface FailedRequestQueue {
   resolve: (value?: unknown) => void;
@@ -31,6 +32,10 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    const currentLang = i18n.language;
+    config.headers["Accept-Language"] = currentLang;
+
     return config;
   },
   (error) => Promise.reject(error),

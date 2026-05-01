@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DateRange, type RangeKeyDict } from "react-date-range";
-import { format } from "date-fns";
-import { tr } from "date-fns/locale";
+import { tr, enUS } from "date-fns/locale";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { Calendar1 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { formatAppDate } from "@/utils/dateFormatter";
 
 type DatePickerProps = {
   onRangeChange: (start: Date, end: Date) => void;
@@ -17,6 +18,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   startDate,
   endDate,
 }) => {
+  const { i18n } = useTranslation();
+
   const [range, setRange] = useState([
     {
       startDate: startDate,
@@ -26,7 +29,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   ]);
 
   const [open, setOpen] = useState(false);
-
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (item: RangeKeyDict) => {
@@ -67,7 +69,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           <Calendar1 />
         </span>
         <span>
-          {`${format(range[0].startDate, "d MMMM yyyy")} - ${format(range[0].endDate, "d MMMM yyyy")}`}
+          {`${formatAppDate(range[0].startDate)} - ${formatAppDate(range[0].endDate)}`}
         </span>
       </div>
 
@@ -80,7 +82,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             ranges={range}
             months={1}
             direction="horizontal"
-            locale={tr}
+            locale={i18n.language === "tr" ? tr : enUS}
             rangeColors={["#3B82F6"]}
           />
         </div>

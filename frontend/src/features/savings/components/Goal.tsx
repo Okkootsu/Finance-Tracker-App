@@ -1,9 +1,10 @@
 import { Checkbox } from "@/components/Checkbox";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { cn } from "@/utils/cn";
-import { useGoals } from "../hooks/useGoals";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
+import { useTranslation } from "react-i18next";
+import { formatAppDate } from "@/utils/dateFormatter";
 
 type GoalProps = {
   onClick?: () => void;
@@ -22,26 +23,26 @@ export const Goal = ({
   name,
   isActive = false,
   startTime,
-  endTime = "-",
+  endTime,
   savedAmount,
   targetAmount,
 }: GoalProps) => {
-  const currency = useSettingsStore(state => state.currency)
-  const formattedSavedAmount = formatCurrency(savedAmount, currency)
-  const formattedTargetAmount = formatCurrency(targetAmount, currency)
+  const currency = useSettingsStore((state) => state.currency);
+  const formattedSavedAmount = formatCurrency(savedAmount, currency);
+  const formattedTargetAmount = formatCurrency(targetAmount, currency);
 
   const { findIcon } = useCategories();
 
   const icon = findIcon(category);
 
-  const { formatTime } = useGoals();
-  const formattedStartTime = formatTime(startTime);
-  const formattedEndTime = formatTime(endTime);
-
   const percentage =
     targetAmount > 0
       ? Math.min(100, Math.round((savedAmount / targetAmount) * 100))
       : 0;
+
+  const { t } = useTranslation();
+
+  category = t(`categories.${category}`, { defaultValue: category });
 
   return (
     <div
@@ -64,7 +65,9 @@ export const Goal = ({
 
       <div className=" font-normal w-[32%] flex flex-col justify-center px-4 gap-1.5">
         <div className="flex justify-between items-end px-1">
-          <span className="text-sm font-bold text-blue-600">{formattedSavedAmount}</span>
+          <span className="text-sm font-bold text-blue-600">
+            {formattedSavedAmount}
+          </span>
           <span className="text-xs font-bold text-slate-400">
             % {percentage}
           </span>
@@ -88,9 +91,9 @@ export const Goal = ({
       <div
         className={cn(" flex flex-col justify-center items-center p-1 w-[17%]")}
       >
-        <h1 className="font-bold text-sm">Start Time</h1>
+        <h1 className="font-bold text-sm">{t("savings.goals.start")}</h1>
         <p className="font-normal text-sm text-slate-500">
-          {formattedStartTime}
+          {formatAppDate(startTime)}
         </p>
       </div>
 
@@ -99,8 +102,10 @@ export const Goal = ({
           " flex flex-col justify-center items-center text-center p-1 w-[17%]",
         )}
       >
-        <h1 className="font-bold text-sm">Desired Finish</h1>
-        <p className="font-normal text-sm text-slate-500">{formattedEndTime}</p>
+        <h1 className="font-bold text-sm">{t("savings.goals.finish")}</h1>
+        <p className="font-normal text-sm text-slate-500">
+          {!endTime ? "-" : formatAppDate(endTime)}
+        </p>
       </div>
 
       <div className=" flex justify-center items-center p-1 w-[7%]">

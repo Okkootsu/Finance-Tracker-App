@@ -1,6 +1,7 @@
 import type { Category } from "@/features/categories/hooks/useCategories";
 import { cn } from "@/utils/cn";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type ComboboxProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
   options: Category[];
@@ -12,6 +13,8 @@ export const Combobox = ({
   className,
   ...props
 }: ComboboxProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className={cn("relative", className)}>
       <select
@@ -42,7 +45,8 @@ export const Combobox = ({
             value={option?.name}
             className="text-slate-700 font-medium bg-white py-1"
           >
-            {option?.icon} {option?.name}
+            {option?.icon}{" "}
+            {t(`categories.${option?.name}`, { defaultValue: option?.name })}
           </option>
         ))}
       </select>

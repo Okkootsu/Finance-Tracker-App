@@ -1,16 +1,18 @@
 import { Transaction } from "@/features/transactions/components/Transaction";
 import { useTransactions } from "@/features/transactions/hooks/useTransactions";
 import { History } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const RecentTransactions = () => {
   const { transactions } = useTransactions();
+  const { t } = useTranslation()
 
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
         <h1 className="font-bold text-xl flex items-center gap-2">
           <History className="w-5 h-5 text-sky-500" />
-          Recent Transactions
+          {t("home.recent.title")}
         </h1>
       </div>
 
@@ -33,7 +35,7 @@ export const RecentTransactions = () => {
 
           {transactions.length === 0 && (
             <div className="text-center font-bold text-xl py-10 text-slate-800">
-              No transactions found for the selected date range.
+              {t("home.recent.noTransaction")}
             </div>
           )}
         </div>

@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { cn } from "@/utils/cn";
+import { useTranslation } from "react-i18next";
 
 export const Navbar = () => {
   const navStyle = ({ isActive }: { isActive: boolean }) =>
@@ -15,6 +16,8 @@ export const Navbar = () => {
         : "after:scale-x-0 hover:after:scale-x-100",
     );
 
+  const { t } = useTranslation();
+
   return (
     <div className="bg-blue-600 h-16 flex items-center sticky top-0 z-50 shadow-md">
       <div className="flex items-center justify-center p-2 px-6 gap-3">
@@ -27,19 +30,19 @@ export const Navbar = () => {
 
       <div className="flex-1 flex items-center gap-8 px-10 *:text-[16px]">
         <NavLink to="/" className={navStyle}>
-          Home
+          {t("navbar.home")}
         </NavLink>
         <NavLink to="/transactions" className={navStyle}>
-          Transactions
+          {t("navbar.transactions")}
         </NavLink>
         <NavLink to="/savings" className={navStyle}>
-          Savings
+          {t("navbar.savings")}
         </NavLink>
       </div>
 
       <div className="px-8 flex items-center *:text-[16px]">
         <NavLink to="/my-account" className={navStyle}>
-          My Account
+          {t("navbar.account")}
         </NavLink>
       </div>
     </div>

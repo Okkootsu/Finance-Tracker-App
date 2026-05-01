@@ -15,6 +15,7 @@ import { Goal } from "./Goal";
 import { CreateGoalModal } from "./CreateGoalModal";
 import { useGoals } from "../hooks/useGoals";
 import { AddSavingModal } from "./AddSavingModal";
+import { useTranslation } from "react-i18next";
 
 export const Goals = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -32,12 +33,14 @@ export const Goals = () => {
     handleDialogClose,
   } = useGoals();
 
+  const { t } = useTranslation();
+
   return (
     <div className=" flex flex-col gap-1 ">
       <div className="flex relative items-center gap-3 ">
         <h1 className="font-bold text-xl flex items-center gap-2 text-slate-900">
           <Target className="w-5 h-5 text-amber-500" />
-          Goals
+          {t("savings.goals.title")}
         </h1>
         <Button
           variant="iconOutline"
@@ -68,7 +71,7 @@ export const Goals = () => {
               <div className="flex items-center py-2">
                 <Button onClick={() => setOpenDialog("goal")}>
                   <Plus />
-                  Add Goal
+                  {t("savings.goals.addGoal")}
                 </Button>
               </div>
 
@@ -84,29 +87,29 @@ export const Goals = () => {
                   <div className=" flex gap-4 items-center duration-300 transition-all">
                     <Button onClick={handleAddSavingModal}>
                       <HandCoins />
-                      Add Money
+                      {t("savings.goals.addMoney")}
                     </Button>
 
                     <Button onClick={handleCurrentGoalChange}>
                       <CirclePlus />
-                      Select as Current Goal
+                      {t("savings.goals.current")}
                     </Button>
 
                     <Button onClick={handleSelectAll}>
                       <ArrowDownNarrowWide />
-                      Select All
+                      {t("savings.goals.select")}
                     </Button>
 
                     <Button onClick={handleDeleteGoals} variant="primaryDanger">
                       <Trash2 />
-                      Delete Goal
+                      {t("savings.goals.delete")}
                     </Button>
                   </div>
                 </div>
               </div>
 
               <Dialog
-                title="Add New Goal"
+                title={t("savings.goals.goalDialogTitle")}
                 isOpen={openDialog === "goal"}
                 onClose={handleDialogClose}
               >
@@ -114,7 +117,7 @@ export const Goals = () => {
               </Dialog>
 
               <Dialog
-                title="Add New Saving"
+                title={t("savings.goals.savingDialogTitle")}
                 isOpen={openDialog === "saving"}
                 onClose={handleDialogClose}
               >
@@ -139,7 +142,7 @@ export const Goals = () => {
 
               {filteredGoals.length === 0 && (
                 <div className="text-center font-bold text-xl py-10 text-slate-800">
-                  No goals found for the selected date range.
+                  {t("savings.goals.noGoals")}
                 </div>
               )}
             </div>

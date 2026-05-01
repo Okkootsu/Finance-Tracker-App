@@ -2,6 +2,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { useSettingsStore, type Currency } from "@/stores/settingsStore";
 import { createUser } from "@/utils/auth";
 import api from "@/utils/axios";
+import i18n from "@/utils/i18n";
 import { isValidMail } from "@/utils/validators";
 import axios from "axios";
 import { useState } from "react";
@@ -22,8 +23,8 @@ export const useAccount = () => {
   const userEmail = useAuthStore((state) => state.user!.email);
   const setAuth = useAuthStore((state) => state.setAuth);
   const logout = useAuthStore((state) => state.logout);
-  const currency = useSettingsStore(state => state.currency);
-  const setCurrency = useSettingsStore(state => state.setCurrency);
+  const currency = useSettingsStore((state) => state.currency);
+  const setCurrency = useSettingsStore((state) => state.setCurrency);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState<ChangePasswordForm>(INITIAL_STATE);
@@ -106,8 +107,12 @@ export const useAccount = () => {
   };
 
   const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrency(e.target.value as Currency)
-  }
+    setCurrency(e.target.value as Currency);
+  };
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value);
+  };
 
   return {
     handleFormChange,
@@ -123,5 +128,6 @@ export const useAccount = () => {
     handleDialogClose,
     handleCurrencyChange,
     currency,
+    handleLanguageChange,
   };
 };

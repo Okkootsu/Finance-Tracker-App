@@ -5,6 +5,7 @@ import { DatePicker } from "@/components/DatePicker";
 import { useState } from "react";
 import { cn } from "@/utils/cn";
 import { useTransactions } from "../hooks/useTransactions";
+import { useTranslation } from "react-i18next";
 
 export interface UserStatusData {
   name: string;
@@ -18,13 +19,15 @@ export const Overview = () => {
 
   const { incomeData, spendingData } = chartData;
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-1">
       <div className="flex justify-between  ">
         <div className="flex relative gap-3 items-center">
           <h1 className="font-bold text-xl flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-indigo-500" />
-            Financial Overview
+            {t("transactions.overview.title")}
           </h1>
           <Button
             variant="iconOutline"
@@ -63,14 +66,14 @@ export const Overview = () => {
             <div className="flex">
               <div className="w-[50%] flex flex-col border-r border-slate-300 justify-between">
                 <ChartSection
-                  title="Incomes"
+                  title={t("transactions.overview.incomes")}
                   data={incomeData}
                   dataKey="value"
                 />
               </div>
               <div className="w-[50%] flex flex-col justify-between">
                 <ChartSection
-                  title="Expenses"
+                  title={t("transactions.overview.expenses")}
                   data={spendingData}
                   dataKey="value"
                 />

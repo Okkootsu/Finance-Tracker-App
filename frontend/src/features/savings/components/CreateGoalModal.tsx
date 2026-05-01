@@ -3,27 +3,36 @@ import { Input } from "@/components/Input";
 import { useGoals } from "../hooks/useGoals";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { Button } from "@/components/Button";
+import { useTranslation } from "react-i18next";
+import { useSettingsStore } from "@/stores/settingsStore";
+import { formatCurrency } from "@/utils/currencyFormatter";
 
 type CreateGoalModalProps = {
   onClose?: () => void;
 };
 
 export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
+  const currency = useSettingsStore((state) => state.currency);
+
   const { categories } = useCategories();
   const { handleChange, handleSubmit } = useGoals();
+
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col p-8 w-112.5 gap-5 bg-slate-50 rounded-2xl shadow-2xl border border-slate-100 font-sans">
       <Input
         name="name"
         onChange={handleChange}
-        label="Name"
+        label={t("dialog.goal.name")}
         variant="modal"
         placeholder="e.g. Grocery Shopping"
       />
 
       <div className="flex flex-col gap-1.5">
-        <label className="font-semibold text-sm text-slate-700">Category</label>
+        <label className="font-semibold text-sm text-slate-700">
+          {t("dialog.goal.category")}
+        </label>
         <Combobox
           name="category"
           onChange={handleChange}
@@ -35,16 +44,16 @@ export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
       <Input
         name="targetAmount"
         onChange={handleChange}
-        label="Target Amount"
+        label={t("dialog.goal.target")}
         variant="modal"
         type="number"
-        placeholder="0.00 $"
+        placeholder={formatCurrency(0, currency)}
       />
 
       <Input
         name="desiredFinish"
         onChange={handleChange}
-        label="Desired Finish Time (Optional)"
+        label={t("dialog.goal.finish")}
         type="date"
         variant="modal"
       />
@@ -55,14 +64,14 @@ export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
           variant="secondary"
           className="w-fit bg-white border-slate-300 text-slate-700 hover:bg-slate-100 active:bg-slate-200 shadow-sm"
         >
-          Cancel
+          {t("dialog.cancel")}
         </Button>
         <Button
           onClick={handleSubmit}
           variant="secondary"
           className="w-fit bg-blue-600 border-transparent text-white hover:bg-blue-700 active:bg-blue-800 shadow-sm"
         >
-          Create
+          {t("dialog.create")}
         </Button>
       </div>
     </div>

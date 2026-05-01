@@ -7,13 +7,14 @@ using FinanceApp.Application.Services;
 using FinanceApp.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceApp.API.Controllers;
 
 public class AuthController : BaseController
 {   
     private readonly IAuthService _authService;
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IStringLocalizer<SharedResource> localizer) : base(localizer)
     {
         _authService = authService;
     }

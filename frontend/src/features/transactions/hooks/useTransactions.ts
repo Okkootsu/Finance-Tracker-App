@@ -6,6 +6,7 @@ import axios from "axios";
 import { endOfDay, format, isWithinInterval, startOfDay } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 type Dialog = "transaction" | "category" | null;
 
@@ -42,6 +43,8 @@ export const useTransactions = () => {
   const [selectedTransactions, setSelectedTransactions] = useState<number[]>(
     [],
   );
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     fetchTransactions();
@@ -111,7 +114,7 @@ export const useTransactions = () => {
       const data = response.data.data;
 
       addTransaction(data);
-      toast.success("Transaction added");
+      toast.success(t("toast.success.transaction"));
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         const backendErrorMessage =
@@ -141,7 +144,7 @@ export const useTransactions = () => {
 
   const handleDeleteTransactions = async () => {
     if (selectedTransactions.length === 0) {
-      toast.error("Please select at least one transaction before deleting");
+      toast.error(t("toast.error.selectTransaction"));
       return;
     }
 

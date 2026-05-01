@@ -6,6 +6,7 @@ using FinanceApp.Application.DTOs.Goal;
 using FinanceApp.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace FinanceApp.API.Controllers;
 
@@ -13,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class GoalController : BaseController
 {
     private readonly IGoalService _goalService;
-    public GoalController(IGoalService goalService)
+    public GoalController(IGoalService goalService, IStringLocalizer<SharedResource> localizer) : base(localizer)
     {
         _goalService = goalService;
     }

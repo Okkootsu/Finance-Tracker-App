@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 import { cn } from "@/utils/cn";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { formatCurrency } from "@/utils/currencyFormatter";
+import { useTranslation } from "react-i18next";
 
 type GoalProgressChartProps = {
   title: string;
@@ -35,6 +36,8 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
   const currency = useSettingsStore(state => state.currency);
   const formattedSavedAmount = formatCurrency(savedAmount, currency)
   const formattedTargetAmount = formatCurrency(targetAmount, currency)
+
+  const { t } = useTranslation()
 
   const COLORS = ["#3B82F6", "#F1F5F9"];
 
@@ -100,7 +103,7 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
         )}
       >
         <div className="flex flex-col">
-          <span className="text-slate-500">Saved</span>
+          <span className="text-slate-500">{t("savings.overview.saved")}</span>
           <span
             className={cn("text-blue-600", isCompact ? "text-base" : "text-lg")}
           >
@@ -108,7 +111,7 @@ export const GoalProgressChart: React.FC<GoalProgressChartProps> = ({
           </span>
         </div>
         <div className="flex flex-col text-right">
-          <span className="text-slate-500">Target</span>
+          <span className="text-slate-500">{t("savings.overview.target")}</span>
           <span
             className={cn(
               "text-slate-800",

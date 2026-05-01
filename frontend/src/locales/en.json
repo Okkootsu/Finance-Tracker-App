@@ -1,0 +1,174 @@
+{
+  "auth": {
+    "mainTitle": "Welcome to Finance.App",
+    "registerTitle": "Let's create your personal account.",
+    "loginTitle": "Please sign in before continuing.",
+    "show": "Show Password",
+    "register": "Sign Up",
+    "login": "Sign In",
+    "email": "E-mail",
+    "password": "Password",
+    "confirm": "Confirm Password"
+  },
+  "navbar": {
+    "home": "Home",
+    "transactions": "Transactions",
+    "savings": "Savings",
+    "account": "My Account"
+  },
+  "home": {
+    "overview": {
+      "welcome1": "Welcome back,",
+      "welcome2": "Here’s your financial overview.",
+      "balance": "Total Balance",
+      "noGoal": "No active goal selected."
+    },
+    "recent": {
+      "title": "Recent Transactions",
+      "noTransaction": "No transactions found for the selected date range."
+    }
+  },
+  "transactions": {
+    "overview": {
+      "title": "Financial Overview",
+      "incomes": "Incomes",
+      "expenses": "Expenses"
+    },
+    "data": {
+      "title": "Transactions",
+      "addCategory": "Add Category",
+      "addTransaction": "Add Transaction",
+      "select": "Select All",
+      "delete": "Delete Transaction",
+      "transactionDialogTitle": "Add New Transaction",
+      "categoryDialogTitle": "Add New Category",
+      "noTransaction": "No transactions found for the selected date range."
+    }
+  },
+  "categories": {
+    "Food & Dining": "Food & Dining",
+    "Transport": "Transport",
+    "Subscriptions": "Subscriptions",
+    "Technology": "Technology",
+    "Health": "Health",
+    "Salary": "Salary",
+    "Goal Transfer": "Goal Transfer"
+  },
+  "savings": {
+    "overview": {
+      "title": "Goal Overview",
+      "noCurrent": "No goal selected as current.",
+      "saved": "Saved",
+      "target": "Target",
+      "topExpenses": "Top Expenses",
+      "topIncomes": "Top Incomes",
+      "noIncomes": "No incomes found.",
+      "noExpenses": "No expenses found."
+    },
+    "goals": {
+      "title": "Goals",
+      "addGoal": "Add Goal",
+      "addMoney": "Add Money",
+      "select": "Select All",
+      "current": "Select as Current Goal",
+      "delete": "Delete Goal",
+      "goalDialogTitle": "Add New Goal",
+      "savingDialogTitle": "Add New Saving",
+      "noGoals": "No goals found for the selected date range.",
+      "start": "Start Time",
+      "finish": "Desired Finish"
+    }
+  },
+  "account": {
+    "profile": {
+      "title": "Profile Settings",
+      "email": "Email Address",
+      "emailDescription": "The email associated with your account.",
+      "password": "Password",
+      "passwordDescription": "Change your account password securely.",
+      "change": "Change Password",
+      "logout": "Sign Out",
+      "logoutDescription": "Log out of your account on this device.",
+      "delete": "Delete Account",
+      "deleteDescription": "Permanently remove your account and all associated data.",
+      "save": "Save Changes",
+      "changeDialogTitle": "Change Password",
+      "deleteDialogTitle": "Delete Account"
+    },
+    "app": {
+      "title": "App Preferences",
+      "language": "Language",
+      "languageDescription": "Select your preferred language for the interface.",
+      "currency": "Currency",
+      "currencyDescription": "Your primary currency for transactions and goals."
+    }
+  },
+  "dialog": {
+    "create": "Create",
+    "cancel": "Cancel",
+    "close": "Close",
+    "addCategory": "Add Category",
+    "add": "Add",
+    "change": "Change",
+    "proceed": "Proceed",
+
+    "category": {
+      "title": "Add Category",
+      "name": "Category Name",
+      "namePlaceholder": "e.g. Gaming, Groceries...",
+      "icon": "Select Icon",
+      "categories": "Your Categories"
+    },
+    "transaction": {
+      "title": "Add Transaction",
+      "name": "Name",
+      "namePlaceholder": "e.g. Grocery Shopping",
+      "category": "Category",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional details...",
+      "amount": "Amount",
+      "time": "Time"
+    },
+    "saving": {
+      "title": "How much would you like to add?",
+      "current": "Your current balance:"
+    },
+    "goal": {
+      "name": "Name",
+      "category": "Category",
+      "target": "Target Amount",
+      "finish": "Desired Finish Time (Optional)"
+    },
+    "changePassword": {
+      "current": "Current Password",
+      "new": "New Password",
+      "show": "Show Password"
+    },
+    "deleteAccount": {
+      "warning1": "Are you sure you want to delete your account?",
+      "warning2": "This process cannot be reversed."
+    }
+  },
+  "toast": {
+    "success": {
+      "register": "Successfully signed up, now you can sign in",
+      "transaction": "Transaction added",
+      "goal": "Goal added",
+      "saving": "Saving added successfully"
+    },
+    "error": {
+      "blank": "No field can be left blank",
+      "notMatch": "Entered passwords do not match",
+      "notValid": "Please enter a valid e-mail",
+      "invalidAmount": "Target amount cannot be negative or zero",
+      "invalidDate": "Invalid date selected",
+      "selectTransaction": "Please select at least one transaction before deleting",
+      "emptyCategory": "Category Name or Icon cannot be empty",
+      "deleteGoal": "Please select at least one goal before deleting",
+      "selectMain": "Please select exactly one goal to set as main",
+      "invalidSaving": "You cannot add negative numbers or zero as savings",
+      "insufficientFunds": "Insufficient funds to perform this operation",
+      "selectGoal": "Please select only one goal to add money"
+    }
+  }
+}

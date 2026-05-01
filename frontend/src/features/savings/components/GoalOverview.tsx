@@ -6,11 +6,14 @@ import { useState } from "react";
 import { Statistics } from "./Statistics";
 import { GoalProgressChart } from "./GoalProgressChart";
 import { useGoals } from "../hooks/useGoals";
+import { useTranslation } from "react-i18next";
 
 export const GoalOverview = () => {
   const { setFilterRange, currentGoal, startDate, endDate } = useGoals();
 
   const [open, setOpen] = useState<boolean>(true);
+
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col gap-1">
@@ -18,7 +21,7 @@ export const GoalOverview = () => {
         <div className="flex relative gap-3 items-center">
           <h1 className="font-bold text-xl flex items-center gap-2">
             <Rocket className="w-5 h-5 text-emerald-500" />
-            Goal Overview
+            {t("savings.overview.title")}
           </h1>
           <Button
             variant="iconOutline"
@@ -59,7 +62,7 @@ export const GoalOverview = () => {
                 {!currentGoal ? (
                   <div className="flex flex-1 justify-center items-center">
                     <h1 className="font-bold text-xl">
-                      No goal selected as current
+                      {t("savings.overview.noCurrent")}
                     </h1>
                   </div>
                 ) : (

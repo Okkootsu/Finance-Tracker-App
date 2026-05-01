@@ -1,0 +1,173 @@
+{
+  "auth": {
+    "mainTitle": "Finance.App'e Hoş Geldiniz",
+    "registerTitle": "Kişisel hesabınızı oluşturalım.",
+    "loginTitle": "Devam etmek için lütfen giriş yapın.",
+    "show": "Şifreyi Göster",
+    "register": "Kayıt Ol",
+    "login": "Giriş Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirm": "Şifre (Tekrar)"
+  },
+  "navbar": {
+    "home": "Ana Sayfa",
+    "transactions": "İşlemler",
+    "savings": "Birikimler",
+    "account": "Hesabım"
+  },
+  "home": {
+    "overview": {
+      "welcome1": "Tekrar hoş geldin,",
+      "welcome2": "İşte finansal özetin.",
+      "balance": "Toplam Bakiye",
+      "noGoal": "Seçili aktif bir hedef yok."
+    },
+    "recent": {
+      "title": "Son İşlemler",
+      "noTransaction": "Seçili tarih aralığında işlem bulunamadı."
+    }
+  },
+  "transactions": {
+    "overview": {
+      "title": "Finansal Özet",
+      "incomes": "Gelirler",
+      "expenses": "Giderler"
+    },
+    "data": {
+      "title": "İşlemler",
+      "addCategory": "Kategori Ekle",
+      "addTransaction": "İşlem Ekle",
+      "select": "Tümünü Seç",
+      "delete": "İşlemi Sil",
+      "transactionDialogTitle": "Yeni İşlem Ekle",
+      "categoryDialogTitle": "Yeni Kategori Ekle",
+      "noTransaction": "Seçili tarih aralığında işlem bulunamadı."
+    }
+  },
+  "categories": {
+    "Food & Dining": "Yiyecek ve İçecek",
+    "Transport": "Ulaşım",
+    "Subscriptions": "Abonelikler",
+    "Technology": "Teknoloji",
+    "Health": "Sağlık",
+    "Salary": "Maaş",
+    "Goal Transfer": "Hedef Transferi"
+  },
+  "savings": {
+    "overview": {
+      "title": "Hedef Özeti",
+      "noCurrent": "Ana hedef olarak seçilen bir hedef yok.",
+      "saved": "Biriken",
+      "target": "Hedeflenen",
+      "topExpenses": "En Yüksek Giderler",
+      "topIncomes": "En Yüksek Gelirler",
+      "noIncomes": "Gelir bulunamadı.",
+      "noExpenses": "Gider bulunamadı."
+    },
+    "goals": {
+      "title": "Hedefler",
+      "addGoal": "Hedef Ekle",
+      "addMoney": "Para Ekle",
+      "select": "Tümünü Seç",
+      "current": "Ana Hedef Olarak Seç",
+      "delete": "Hedefi Sil",
+      "goalDialogTitle": "Yeni Hedef Ekle",
+      "savingDialogTitle": "Birikime Ekle",
+      "noGoals": "Seçili tarih aralığında hedef bulunamadı.",
+      "start": "Başlangıç Zamanı",
+      "finish": "Hedeflenen Bitiş"
+    }
+  },
+  "account": {
+    "profile": {
+      "title": "Profil Ayarları",
+      "email": "E-posta Adresi",
+      "emailDescription": "Hesabınızla ilişkili e-posta adresi.",
+      "password": "Şifre",
+      "passwordDescription": "Hesap şifrenizi güvenli bir şekilde değiştirin.",
+      "change": "Şifreyi Değiştir",
+      "logout": "Çıkış Yap",
+      "logoutDescription": "Bu cihazdaki oturumunuzu kapatın.",
+      "delete": "Hesabı Sil",
+      "deleteDescription": "Hesabınızı ve ilişkili tüm verileri kalıcı olarak silin.",
+      "save": "Değişiklikleri Kaydet",
+      "changeDialogTitle": "Şifreyi Değiştir",
+      "deleteDialogTitle": "Hesabı Sil"
+    },
+    "app": {
+      "title": "Uygulama Tercihleri",
+      "language": "Dil",
+      "languageDescription": "Arayüz için tercih ettiğiniz dili seçin.",
+      "currency": "Para Birimi",
+      "currencyDescription": "İşlemler ve hedefler için birincil para biriminiz."
+    }
+  },
+  "dialog": {
+    "create": "Oluştur",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "addCategory": "Kategori Ekle",
+    "add": "Ekle",
+    "change": "Değiştir",
+    "proceed": "Devam Et",
+    "category": {
+      "title": "Kategori Ekle",
+      "name": "Kategori Adı",
+      "namePlaceholder": "örn. Oyun, Market...",
+      "icon": "İkon Seç",
+      "categories": "Kategorileriniz"
+    },
+    "transaction": {
+      "title": "İşlem Ekle",
+      "name": "İşlem Adı",
+      "namePlaceholder": "örn. Market Alışverişi",
+      "category": "Kategori",
+      "description": "Açıklama",
+      "descriptionPlaceholder": "İsteğe bağlı detaylar...",
+      "amount": "Tutar",
+      "time": "Zaman"
+    },
+    "saving": {
+      "title": "Ne kadar eklemek istersiniz?",
+      "current": "Mevcut bakiyeniz:"
+    },
+    "goal": {
+      "name": "Hedef Adı",
+      "category": "Kategori",
+      "target": "Hedeflenen Tutar",
+      "finish": "İstenen Bitiş Zamanı (İsteğe Bağlı)"
+    },
+    "changePassword": {
+      "current": "Mevcut Şifre",
+      "new": "Yeni Şifre",
+      "show": "Şifreyi Göster"
+    },
+    "deleteAccount": {
+      "warning1": "Hesabınızı silmek istediğinize emin misiniz?",
+      "warning2": "Bu işlem geri alınamaz."
+    }
+  },
+  "toast": {
+    "success": {
+      "register": "Başarıyla kayıt olundu, şimdi giriş yapabilirsiniz",
+      "transaction": "İşlem eklendi",
+      "goal": "Hedef eklendi",
+      "saving": "Birikim başarıyla eklendi"
+    },
+    "error": {
+      "blank": "Hiçbir alan boş bırakılamaz",
+      "notMatch": "Girilen şifreler eşleşmiyor",
+      "notValid": "Lütfen geçerli bir e-posta adresi girin",
+      "invalidAmount": "Hedef tutar sıfır veya negatif olamaz",
+      "invalidDate": "Geçersiz tarih seçildi",
+      "selectTransaction": "Silmeden önce lütfen en az bir işlem seçin",
+      "emptyCategory": "Kategori adı veya ikonu boş bırakılamaz",
+      "deleteGoal": "Silmeden önce lütfen en az bir hedef seçin",
+      "selectMain": "Ana hedef olarak ayarlamak için lütfen sadece bir hedef seçin",
+      "invalidSaving": "Birikim olarak sıfır veya negatif değerler ekleyemezsiniz",
+      "insufficientFunds": "Bu işlemi gerçekleştirmek için bakiye yetersiz",
+      "selectGoal": "Para eklemek için lütfen sadece bir hedef seçin"
+    }
+  }
+}
