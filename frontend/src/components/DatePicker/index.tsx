@@ -63,7 +63,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     >
       <div
         onClick={() => setOpen(!open)}
-        className="border border-blue-300 text-white py-2 px-3 rounded-lg shadow-sm cursor-pointer bg-blue-600 flex items-center justify-between min-w-fit gap-3"
+        className="border border-transparent text-white py-2 px-3 rounded-lg shadow-sm cursor-pointer bg-blue-600 flex items-center justify-between min-w-fit gap-3"
       >
         <span>
           <Calendar1 />

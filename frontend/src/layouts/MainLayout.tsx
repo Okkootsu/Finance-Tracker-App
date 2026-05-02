@@ -3,9 +3,14 @@ import { useInitializeApp } from "@/hooks/useInitializeApp";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { createPortal } from "react-dom";
+import { FullPageLoader } from "@/components/FullPageLoader";
 
 export const MainLayout = () => {
-  useInitializeApp();
+  const { isLoading } = useInitializeApp();
+
+  if (isLoading) {
+    return <FullPageLoader />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -17,14 +22,14 @@ export const MainLayout = () => {
         <Toaster
           position="top-center"
           toastOptions={{
-            className: "font-sans font-medium text-slate-700 shadow-lg", 
+            className: "font-sans font-medium text-slate-700 shadow-lg",
           }}
           containerStyle={{
             zIndex: 99999,
             marginTop: "10px",
           }}
         />,
-        document.body
+        document.body,
       )}
 
       {/* Page contents */}

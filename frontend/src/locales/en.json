@@ -1,4 +1,7 @@
 {
+  "common": {
+    "loading": "Loading..."
+  },
   "auth": {
     "mainTitle": "Welcome to Finance.App",
     "registerTitle": "Let's create your personal account.",
