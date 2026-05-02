@@ -162,7 +162,10 @@ export const useGoals = () => {
     }
 
     try {
-      const response = await api.post("/Goal/create", goalForm);
+      const response = await api.post("/Goal/create", {
+        ...goalForm,
+        desiredFinish: goalForm.desiredFinish || null,
+      });
       const data = response.data.data;
 
       addGoal(data);
