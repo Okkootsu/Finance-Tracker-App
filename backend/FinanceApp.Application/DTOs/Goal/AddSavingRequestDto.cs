@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace FinanceApp.Application.DTOs.Goal;
 
-public class UpdateGoalDto
+public class AddSavingRequestDto
 {
     public int Id { get; set; }
-    public int AmountToAdd { get; set; }
+    public decimal AmountToAdd { get; set; }
 }

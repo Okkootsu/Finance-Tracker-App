@@ -13,7 +13,7 @@ public class Goal : BaseEntity
     
     public string Name { get; set; } = "New Goal";
     public string Category { get; set; } = null!;
-    public int SavedAmount { get; set; } = 0;
-    public int TargetAmount { get; set; }
+    public decimal SavedAmount { get; set; } = 0;
+    public decimal TargetAmount { get; set; }
     public DateTime? DesiredFinish { get; set; }
 }

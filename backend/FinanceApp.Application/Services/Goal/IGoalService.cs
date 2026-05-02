@@ -13,5 +13,5 @@ public interface IGoalService
     public Task<ServiceResponse<GoalDto>> CreateGoalAsync(int userId, CreateGoalDto goalDto);
     public Task<ServiceResponse<GoalsDto>> GetGoalsAsync(int userId);
     public Task<ServiceResponse> DeleteGoalsAsync(DeleteGoalsDto goalsDto);
-    public Task<ServiceResponse<TransactionDto>> AddSavingToGoalAsync(UpdateGoalDto request, int userId);
+    public Task<ServiceResponse<AddSavingResponseDto>> AddSavingToGoalAsync(AddSavingRequestDto request, int userId);
 }

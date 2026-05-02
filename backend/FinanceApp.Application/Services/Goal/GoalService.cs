@@ -27,22 +27,23 @@ public class GoalService : IGoalService
         _translationService = translationService;
     }
 
-    public async Task<ServiceResponse<TransactionDto>> AddSavingToGoalAsync(UpdateGoalDto request, int userId)
+    public async Task<ServiceResponse<AddSavingResponseDto>> AddSavingToGoalAsync(AddSavingRequestDto request, int userId)
     {
         var goal = await _goalRepository.GetByIdAsync(request.Id);
 
         if (goal == null)
-            return ServiceResponse<TransactionDto>.Fail("Goal.NotFound", ServiceResultType.NotFound);
+            return ServiceResponse<AddSavingResponseDto>.Fail("Goal.NotFound", ServiceResultType.NotFound);
 
         if (goal.UserId != userId)
-            return ServiceResponse<TransactionDto>.Fail("Common.Unauthorized", ServiceResultType.Conflict);
+            return ServiceResponse<AddSavingResponseDto>.Fail("Common.Unauthorized", ServiceResultType.Conflict);
 
-        var realAmount = request.AmountToAdd;
+        decimal realAmount = request.AmountToAdd;
+        decimal previousSavedAmount = goal.SavedAmount;
         goal.SavedAmount += request.AmountToAdd;
 
         if (goal.SavedAmount > goal.TargetAmount)
         {
-            realAmount = goal.SavedAmount - goal.TargetAmount;
+            realAmount = goal.TargetAmount - previousSavedAmount;
             goal.SavedAmount = goal.TargetAmount;
         }
 
@@ -62,11 +63,17 @@ public class GoalService : IGoalService
         var isSuccess = await _goalRepository.SaveChangesAsync(); 
 
         if (!isSuccess)
-            return ServiceResponse<TransactionDto>.Fail("Common.DbError", ServiceResultType.Failure);
+            return ServiceResponse<AddSavingResponseDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
         var transactionDto = _mapper.Map<TransactionDto>(transferTransaction);
+
+        var addSavingResponse = new AddSavingResponseDto
+        {
+            Transaction = transactionDto,
+            SavedAmount = goal.SavedAmount
+        };
         
-        return ServiceResponse<TransactionDto>.Success(transactionDto, ServiceResultType.Success);
+        return ServiceResponse<AddSavingResponseDto>.Success(addSavingResponse, ServiceResultType.Success);
     }
 
     public async Task<ServiceResponse<GoalDto>> CreateGoalAsync(int userId, CreateGoalDto goalDto)
