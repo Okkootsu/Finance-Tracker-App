@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FinanceApp.Application.DTOs.Goal;
+using FinanceApp.Application.DTOs.Transaction;
 using FinanceApp.Application.Wrappers;
 using FinanceApp.Domain.Entities;
 using FinanceApp.Domain.Enums;
@@ -16,22 +17,25 @@ public class GoalService : IGoalService
     private readonly IGoalRepository _goalRepository;
     private readonly ITransactionRepository _transactionRepository;
     private readonly IMapper _mapper;
-    public GoalService(IGoalRepository goalRepository, IMapper mapper, ITransactionRepository transactionRepository)
+    private readonly ITranslationService _translationService;
+
+    public GoalService(IGoalRepository goalRepository, IMapper mapper, ITransactionRepository transactionRepository, ITranslationService translationService)
     {
         _goalRepository = goalRepository;
         _mapper = mapper;
         _transactionRepository = transactionRepository;
+        _translationService = translationService;
     }
 
-    public async Task<ServiceResponse> AddSavingToGoalAsync(UpdateGoalDto request, int userId)
+    public async Task<ServiceResponse<TransactionDto>> AddSavingToGoalAsync(UpdateGoalDto request, int userId)
     {
         var goal = await _goalRepository.GetByIdAsync(request.Id);
 
         if (goal == null)
-            return ServiceResponse.Fail("Goal.NotFound", ServiceResultType.NotFound);
+            return ServiceResponse<TransactionDto>.Fail("Goal.NotFound", ServiceResultType.NotFound);
 
         if (goal.UserId != userId)
-            return ServiceResponse.Fail("Common.Unauthorized", ServiceResultType.Conflict);
+            return ServiceResponse<TransactionDto>.Fail("Common.Unauthorized", ServiceResultType.Conflict);
 
         var realAmount = request.AmountToAdd;
         goal.SavedAmount += request.AmountToAdd;
@@ -42,10 +46,12 @@ public class GoalService : IGoalService
             goal.SavedAmount = goal.TargetAmount;
         }
 
+        var transactionName = _translationService.Translate("Transaction.TransferTo", goal.Name);
+
         var transferTransaction = new Transaction
         {
             UserId = userId,
-            Name = $"Transfer to {goal.Name}",
+            Name = transactionName,
             Category = "Goal Transfer",
             Amount = -Math.Abs(realAmount),
             Time = DateTime.UtcNow
@@ -56,9 +62,11 @@ public class GoalService : IGoalService
         var isSuccess = await _goalRepository.SaveChangesAsync(); 
 
         if (!isSuccess)
-            return ServiceResponse.Fail("Common.DbError", ServiceResultType.Failure);
+            return ServiceResponse<TransactionDto>.Fail("Common.DbError", ServiceResultType.Failure);
 
-        return ServiceResponse.Success(ServiceResultType.SuccessNoContent);
+        var transactionDto = _mapper.Map<TransactionDto>(transferTransaction);
+        
+        return ServiceResponse<TransactionDto>.Success(transactionDto, ServiceResultType.Success);
     }
 
     public async Task<ServiceResponse<GoalDto>> CreateGoalAsync(int userId, CreateGoalDto goalDto)

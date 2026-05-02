@@ -34,7 +34,7 @@ export const useTransactionStore = create<TransactionStore>((set) => ({
 
   setTransactions: (transactions) => set({ transactions: transactions }),
   addTransaction: (transaction) =>
-    set((state) => ({ transactions: [...state.transactions, transaction] })),
+    set((state) => ({ transactions: [transaction, ...state.transactions] })),
 
   setFilterRange: (obj) =>
     set({ filterRange: obj, startDate: obj.start, endDate: obj.end }),

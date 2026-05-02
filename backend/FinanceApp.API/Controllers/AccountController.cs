@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinanceApp.Application.DTOs.Account;
+using FinanceApp.Application.Services;
 using FinanceApp.Application.Services.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace FinanceApp.API.Controllers;
 public class AccountController : BaseController
 {
     private readonly IAccountService _accountService;
-    public AccountController(IAccountService accountService, IStringLocalizer<SharedResource> localizer) : base(localizer)
+    public AccountController(IAccountService accountService, ITranslationService translationService) : base(translationService)
     {
         _accountService = accountService;
     }

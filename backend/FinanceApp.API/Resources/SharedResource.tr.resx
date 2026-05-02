@@ -165,4 +165,8 @@
     <value>Mevcut şifreniz yanlış!</value>
     <comment/>
   </data>
+  <data name="Transaction.TransferTo" xml:space="preserve">
+    <value>{0} hedefine transfer</value>
+    <comment/>
+  </data>
 </root>

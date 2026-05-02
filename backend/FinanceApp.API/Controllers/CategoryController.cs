@@ -14,7 +14,7 @@ namespace FinanceApp.API.Controllers;
 public class CategoryController : BaseController
 {   
     private readonly ICategoryService _service;
-    public CategoryController(ICategoryService service, IStringLocalizer<SharedResource> localizer) : base(localizer)
+    public CategoryController(ICategoryService service, ITranslationService translationService) : base(translationService)
     {
         _service = service;
     }

@@ -1,12 +1,13 @@
 import { useAuthStore } from "@/stores/authStore";
 import { useSettingsStore, type Currency } from "@/stores/settingsStore";
+import { handleApiError } from "@/utils/apiFormatter";
 import { createUser } from "@/utils/auth";
 import api from "@/utils/axios";
 import i18n from "@/utils/i18n";
 import { isValidMail } from "@/utils/validators";
-import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 type ChangePasswordForm = {
@@ -35,6 +36,8 @@ export const useAccount = () => {
 
   const navigate = useNavigate();
 
+  const { t } = useTranslation()
+
   const handleDialogClose = () => {
     setOpenDialog(null);
   };
@@ -49,14 +52,14 @@ export const useAccount = () => {
 
   const handleSubmitPasswordChange = async () => {
     if (!form.oldPassword || !form.newPassword) {
-      toast.error("Please enter a password to continue");
+      toast.error(t("toast.error.noPassword"));
       return;
     }
 
     try {
       await api.post("/Account/change-password", form);
 
-      toast.success("Your password has been updated");
+      toast.success(t("toast.success.passwordUpdate"));
       setOpenDialog(null);
     } catch (err) {
       handleApiError(err);
@@ -69,7 +72,7 @@ export const useAccount = () => {
 
   const handleSubmitInfoChange = async () => {
     if (!isValidMail(email)) {
-      toast.error("Please enter a valid e-mail to continue");
+      toast.error(t("toast.error.notValid"));
       return;
     }
 
@@ -82,7 +85,7 @@ export const useAccount = () => {
       setEmail(user.email);
       setAuth(token, user);
 
-      toast.success("E-mail updated");
+      toast.success(t("toast.success.emailUpdated"));
     } catch (err) {
       handleApiError(err);
     }
@@ -95,14 +98,6 @@ export const useAccount = () => {
       navigate("/auth");
     } catch (err) {
       handleApiError(err);
-    }
-  };
-
-  const handleApiError = (err: unknown) => {
-    if (axios.isAxiosError(err) && err.response) {
-      alert(err.response.data.errorMessage || "An unknown error occurred");
-    } else {
-      alert("Server connection failed");
     }
   };
 

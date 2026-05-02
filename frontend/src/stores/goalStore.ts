@@ -41,7 +41,7 @@ export const useGoalStore = create<GoalStore>((set) => ({
   endDate: new Date(),
 
   setGoals: (goals) => set({ goals: goals }),
-  addGoal: (goal) => set((state) => ({ goals: [...state.goals, goal] })),
+  addGoal: (goal) => set((state) => ({ goals: [goal, ...state.goals] })),
 
   setFilterRange: (obj) =>
     set({ filterRange: obj, startDate: obj.start, endDate: obj.end }),

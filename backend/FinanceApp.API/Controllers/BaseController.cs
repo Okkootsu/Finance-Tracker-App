@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FinanceApp.Application.Services;
 using FinanceApp.Application.Wrappers;
 using FinanceApp.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,10 @@ namespace FinanceApp.API.Controllers;
 [ApiController]
 public class BaseController : ControllerBase
 {   
-    private readonly IStringLocalizer<SharedResource> _localizer;
-
-    public BaseController(IStringLocalizer<SharedResource> localizer)
+    private readonly ITranslationService _translationService;
+    public BaseController(ITranslationService translationService)
     {
-        _localizer = localizer;
+        _translationService = translationService;
     }
 
     [NonAction]
@@ -50,9 +50,10 @@ public class BaseController : ControllerBase
 
     private IActionResult CreateErrorResult(ServiceResultType resultType, string? messageKey)
     {   
-        var message = messageKey != null ? _localizer[messageKey] : _localizer["Common.UnknownProblem"];
+        var message = messageKey != null ? _translationService.Translate(messageKey) :
+         _translationService.Translate("Common.UnknownProblem");
 
-        var errorResponse = new { IsSuccess = false, ErrorMessage = message.Value };
+        var errorResponse = new { IsSuccess = false, ErrorMessage = message };
 
         return resultType switch
         {
