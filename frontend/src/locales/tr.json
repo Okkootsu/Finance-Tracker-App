@@ -1,4 +1,7 @@
 {
+  "common": {
+    "loading": "Yükleniyor..."
+  },
   "auth": {
     "mainTitle": "Finance.App'e Hoş Geldiniz",
     "registerTitle": "Kişisel hesabınızı oluşturalım.",
