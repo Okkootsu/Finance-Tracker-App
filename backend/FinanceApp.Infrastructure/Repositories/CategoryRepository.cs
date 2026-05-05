@@ -37,6 +37,14 @@ public class CategoryRepository : ICategoryRepository
         return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
     }
 
+    public async Task<bool> IsCategoryUsedAsync(Category category)
+    {
+        bool isExistsInTransactions = await _context.Transactions.AnyAsync(t => t.Category == category.Name && t.UserId == category.UserId);
+        bool isExistsInGoals = await _context.Goals.AnyAsync(g => g.Category == category.Name && g.UserId == category.UserId);
+
+        return isExistsInTransactions || isExistsInGoals;
+    }
+
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;

@@ -45,7 +45,17 @@ public class CategoryService : ICategoryService
         if (category == null)
             return ServiceResponse.Fail("Category.NotFound", ServiceResultType.NotFound);
 
-        _repository.DeleteCategory(category);
+        bool isCategoryUsed = await _repository.IsCategoryUsedAsync(category);
+
+        if (isCategoryUsed)
+        {
+            category.IsActive = false;
+        }
+        else
+        {
+            _repository.DeleteCategory(category);
+        }
+        
         var isSuccess = await _repository.SaveChangesAsync();
 
         if (!isSuccess)

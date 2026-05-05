@@ -16,7 +16,7 @@ export const CreateTransactionModal = ({
 }: CreateTransactionModalProps) => {
   const currency = useSettingsStore((state) => state.currency);
 
-  const { categories } = useCategories();
+  const { activeCategories } = useCategories();
   const { handleChange, handleSubmit } = useTransactions();
 
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ export const CreateTransactionModal = ({
         <Combobox
           name="category"
           onChange={handleChange}
-          options={categories}
+          options={activeCategories}
           className="w-full"
         />
       </div>
