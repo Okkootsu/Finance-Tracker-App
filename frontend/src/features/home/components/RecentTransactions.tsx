@@ -34,7 +34,7 @@ export const RecentTransactions = () => {
           ))}
 
           {transactions.length === 0 && (
-            <div className="text-center font-bold text-xl py-10 text-slate-800">
+            <div className="text-center font-bold text-xl py-10 text-slate-800 flex-1 flex items-center justify-center">
               {t("home.recent.noTransaction")}
             </div>
           )}

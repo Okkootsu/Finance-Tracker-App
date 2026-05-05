@@ -141,7 +141,7 @@ export const Goals = () => {
               ))}
 
               {filteredGoals.length === 0 && (
-                <div className="text-center font-bold text-xl py-10 text-slate-800">
+                <div className="text-center font-bold text-xl py-10 text-slate-800 flex-1 flex items-center justify-center">
                   {t("savings.goals.noGoals")}
                 </div>
               )}

@@ -25,7 +25,7 @@ export const Overview = () => {
         className={`bg-white border flex flex-col rounded-2xl min-h-60 shadow-xl shadow-slate-100 border-slate-300 transition-all
                hover:shadow-2xl hover:shadow-slate-200 duration-300 mt-4`}
       >
-        <div className="flex h-full">
+        <div className="flex-1 flex h-full">
           <div className="w-[50%] flex flex-col border-r border-slate-300 p-6 ">
             <div className="flex flex-1 flex-col gap-1 items-center">
               <h2 className="text-slate-600 font-bold self-start text-xl">
