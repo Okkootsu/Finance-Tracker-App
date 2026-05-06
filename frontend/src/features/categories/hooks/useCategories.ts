@@ -8,6 +8,7 @@ export type Category = {
   id: number;
   name: string;
   icon: string;
+  isActive: boolean;
 };
 
 export const useCategories = () => {
@@ -91,6 +92,8 @@ export const useCategories = () => {
     return matchedCategory?.icon || "💵";
   };
 
+  const activeCategories = categories.filter((c) => c.isActive);
+
   return {
     categories,
     categoryName,
@@ -101,5 +104,6 @@ export const useCategories = () => {
     handleDeleteCategory,
     findIcon,
     EMOJI_LIST,
+    activeCategories,
   };
 };

@@ -65,7 +65,7 @@ export const Goals = () => {
         <div className={cn(open ? "overflow-visible" : "overflow-hidden")}>
           <div
             className={`bg-white border flex flex-col rounded-2xl min-h-60 shadow-xl shadow-slate-100 border-slate-300 transition-all
-               hover:shadow-2xl hover:shadow-slate-200 duration-300 mt-2`}
+               hover:shadow-2xl hover:shadow-slate-200 duration-300 mt-2 max-h-140`}
           >
             <div className=" border-b border-slate-300 flex px-2 py-1 items-center gap-4">
               <div className="flex items-center py-2">
@@ -125,7 +125,7 @@ export const Goals = () => {
               </Dialog>
             </div>
 
-            <div className=" flex-1 p-3 gap-2 flex flex-col ">
+            <div className=" flex-1 p-3 gap-2 flex flex-col overflow-y-auto">
               {filteredGoals.map((goal) => (
                 <Goal
                   key={`go-${goal.id}`}
@@ -141,7 +141,7 @@ export const Goals = () => {
               ))}
 
               {filteredGoals.length === 0 && (
-                <div className="text-center font-bold text-xl py-10 text-slate-800">
+                <div className="text-center font-bold text-xl py-10 text-slate-800 flex-1 flex items-center justify-center">
                   {t("savings.goals.noGoals")}
                 </div>
               )}

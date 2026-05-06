@@ -46,7 +46,7 @@ public class GoalController : BaseController
     }
 
     [HttpPost("add-saving")]
-    public async Task<IActionResult> AddSaving(UpdateGoalDto goalDto)
+    public async Task<IActionResult> AddSaving(AddSavingRequestDto goalDto)
     {   
         var userId = GetUserId();
         var result = await _goalService.AddSavingToGoalAsync(goalDto, userId);

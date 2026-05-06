@@ -14,7 +14,7 @@ type CreateGoalModalProps = {
 export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
   const currency = useSettingsStore((state) => state.currency);
 
-  const { categories } = useCategories();
+  const { activeCategories } = useCategories();
   const { handleChange, handleSubmit } = useGoals();
 
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ export const CreateGoalModal = ({ onClose }: CreateGoalModalProps) => {
         <Combobox
           name="category"
           onChange={handleChange}
-          options={categories}
+          options={activeCategories}
           className="w-full"
         />
       </div>

@@ -10,7 +10,7 @@ type CreateCategoryModalProps = {
 
 export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
   const {
-    categories,
+    activeCategories,
     categoryName,
     setCategoryName,
     selectedEmoji,
@@ -64,7 +64,7 @@ export const CreateCategoryModal = ({ onClose }: CreateCategoryModalProps) => {
           {t("dialog.category.categories")}
         </h3>
         <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
+          {activeCategories.map((cat) => (
             <div
               key={cat.id}
               className={`flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm text-sm font-medium

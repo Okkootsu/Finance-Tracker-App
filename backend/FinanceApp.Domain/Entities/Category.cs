@@ -9,6 +9,7 @@ public class Category : BaseEntity
 {
     public string Name { get; set; } = null!;
     public string Icon { get; set; } = "💵"; // default
+    public bool IsActive { get; set; } = true;
 
     public int UserId { get; set; }
     public User User { get; set; } = null!;

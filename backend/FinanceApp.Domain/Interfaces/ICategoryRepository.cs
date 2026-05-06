@@ -10,7 +10,7 @@ public interface ICategoryRepository
 {
     public Task<List<Category>> GetCategoriesAsync(int userId);
     public Task<Category?> GetCategoryAsync(int id);
-
+    public Task<bool> IsCategoryUsedAsync(Category category);
     public void DeleteCategory(Category category);
     public Task CreateCategoryAsync(Category category);
     public Task<bool> SaveChangesAsync();
