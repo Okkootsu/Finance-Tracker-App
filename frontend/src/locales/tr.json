@@ -35,7 +35,8 @@
     "overview": {
       "title": "Finansal Özet",
       "incomes": "Gelirler",
-      "expenses": "Giderler"
+      "expenses": "Giderler",
+      "noData": "Veri bulunamadı."
     },
     "data": {
       "title": "İşlemler",

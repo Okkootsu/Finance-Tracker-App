@@ -10,6 +10,7 @@ import {
 import { getCategoryColor } from "@/utils/colorUtils";
 import { formatCurrency } from "@/utils/currencyFormatter";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { useTranslation } from "react-i18next";
 
 interface ChartSectionProps {
   title: string;
@@ -51,6 +52,8 @@ export const ChartSection: React.FC<ChartSectionProps> = ({
 }) => {
   const currency = useSettingsStore((state) => state.currency);
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col h-full w-full p-4">
       <h2 className="font-bold text-slate-700 text-lg mb-2 text-center">
@@ -59,7 +62,7 @@ export const ChartSection: React.FC<ChartSectionProps> = ({
 
       {data.length === 0 ? (
         <div className="flex-1 flex items-center justify-center text-slate-400 font-medium italic">
-          No data available
+          {t("transactions.overview.noData")}
         </div>
       ) : (
         <div className="w-full flex-1 min-h-65">

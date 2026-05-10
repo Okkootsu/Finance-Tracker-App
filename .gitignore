@@ -38,4 +38,4 @@ dist-ssr
 *.suo
 
 appsettings.Development.json
-.env
+.env*

@@ -35,7 +35,8 @@
     "overview": {
       "title": "Financial Overview",
       "incomes": "Incomes",
-      "expenses": "Expenses"
+      "expenses": "Expenses",
+      "noData": "No data available."
     },
     "data": {
       "title": "Transactions",

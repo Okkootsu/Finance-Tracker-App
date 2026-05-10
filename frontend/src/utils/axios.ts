@@ -22,7 +22,7 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 };
 
 const api = axios.create({
-  baseURL: "http://localhost:5114/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
 
