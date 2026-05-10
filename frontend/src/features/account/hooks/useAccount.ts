@@ -85,7 +85,7 @@ export const useAccount = () => {
       setEmail(user.email);
       setAuth(token, user);
 
-      toast.success(t("toast.success.emailUpdated"));
+      toast.success(t("toast.success.emailUpdate"));
     } catch (err) {
       handleApiError(err);
     }
