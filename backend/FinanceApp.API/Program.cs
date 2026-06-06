@@ -62,7 +62,7 @@ builder.Services.AddCors(options =>
         // React address
         policy.WithOrigins("http://localhost:5173", 
                             "http://localhost:3000", 
-                            "https://finance-app-three-tan.vercel.app/") 
+                            "https://finance-app-three-tan.vercel.app") 
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials(); 
