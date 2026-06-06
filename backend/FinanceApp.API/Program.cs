@@ -58,8 +58,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000") // React address
+    {   
+        // React address
+        policy.WithOrigins("http://localhost:5173", 
+                            "http://localhost:3000", 
+                            "https://finance-app-three-tan.vercel.app/") 
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials(); 
