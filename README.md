@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# FinanceApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive, full-stack personal finance and savings management application. Built with modern web technologies and domain-driven design principles, FinanceApp helps users track their incomes, expenses, and savings goals securely and efficiently.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Advanced Financial Tracking:** Categorize and monitor daily transactions (incomes and expenses).
+* **Goal-Oriented Savings:** Create custom saving goals, track progress, and transfer funds.
+* **Internationalization (i18n):** Multi-language support (English & Turkish) with seamless switching.
+* **Dynamic Localization:** Real-time currency formatting and tailored UI preferences tied to user accounts.
+* **Secure Authentication:** JWT-based authentication and secure password hashing.
+* **Clean Architecture:** Backend structured with strict separation of concerns, utilizing the Repository pattern.
+* **Interactive Data Visualization:** Dynamic charts and statistics using Recharts.
+* **Fully Containerized:** Docker and Docker Compose setup for seamless development and deployment.
 
-## React Compiler
+## 💻 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+* **Core:** React 18, TypeScript, Vite
+* **Styling & UI:** Tailwind CSS, Lucide React, react-hot-toast
+* **State Management:** Zustand
+* **Routing:** React Router v6
+* **Data Visualization:** Recharts
+* **Localization:** react-i18next, date-fns
 
-## Expanding the ESLint configuration
+### Backend
+* **Core:** ASP.NET Core Web API (.NET)
+* **Database:** PostgreSQL, Entity Framework Core
+* **Architecture:** Clean Architecture, Repository Pattern
+* **Security:** JWT (JSON Web Tokens), Role-based Authorization
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### DevOps & Deployment
+* **Containerization:** Docker, Docker Compose
+* **Hosting:** Vercel (Frontend), Render.com (Backend API & PostgreSQL Database)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Getting Started (Local Development)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+* [Docker](https://www.docker.com/products/docker-desktop) and Docker Compose
+* [Node.js](https://nodejs.org/) (v18 or higher)
+* [.NET SDK](https://dotnet.microsoft.com/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/Okkootsu/Finance-Tracker-App.git
+cd Finance-Tracker-App
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Set up Environment Variables:** Create an `.env` file in the root directory based on the provided configuration
+```env
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=FinanceDb
+DB_CONNECTION_STRING=Host=db;Port=5432;Database=FinanceDb;Username=postgres;Password=your_password
+JWT_KEY=your_super_secret_jwt_key_here
 ```
+
+3. **Run with Docker Compose:** Build and start the containers using the following command
+```bash
+docker-compose up -d --build
+````
+* The backend API will be available at http://localhost:8080
+* The frontend application will be available at http://localhost:3000
+
+## 📁 Project Structure
+
+* `/backend` - ASP.NET Core solution adhering to Clean Architecture principles:
+  * **API:** Controllers, middleware, and entry point.
+  * **Application:** Business logic, interfaces, services, and DTOs.
+
+  * **Domain:** Core entities and enums.
+
+  * **Infrastructure:** Database context, EF Core configurations, and repository implementations.
+
+* `/frontend` - React application structured by features:
+
+  * Components, hooks, context, and utilities organized for maximum reusability and scalability.
