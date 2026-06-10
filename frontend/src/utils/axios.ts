@@ -22,7 +22,7 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 };
 
 const api = axios.create({
-  baseURL: "https://finance-app-api-hicy.onrender.com/api", // for local development -> import.meta.env.VITE_API_BASE_URL
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/api",
   withCredentials: true,
 });
 
