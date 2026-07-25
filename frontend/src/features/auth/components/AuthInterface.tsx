@@ -18,7 +18,7 @@ export const AuthInterface = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="w-full max-w-sm p-2">
+    <div className="w-sm p-2">
       <div className="mb-6 text-center">
         <h1 className="text-3xl font-extrabold text-white tracking-tight">
           {t("auth.mainTitle")}

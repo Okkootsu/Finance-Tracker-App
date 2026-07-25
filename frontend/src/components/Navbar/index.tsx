@@ -20,11 +20,11 @@ export const Navbar = () => {
 
   return (
     <div className="bg-blue-600 h-16 flex items-center sticky top-0 z-50 shadow-md">
-      <div className="flex items-center justify-center p-2 px-6 gap-3">
+      <div className="flex items-center justify-center p-2 px-12 gap-3">
         <img src="logo.svg" alt="logo" className="w-8 h-8" />
 
-        <h1 className="font-bold text-2xl text-white tracking-tight">
-          Finance.App
+        <h1 className="font-bold  text-2xl text-white tracking-tight">
+          Finora
         </h1>
       </div>
 
@@ -40,7 +40,7 @@ export const Navbar = () => {
         </NavLink>
       </div>
 
-      <div className="px-8 flex items-center *:text-[16px]">
+      <div className="px-16 flex items-center *:text-[16px]">
         <NavLink to="/my-account" className={navStyle}>
           {t("navbar.account")}
         </NavLink>

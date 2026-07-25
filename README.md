@@ -1,6 +1,6 @@
-# FinanceApp
+# Finora
 
-A comprehensive, full-stack personal finance and savings management application. Built with modern web technologies and domain-driven design principles, FinanceApp helps users track their incomes, expenses, and savings goals securely and efficiently.
+A comprehensive, full-stack personal finance and savings management application. Built with modern web technologies and domain-driven design principles, Finora helps users track their incomes, expenses, and savings goals securely and efficiently.
 
 ## 🚀 Features
 
